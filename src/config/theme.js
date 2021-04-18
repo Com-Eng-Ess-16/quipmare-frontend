@@ -1,8 +1,8 @@
-import {createMuiTheme, responsiveFontSizes} from "@material-ui/core";
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
 
 let theme = createMuiTheme({
   breakpoints: {
-    keys: ["xs", "sm", "md", "lg", "xl"],
+    keys: ['xs', 'sm', 'md', 'lg', 'xl'],
     values: {
       xs: 0, // small smartphone
       sm: 375, // smartphone
@@ -11,7 +11,7 @@ let theme = createMuiTheme({
       xl: 1920, // large desktop
     },
   },
-});
+})
 
-theme = responsiveFontSizes(theme);
-export default theme;
+theme = responsiveFontSizes(theme)
+export default theme
