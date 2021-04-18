@@ -1,8 +1,8 @@
-import logo from "./logo.svg";
-import "./App.css";
-import React from "react";
-import {ThemeProvider} from "@material-ui/core";
-import theme from "./config/theme";
+import logo from './logo.svg'
+import './App.css'
+import React from 'react'
+import { ThemeProvider } from '@material-ui/core'
+import theme from './config/theme'
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         </header>
       </div>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App
