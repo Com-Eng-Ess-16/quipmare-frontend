@@ -1,8 +1,8 @@
-import logo from './logo.svg'
-import './App.css'
+import logo from 'logo.svg'
+import 'App.css'
 import React from 'react'
 import { ThemeProvider } from '@material-ui/core'
-import theme from './config/theme'
+import theme from 'config/theme'
 
 function App() {
   return (
