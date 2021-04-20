@@ -1,4 +1,4 @@
 function Header() {
-  return <div>This is Header</div>
+  return <header>This is Header</header>
 }
 export default Header
