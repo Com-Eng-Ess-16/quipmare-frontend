@@ -4,6 +4,8 @@ import theme from 'config/theme'
 import Header from 'components/shell/Header'
 import Pages from 'components/pages'
 import { UserProvider } from 'context/context'
+import initFirebase from './initFirebase'
+
 const useStyles = makeStyles((theme) => ({
   container: {
     minHeight: '100vh',
@@ -17,8 +19,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }))
+
 function App() {
+  initFirebase()
   const styles = useStyles()
+
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
