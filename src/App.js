@@ -1,18 +1,32 @@
-import 'App.css'
 import React from 'react'
-import { ThemeProvider } from '@material-ui/core'
+import { makeStyles, ThemeProvider } from '@material-ui/core'
 import theme from 'config/theme'
 import Header from 'components/shell/Header'
 import Pages from 'components/pages'
 import { UserProvider } from 'context/context'
-
+const useStyles = makeStyles((theme) => ({
+  container: {
+    minHeight: '100vh',
+  },
+  body: {
+    maxWidth: '1000px',
+    margin: 'auto',
+    padding: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+    },
+  },
+}))
 function App() {
+  const styles = useStyles()
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <div className="App">
+        <div className={styles.container}>
           <Header />
-          <Pages />
+          <body className={styles.body}>
+            <Pages />
+          </body>
         </div>
       </UserProvider>
     </ThemeProvider>
