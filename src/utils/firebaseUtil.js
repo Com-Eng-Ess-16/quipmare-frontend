@@ -12,17 +12,31 @@ export const initFirebase = () => {
   }
 }
 
-export const addListener = (userID, roomCode, username, userContext) => {
+export const addListener = async (
+  userID,
+  roomCode,
+  username,
+  userContext,
+  memberContext
+) => {
   userContext.setUserID(userID)
   userContext.setUsername(username)
   userContext.setRoomCode(roomCode)
-  var ref = firebase
+  const ref = firebase
     .database()
-    .ref('room/' + roomCode + '/memberList/' + userID + '/gameData')
+    .ref('room/' + roomCode + '/gameData/' + userID)
   ref.off()
-  ref.on('value', async (snapshot) => {
+  ref.on('value', (snapshot) => {
     const data = snapshot.val()
     console.log(data)
     userContext.setGameData({ ...data, appState: data.roomState + 1 })
+  })
+
+  const memberRef = firebase.database().ref('room/' + roomCode + '/memberList')
+  memberRef.off()
+  memberRef.on('value', (snapshot) => {
+    const data = snapshot.val()
+    console.log(data)
+    memberContext.setMember(data)
   })
 }

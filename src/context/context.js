@@ -26,4 +26,19 @@ function UserProvider(props) {
   )
 }
 
-export { UserContext, UserProvider }
+const MemberContext = createContext()
+function MemberProvider(props) {
+  const [member, setMember] = useState({})
+  return (
+    <MemberContext.Provider
+      value={{
+        member,
+        setMember,
+      }}
+    >
+      {props.children}
+    </MemberContext.Provider>
+  )
+}
+
+export { UserContext, UserProvider, MemberContext, MemberProvider }
