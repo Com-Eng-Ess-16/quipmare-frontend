@@ -39,3 +39,4 @@ export const getStanding = (roomCode) => {
   }
 }
 export const postCountdownEnd = (roomCode) => {}
+export const postBackToWaiting = (roomCode) => {}
