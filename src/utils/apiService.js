@@ -19,3 +19,9 @@ export const postJoinRoom = (username, roomCode) => {
     roomCode: 'ABCD(RoomCode)',
   }
 }
+
+export const postStartGame = (roomCode) => {
+  // const body = {
+  //   roomCode,
+  // }
+}
