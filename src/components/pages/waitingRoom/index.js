@@ -7,14 +7,14 @@ const { Typography, Button } = require('@material-ui/core')
 function WaitingRoom() {
   const userContext = useContext(UserContext)
   const memberContext = useContext(MemberContext)
-
+  if (memberContext.member === null) return <></>
   return (
     <>
       <Typography>{userContext.roomCode}</Typography>
 
       <Typography>memberList</Typography>
-      {memberContext.member.map((val, key) => {
-        return <Typography>{val}</Typography>
+      {Object.keys(memberContext.member).map((key) => {
+        return <Typography>{memberContext.member[key]}</Typography>
       })}
 
       {userContext.userID === 0 && (
