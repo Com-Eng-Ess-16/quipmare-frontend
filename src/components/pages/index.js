@@ -7,7 +7,6 @@ import { Box, Button } from '@material-ui/core'
 function Pages() {
   const appState = useContext(UserContext).gameData.appState
   const userContext = useContext(UserContext)
-  console.log(appState)
   if (appState === -1)
     return (
       <Box
