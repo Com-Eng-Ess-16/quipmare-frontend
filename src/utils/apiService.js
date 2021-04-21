@@ -32,3 +32,10 @@ export const getAnswer = (questionID, roomID) => {
 }
 export const postAnswer = (roomCode, userID, questionID) => {}
 export const postVote = (roomCode, userID, questionID, AnswerUserID) => {}
+export const getStanding = (roomCode) => {
+  return {
+    0: 1000,
+    1: 100,
+  }
+}
+export const postCountdownEnd = (roomCode) => {}
