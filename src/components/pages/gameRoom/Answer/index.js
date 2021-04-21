@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { UserContext } from 'context/context'
 import { Button, TextField, Typography } from '@material-ui/core'
 import { getQuestion, postAnswer } from 'utils/apiService'
+import Countdown from 'components/common/Countdown'
 
 function Answering() {
   const userContext = useContext(UserContext)
@@ -35,6 +36,7 @@ function Answering() {
       >
         Submit
       </Button>
+      <Countdown />
     </>
   )
 }

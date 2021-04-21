@@ -1,4 +1,5 @@
 import { Typography } from '@material-ui/core'
+import Countdown from 'components/common/Countdown'
 import { UserContext } from 'context/context'
 import { useContext, useEffect, useState } from 'react'
 import { getStanding } from 'utils/apiService'
@@ -23,6 +24,7 @@ function Standing() {
           </Typography>
         )
       })}
+      <Countdown />
     </>
   )
 }
