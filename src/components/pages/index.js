@@ -5,7 +5,7 @@ import WaitingRoom from './waitingRoom'
 import GameRoom from './gameRoom/index'
 import { Box, Button } from '@material-ui/core'
 function Pages() {
-  const appState = useContext(UserContext).appState
+  const appState = useContext(UserContext).gameData.appState
   const userContext = useContext(UserContext)
   console.log(appState)
   if (appState === -1)
@@ -21,7 +21,7 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setAppState(0)
+            userContext.setGameData({ ...userContext.gameData, appState: 0 })
           }}
         >
           Home page
@@ -30,7 +30,7 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setAppState(1)
+            userContext.setGameData({ ...userContext.gameData, appState: 1 })
           }}
         >
           Waiting Room
@@ -40,8 +40,11 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setAppState(2)
-            userContext.setGameState(0)
+            userContext.setGameData({
+              ...userContext.gameData,
+              appState: 2,
+              gameState: 0,
+            })
           }}
         >
           Answer Page
@@ -50,8 +53,11 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setAppState(2)
-            userContext.setGameState(1)
+            userContext.setGameData({
+              ...userContext.gameData,
+              appState: 2,
+              gameState: 1,
+            })
           }}
         >
           Voting Page
@@ -60,8 +66,11 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setAppState(2)
-            userContext.setGameState(2)
+            userContext.setGameData({
+              ...userContext.gameData,
+              appState: 2,
+              gameState: 2,
+            })
           }}
         >
           Standing Page
@@ -70,8 +79,11 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setAppState(2)
-            userContext.setGameState(3)
+            userContext.setGameData({
+              ...userContext.gameData,
+              appState: 2,
+              gameState: 3,
+            })
           }}
         >
           Podium Page

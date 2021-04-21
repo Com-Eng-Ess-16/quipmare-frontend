@@ -1,18 +1,24 @@
 import React, { createContext, useState } from 'react'
 const UserContext = createContext()
 function UserProvider(props) {
-  const [username, setUsername] = useState('')
-  const [appState, setAppState] = useState(-1)
-  const [gameState, setGameState] = useState(0)
+  const [userID, setUserID] = useState(-1)
+  const [username, setUsername] = useState(null)
+  const [roomCode, setRoomCode] = useState(null)
+  const [gameData, setGameData] = useState({
+    appState: -1,
+    gameState: -1,
+  })
   return (
     <UserContext.Provider
       value={{
+        userID,
+        setUserID,
         username,
         setUsername,
-        appState,
-        setAppState,
-        gameState,
-        setGameState,
+        gameData,
+        setGameData,
+        roomCode,
+        setRoomCode,
       }}
     >
       {props.children}
