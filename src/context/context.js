@@ -8,6 +8,7 @@ function UserProvider(props) {
     appState: -1,
     gameState: -1,
     currentQuestionID: -1,
+    countdownEnd: '2021-04-23T12:15:00+07:00',
   })
   return (
     <UserContext.Provider
