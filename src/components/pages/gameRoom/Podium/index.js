@@ -1,7 +1,7 @@
-import { Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { UserContext } from 'context/context'
 import { useContext, useEffect, useState } from 'react'
-import { getStanding } from 'utils/apiService'
+import { getStanding, postBackToWaiting } from 'utils/apiService'
 function Podium() {
   const userContext = useContext(UserContext)
   const [score, setScore] = useState(null)
@@ -22,6 +22,17 @@ function Podium() {
           </Typography>
         )
       })}
+      {userContext.userID === 0 && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            postBackToWaiting(userContext.roomCode)
+          }}
+        >
+          Back to waiting room
+        </Button>
+      )}
     </>
   )
 }

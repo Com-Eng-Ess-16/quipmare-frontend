@@ -4,7 +4,7 @@ import { Button, TextField, Typography } from '@material-ui/core'
 import { getQuestion, postAnswer } from 'utils/apiService'
 import Countdown from 'components/common/Countdown'
 
-function Answering() {
+function Answer() {
   const userContext = useContext(UserContext)
   const [question, setQuestion] = useState(null)
   const [answer, setAnswer] = useState('')
@@ -40,4 +40,4 @@ function Answering() {
     </>
   )
 }
-export default Answering
+export default Answer

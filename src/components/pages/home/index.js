@@ -48,7 +48,7 @@ function Home() {
         onChange={(event) => {
           setUsername(event.target.value)
         }}
-      ></TextField>
+      />
       <TextField
         error={error[1]}
         label="room code"
@@ -56,7 +56,7 @@ function Home() {
         onChange={(event) => {
           setRoomCode(event.target.value)
         }}
-      ></TextField>
+      />
       <Button variant="contained" color="primary" onClick={createRoom}>
         Create Room
       </Button>

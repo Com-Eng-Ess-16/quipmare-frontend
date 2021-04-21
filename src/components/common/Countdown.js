@@ -14,11 +14,9 @@ export default function Countdown(props) {
         }
       }}
       renderer={(prop) => (
-        <>
-          <Typography>
-            {`timeLeft : ${prop.seconds + prop.minutes * 60} seconds`}
-          </Typography>
-        </>
+        <Typography>
+          {`timeLeft : ${prop.seconds + prop.minutes * 60} seconds`}
+        </Typography>
       )}
     />
   )
