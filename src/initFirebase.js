@@ -9,13 +9,13 @@ function initFirebase() {
   }
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
-    var testRef = firebase.database().ref('test')
-    testRef.off()
-    testRef.on('value', (snapshot) => {
-      const data = snapshot.val()
-      console.log('here')
-      console.log(data)
-    })
+    // var testRef = firebase.database().ref('test')
+    // testRef.off()
+    // testRef.on('value', (snapshot) => {
+    //   const data = snapshot.val()
+    //   console.log('here')
+    //   console.log(data)
+    // })
   }
 }
 export default initFirebase
