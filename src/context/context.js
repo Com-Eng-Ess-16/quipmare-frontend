@@ -7,6 +7,7 @@ function UserProvider(props) {
   const [gameData, setGameData] = useState({
     appState: -1,
     gameState: -1,
+    currentQuestionID: -1,
   })
   return (
     <UserContext.Provider
@@ -28,7 +29,7 @@ function UserProvider(props) {
 
 const MemberContext = createContext()
 function MemberProvider(props) {
-  const [member, setMember] = useState({})
+  const [member, setMember] = useState(null)
   return (
     <MemberContext.Provider
       value={{

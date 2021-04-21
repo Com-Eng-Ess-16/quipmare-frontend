@@ -1,7 +1,4 @@
 export const postCreateRoom = (username) => {
-  // const body = {
-  //   username,
-  // }
   return {
     userID: '0',
     username: 'PKhing',
@@ -9,10 +6,6 @@ export const postCreateRoom = (username) => {
   }
 }
 export const postJoinRoom = (username, roomCode) => {
-  // const body = {
-  //   username,
-  //   roomCode,
-  // }
   return {
     userID: '0',
     username: 'PKhing',
@@ -20,8 +13,22 @@ export const postJoinRoom = (username, roomCode) => {
   }
 }
 
-export const postStartGame = (roomCode) => {
-  // const body = {
-  //   roomCode,
-  // }
+export const postStartGame = (roomCode) => {}
+
+export const getQuestion = (questionID) => {
+  return {
+    question: 'When will I get 5 star?',
+  }
 }
+
+export const getAnswer = (questionID, roomID) => {
+  return {
+    question: 'When will I get 5 star?', // or call getQuestion again?
+    answer: {
+      0: 'Never',
+      1: 'Never',
+    },
+  }
+}
+export const postAnswer = (roomCode, userID, questionID) => {}
+export const postVote = (roomCode, userID, questionID, AnswerUserID) => {}
