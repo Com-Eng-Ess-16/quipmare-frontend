@@ -1,10 +1,8 @@
 import React from 'react'
-import { makeStyles, ThemeProvider } from '@material-ui/core'
-import theme from 'config/theme'
+import { makeStyles } from '@material-ui/core'
 import Header from 'components/shell/Header'
 import Pages from 'components/pages'
-import { UserProvider } from 'context/context'
-import initFirebase from './initFirebase'
+import { initFirebase } from 'utils/firebaseUtil'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -23,18 +21,13 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   initFirebase()
   const styles = useStyles()
-
   return (
-    <ThemeProvider theme={theme}>
-      <UserProvider>
-        <div className={styles.container}>
-          <Header />
-          <body className={styles.body}>
-            <Pages />
-          </body>
-        </div>
-      </UserProvider>
-    </ThemeProvider>
+    <div className={styles.container}>
+      <Header />
+      <div className={styles.body}>
+        <Pages />
+      </div>
+    </div>
   )
 }
 
