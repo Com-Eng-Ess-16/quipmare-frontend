@@ -17,7 +17,7 @@ export const addListener = async (
   roomCode,
   username,
   userContext,
-  memberContext
+  playerContext
 ) => {
   userContext.setUserID(userID)
   userContext.setUsername(username)
@@ -32,11 +32,11 @@ export const addListener = async (
     userContext.setGameData({ ...data, appState: data.roomState + 1 })
   })
 
-  const memberRef = firebase.database().ref('room/' + roomCode + '/memberList')
-  memberRef.off()
-  memberRef.on('value', (snapshot) => {
+  const playerRef = firebase.database().ref('room/' + roomCode + '/playerList')
+  playerRef.off()
+  playerRef.on('value', (snapshot) => {
     const data = snapshot.val()
     console.log(data)
-    memberContext.setMember(data)
+    playerContext.setPlayer(data)
   })
 }
