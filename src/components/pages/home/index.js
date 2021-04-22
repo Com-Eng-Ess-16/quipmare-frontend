@@ -1,5 +1,5 @@
 import { Button, TextField } from '@material-ui/core'
-import { MemberContext, UserContext } from 'context/context'
+import { PlayerContext, UserContext } from 'context/context'
 import React, { useContext, useState } from 'react'
 import { addListener } from 'utils/firebaseUtil'
 import { postCreateRoom, postJoinRoom } from './../../../utils/apiService'
@@ -9,7 +9,7 @@ function Home() {
   const [roomCode, setRoomCode] = useState('')
   const [error, setError] = useState([false, false])
   const userContext = useContext(UserContext)
-  const memberContext = useContext(MemberContext)
+  const playerContext = useContext(PlayerContext)
   const createRoom = async () => {
     if (username === '') {
       setError([username === '', false])
@@ -21,7 +21,7 @@ function Home() {
       res.roomCode,
       res.username,
       userContext,
-      memberContext
+      playerContext
     )
   }
 
@@ -36,7 +36,7 @@ function Home() {
       res.roomCode,
       res.username,
       userContext,
-      memberContext
+      playerContext
     )
   }
   return (

@@ -28,19 +28,19 @@ function UserProvider(props) {
   )
 }
 
-const MemberContext = createContext()
-function MemberProvider(props) {
-  const [member, setMember] = useState(null)
+const PlayerContext = createContext()
+function PlayerProvider(props) {
+  const [player, setPlayer] = useState(null)
   return (
-    <MemberContext.Provider
+    <PlayerContext.Provider
       value={{
-        member,
-        setMember,
+        player,
+        setPlayer,
       }}
     >
       {props.children}
-    </MemberContext.Provider>
+    </PlayerContext.Provider>
   )
 }
 
-export { UserContext, UserProvider, MemberContext, MemberProvider }
+export { UserContext, UserProvider, PlayerContext, PlayerProvider }

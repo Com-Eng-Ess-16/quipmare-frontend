@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import { MemberProvider, UserProvider } from 'context/context'
+import { PlayerProvider, UserProvider } from 'context/context'
 import { ThemeProvider } from '@material-ui/core'
 import theme from 'config/theme'
 
@@ -11,9 +11,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <MemberProvider>
+        <PlayerProvider>
           <App />
-        </MemberProvider>
+        </PlayerProvider>
       </UserProvider>
     </ThemeProvider>
   </React.StrictMode>,
