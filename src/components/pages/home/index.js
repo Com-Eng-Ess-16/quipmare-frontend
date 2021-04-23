@@ -1,70 +1,33 @@
-import { Button, TextField } from '@material-ui/core'
-import { PlayerContext, UserContext } from 'context/context'
+import { Button } from '@material-ui/core'
 import React, { useContext, useState } from 'react'
-import { addListener } from 'utils/firebaseUtil'
-import { postCreateRoom, postJoinRoom } from './../../../utils/apiService'
+import { addPlayerListener } from 'utils/firebaseUtil'
+import { getCreateRoom } from 'utils/apiService'
+import Profile from './profile'
+import RoomCodeInput from './roomCodeInput'
+import { PlayerContext, UserContext } from 'context/context'
 
 function Home() {
-  const [username, setUsername] = useState('')
-  const [roomCode, setRoomCode] = useState('')
-  const [error, setError] = useState([false, false])
   const userContext = useContext(UserContext)
+  const [action, setAction] = useState('')
   const playerContext = useContext(PlayerContext)
   const createRoom = async () => {
-    if (username === '') {
-      setError([username === '', false])
-      return
-    }
-    const res = await postCreateRoom(username)
-    addListener(
-      res.userID,
-      res.roomCode,
-      res.username,
-      userContext,
-      playerContext
-    )
+    const res = await getCreateRoom()
+    setAction('create')
+    addPlayerListener(res.roomCode, playerContext)
+    userContext.setRoomCode(res.roomCode)
   }
 
-  const joinRoom = async () => {
-    if (username === '' || roomCode === '') {
-      setError([username === '', roomCode === ''])
-      return
-    }
-    const res = await postJoinRoom(username)
-    addListener(
-      res.userID,
-      res.roomCode,
-      res.username,
-      userContext,
-      playerContext
+  if (action === '')
+    return (
+      <>
+        <Button onClick={() => setAction('join')}>join</Button>
+        <Button onClick={() => setAction('spectate')}>spectate</Button>
+        <Button onClick={createRoom}>host</Button>
+      </>
     )
-  }
-  return (
-    <div>
-      <TextField
-        error={error[0]}
-        label="username"
-        value={username}
-        onChange={(event) => {
-          setUsername(event.target.value)
-        }}
-      />
-      <TextField
-        error={error[1]}
-        label="room code"
-        value={roomCode}
-        onChange={(event) => {
-          setRoomCode(event.target.value)
-        }}
-      />
-      <Button variant="contained" color="primary" onClick={createRoom}>
-        Create Room
-      </Button>
-
-      <Button variant="contained" color="primary" onClick={joinRoom}>
-        Join Room
-      </Button>
-    </div>
-  )
+  if (userContext.roomCode !== null) return <Profile action={action} />
+  if (action === 'join' || action === 'spectate')
+    return <RoomCodeInput action={action} />
+  return <></>
 }
 export default Home

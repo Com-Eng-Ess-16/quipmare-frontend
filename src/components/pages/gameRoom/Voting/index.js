@@ -11,12 +11,12 @@ function Voting() {
     async function getData() {
       const res = await getAnswer(
         userContext.gameData.currentQuestionID,
-        userContext.roomID
+        userContext.roomCode
       )
       setData(res)
     }
     getData()
-  }, [userContext.gameData.currentQuestionID, userContext.roomID])
+  }, [userContext.gameData.currentQuestionID, userContext.roomCode])
   if (data === null) return <></>
   return (
     <>
