@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { PlayerContext, UserContext } from 'context/context'
-import { postStartGame } from 'utils/apiService'
+import { getStartGame } from 'utils/apiService'
 
 const { Typography, Button } = require('@material-ui/core')
 
@@ -18,7 +18,7 @@ function WaitingRoom() {
       })}
 
       {userContext.userID === 0 && (
-        <Button variant="contained" color="primary" onClick={postStartGame}>
+        <Button variant="contained" color="primary" onClick={getStartGame}>
           start
         </Button>
       )}
