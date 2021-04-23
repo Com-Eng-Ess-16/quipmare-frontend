@@ -1,5 +1,17 @@
-export const getCreateRoom = () => {
-  return { roomCode: 'ABCD(RoomCode)' }
+import axios from 'axios'
+
+const config = {
+  baseURL: process.env.REACT_APP_API_URL,
+}
+export const apiClient = axios.create(config)
+
+export const getCreateRoom = async () => {
+  try {
+    const res = await apiClient.get('/room/create')
+    return res.data
+  } catch (err) {
+    //handle error
+  }
 }
 export const getIsRoomExist = (roomCode) => {
   return true
@@ -11,16 +23,21 @@ export const postJoinRoom = (roomCode, username, color, type) => {
   }
 }
 
-export const postStartGame = (roomCode) => {
-  return {
-    gameID: '1212312121',
+export const getStartGame = async (roomCode) => {
+  try {
+    const res = await apiClient.get('/start/' + roomCode)
+    console.log(res.gameID)
+  } catch (err) {
+    //handle error
   }
 }
 
-export const getQuestion = (questionID) => {
-  // or remove this and send with game data?
-  return {
-    question: 'When will I get 5 star?',
+export const getQuestion = async (questionID) => {
+  try {
+    const res = await apiClient.get('/question/' + questionID)
+    return res.data
+  } catch (err) {
+    //handle error
   }
 }
 
