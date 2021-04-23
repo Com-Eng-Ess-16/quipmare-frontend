@@ -7,11 +7,11 @@ function Podium() {
   const [score, setScore] = useState(null)
   useEffect(() => {
     async function getData() {
-      const res = await getStanding(userContext.roomID)
+      const res = await getStanding(userContext.roomCode)
       setScore(res)
     }
     getData()
-  }, [userContext.roomID])
+  }, [userContext.roomCode])
   if (score === null) return <></>
   return (
     <>

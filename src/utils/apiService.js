@@ -1,27 +1,30 @@
-export const postCreateRoom = (username) => {
-  return {
-    userID: '0',
-    username: 'PKhing',
-    roomCode: 'ABCD(RoomCode)',
-  }
+export const getCreateRoom = () => {
+  return { roomCode: 'ABCD(RoomCode)' }
 }
-export const postJoinRoom = (username, roomCode) => {
+export const getIsRoomExist = (roomCode) => {
+  return true
+}
+export const postJoinRoom = (roomCode, username, color, type) => {
+  // type : 'create'|'join'|'spectate'
   return {
     userID: '0',
-    username: 'PKhing',
-    roomCode: 'ABCD(RoomCode)',
   }
 }
 
-export const postStartGame = (roomCode) => {}
+export const postStartGame = (roomCode) => {
+  return {
+    gameID: '1212312121',
+  }
+}
 
 export const getQuestion = (questionID) => {
+  // or remove this and send with game data?
   return {
     question: 'When will I get 5 star?',
   }
 }
 
-export const getAnswer = (questionID, roomID) => {
+export const getAnswer = (questionID, gameID) => {
   return {
     question: 'When will I get 5 star?', // or call getQuestion again?
     answer: {
@@ -30,13 +33,13 @@ export const getAnswer = (questionID, roomID) => {
     },
   }
 }
-export const postAnswer = (roomCode, userID, questionID) => {}
-export const postVote = (roomCode, userID, questionID, AnswerUserID) => {}
-export const getStanding = (roomCode) => {
+export const postAnswer = (gameID, userID, questionID) => {}
+export const postVote = (gameID, userID, questionID, AnswerUserID) => {}
+export const getStanding = (gameID) => {
   return {
     0: 1000,
     1: 100,
   }
 }
-export const postCountdownEnd = (roomCode) => {}
-export const postBackToWaiting = (roomCode) => {}
+export const postCountdownEnd = (gameID) => {}
+export const postBackToWaiting = (gameID) => {}

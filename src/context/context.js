@@ -2,7 +2,6 @@ import React, { createContext, useState } from 'react'
 const UserContext = createContext()
 function UserProvider(props) {
   const [userID, setUserID] = useState(-1)
-  const [username, setUsername] = useState(null)
   const [roomCode, setRoomCode] = useState(null)
   const [gameData, setGameData] = useState({
     appState: -1,
@@ -15,8 +14,6 @@ function UserProvider(props) {
       value={{
         userID,
         setUserID,
-        username,
-        setUsername,
         gameData,
         setGameData,
         roomCode,
@@ -30,7 +27,12 @@ function UserProvider(props) {
 
 const PlayerContext = createContext()
 function PlayerProvider(props) {
-  const [player, setPlayer] = useState(null)
+  // const [player, setPlayer] = useState(null)
+  const [player, setPlayer] = useState({
+    1: 'PKhing',
+    2: 'Palmcm',
+    3: 'luangjay',
+  })
   return (
     <PlayerContext.Provider
       value={{
