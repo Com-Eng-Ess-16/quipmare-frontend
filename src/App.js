@@ -7,10 +7,14 @@ import { initFirebase } from 'utils/firebaseUtil'
 const useStyles = makeStyles((theme) => ({
   container: {
     minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
   },
   body: {
     maxWidth: '1000px',
     margin: 'auto',
+    display: 'block',
+    flexGrow: 1,
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(2),
