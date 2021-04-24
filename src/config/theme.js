@@ -11,6 +11,34 @@ let theme = createMuiTheme({
       xl: 1920, // large desktop
     },
   },
+  palette: {
+    primary: {
+      main: '#7C3D02', //brown
+      contrastText: '#FFFFFF', //white
+      light: '#C4B1A9', //light brown
+    },
+  },
+  typography: {
+    fontFamily: ['Amatic SC', 'Architects Daughter'].join(','),
+    h1: {
+      fontSize: '7.5rem',
+    },
+    h2: {
+      fontSize: '6rem',
+    },
+    h3: {
+      fontSize: '5.25rem',
+    },
+    h4: {
+      fontSize: '4.5rem',
+    },
+    h5: {
+      fontSize: '4rem',
+    },
+    h6: {
+      fontSize: '3rem',
+    },
+  },
 })
 
 theme = responsiveFontSizes(theme)
