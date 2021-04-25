@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {
+  Box,
   Button,
   makeStyles,
   TextField,
@@ -9,6 +10,7 @@ import {
 } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check'
 import Countdown from 'components/common/Countdown'
+import { getColor } from 'utils/colorUtil'
 const useStyles = makeStyles((theme) => ({
   question: {
     marginTop: '20px',
@@ -45,6 +47,15 @@ const useStyles = makeStyles((theme) => ({
       height: '50px',
     },
   },
+  background: {
+    backgroundColor: (props) => props.color.light,
+    height: '100vh',
+    width: '100vw',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: -1,
+  },
 }))
 function Answer() {
   // const userContext = useContext(UserContext)
@@ -60,18 +71,37 @@ function Answer() {
   // TODO get value
   const question = 'When will I get 5 stars character?'
   const [answer, setAnswer] = useState('')
+  const isWaiting = false
 
-  const styles = useStyles()
+  const styles = useStyles({ color: getColor('0') })
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
 
+  if (isWaiting) {
+    return (
+      <>
+        <div className={styles.background} />
+        <Box marginTop="30vh">
+          <Typography variant="h5" color="primary">
+            Your answer has been submitted!
+          </Typography>
+        </Box>
+        <Countdown text="waiting for other players..." />
+      </>
+    )
+  }
   return (
     <>
+      <div className={styles.background} />
       <Typography className={styles.question}>{question}</Typography>
       <div className={styles.answer}>
         <TextField
           className={styles.textField}
-          style={{ minWidth: '80%', fontSize: '2rem' }}
+          style={{
+            minWidth: '80%',
+            fontSize: '2rem',
+            backgroundColor: 'white',
+          }}
           InputProps={{
             className: styles.textFieldFont,
           }}
