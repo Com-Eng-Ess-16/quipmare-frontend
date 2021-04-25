@@ -3,13 +3,15 @@ import { makeStyles } from '@material-ui/core'
 import Header from 'components/shell/Header'
 import Pages from 'components/pages'
 import { initFirebase } from 'utils/firebaseUtil'
+import Div100vh from 'react-div-100vh'
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    minHeight: '-webkit-fill-available',
+    height: '100%',
     width: '100vw',
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
   },
   body: {
     maxWidth: '1000px',
@@ -28,12 +30,14 @@ function App() {
   initFirebase()
   const styles = useStyles()
   return (
-    <div className={styles.container}>
-      <Header />
-      <div className={styles.body}>
-        <Pages />
+    <Div100vh>
+      <div className={styles.container}>
+        <Header />
+        <div className={styles.body}>
+          <Pages />
+        </div>
       </div>
-    </div>
+    </Div100vh>
   )
 }
 
