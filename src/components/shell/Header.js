@@ -32,7 +32,6 @@ function Header() {
 
   const styles = useStyles(getColor(color))
   const userContext = useContext(UserContext)
-  console.log(userContext.gameData.gameState)
 
   // Home page, Waiting room, Podium page
   if (

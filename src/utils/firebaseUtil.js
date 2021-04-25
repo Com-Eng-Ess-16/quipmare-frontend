@@ -17,19 +17,16 @@ export const addPlayerListener = async (roomCode, playerContext) => {
   playerRef.off()
   playerRef.on('value', (snapshot) => {
     const data = snapshot.val()
-    console.log(data)
     playerContext.setPlayer(data)
   })
 }
 export const addListener = async (userID, roomCode, userContext) => {
-  console.log({ userID, roomCode })
   const ref = firebase
     .database()
     .ref('room/' + roomCode + '/gameData/' + userID)
   ref.off()
   ref.on('value', (snapshot) => {
     const data = snapshot.val()
-    console.log(data)
     userContext.setGameData({ ...data, appState: data.roomState + 1 })
   })
 }
