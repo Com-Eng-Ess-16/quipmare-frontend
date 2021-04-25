@@ -1,4 +1,4 @@
-import { Button, makeStyles, Typography } from '@material-ui/core'
+import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import Countdown from 'components/common/Countdown'
 import { UserContext } from 'context/context'
 import { useContext, useEffect, useState } from 'react'
@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '20px',
     border: '1px solid black',
     fontSize: '2.5rem',
+    overflowWrap: 'break-word',
+    wordBreak: 'break-word',
+    hyphens: 'auto',
     [theme.breakpoints.down('sm')]: {
       minHeight: '70px',
       fontSize: '2rem',
@@ -41,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     top: 0,
     zIndex: -1,
+  },
+  waitingText: {
+    overflowWrap: 'break-word',
+    wordBreak: 'break-word',
+    hyphens: 'auto',
   },
 }))
 
@@ -67,40 +75,48 @@ function Voting() {
   if (data === null) return <></>
   if (isWaiting) {
     return (
-      <>
+      <Box display="flex" flexDirection="column" height="100%">
         <div className={styles.background} />
-        <Typography variant="h5" color="primary" style={{ marginTop: '30px' }}>
-          Your vote has been submitted!
-        </Typography>
-        <Typography variant="h5" color="primary">
-          {'You vote "' + votedAnswer + '"'}
-        </Typography>
+        <Box flexGrow={1} className={styles.waitingText}>
+          <Typography
+            variant="h5"
+            color="primary"
+            style={{ marginTop: '30px' }}
+          >
+            Your vote has been submitted!
+          </Typography>
+          <Typography variant="h5" color="primary">
+            {'You vote "' + votedAnswer + '"'}
+          </Typography>
+        </Box>
         <Countdown text="Waiting for other players..." />
-      </>
+      </Box>
     )
   }
   return (
-    <>
+    <Box display="flex" flexDirection="column" height="100%">
       <div className={styles.background} />
-      <Typography className={styles.question}>{data.question}</Typography>
+      <Box flexGrow={1}>
+        <Typography className={styles.question}>{data.question}</Typography>
 
-      <Button
-        className={styles.button}
-        variant="contained"
-        color="primary"
-        onClick={() => {}}
-      >
-        {data.answer[0]}
-      </Button>
-      <Button
-        className={styles.button}
-        style={{ backgroundColor: 'white' }}
-        onClick={() => {}}
-      >
-        {data.answer[1]}
-      </Button>
+        <Button
+          className={styles.button}
+          variant="contained"
+          color="primary"
+          onClick={() => {}}
+        >
+          {data.answer[0]}
+        </Button>
+        <Button
+          className={styles.button}
+          style={{ backgroundColor: 'white' }}
+          onClick={() => {}}
+        >
+          {data.answer[1]}
+        </Button>
+      </Box>
       <Countdown />
-    </>
+    </Box>
   )
 }
 export default Voting

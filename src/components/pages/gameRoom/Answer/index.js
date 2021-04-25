@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: -1,
   },
   waiting: {
+    flexGrow: 1,
     marginTop: '30vh',
     [theme.breakpoints.down('sm')]: {
       marginTop: '25vh',
@@ -85,9 +86,9 @@ function Answer() {
 
   if (isWaiting) {
     return (
-      <>
+      <Box display="flex" flexDirection="column" height="100%">
         <div className={styles.background} />
-        <Box className={styles.waiting}>
+        <div className={styles.waiting}>
           <Typography
             variant="h5"
             color="primary"
@@ -95,50 +96,52 @@ function Answer() {
           >
             Your answer has been submitted!
           </Typography>
-        </Box>
+        </div>
         <Countdown text="Waiting for other players..." />
-      </>
+      </Box>
     )
   }
   return (
-    <>
+    <Box display="flex" flexDirection="column" height="100%">
       <div className={styles.background} />
-      <Typography className={styles.question}>{question}</Typography>
-      <div className={styles.answer}>
-        <TextField
-          className={styles.textField}
-          style={{
-            minWidth: '80%',
-            fontSize: '2rem',
-            backgroundColor: 'white',
-          }}
-          InputProps={{
-            className: styles.textFieldFont,
-          }}
-          inputProps={{
-            style: { height: isSm ? '10vh' : '30vh' },
-          }}
-          multiline
-          placeholder="TYPE HERE"
-          variant="outlined"
-          value={answer}
-          onChange={(event) => {
-            setAnswer(event.target.value)
-          }}
-        />
-        <Button
-          className={styles.button}
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            // postAnswer(userContext.roomCode, userContext.userID)
-          }}
-        >
-          <CheckIcon fontSize="large" />
-        </Button>
-      </div>
+      <Box flexGrow={1}>
+        <Typography className={styles.question}>{question}</Typography>
+        <div className={styles.answer}>
+          <TextField
+            className={styles.textField}
+            style={{
+              minWidth: '80%',
+              fontSize: '2rem',
+              backgroundColor: 'white',
+            }}
+            InputProps={{
+              className: styles.textFieldFont,
+            }}
+            inputProps={{
+              style: { height: isSm ? '10vh' : '30vh' },
+            }}
+            multiline
+            placeholder="TYPE HERE"
+            variant="outlined"
+            value={answer}
+            onChange={(event) => {
+              setAnswer(event.target.value)
+            }}
+          />
+          <Button
+            className={styles.button}
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              // postAnswer(userContext.roomCode, userContext.userID)
+            }}
+          >
+            <CheckIcon fontSize="large" />
+          </Button>
+        </div>
+      </Box>
       <Countdown />
-    </>
+    </Box>
   )
 }
 export default Answer
