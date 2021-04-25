@@ -77,7 +77,7 @@ function Answer() {
   // TODO get value
   const question = 'When will I get 5 stars character?'
   const [answer, setAnswer] = useState('')
-  const isWaiting = true
+  const isWaiting = false
 
   const styles = useStyles({ color: getColor('0') })
   const theme = useTheme()
@@ -96,7 +96,7 @@ function Answer() {
             Your answer has been submitted!
           </Typography>
         </Box>
-        <Countdown text="waiting for other players..." />
+        <Countdown text="Waiting for other players..." />
       </>
     )
   }
