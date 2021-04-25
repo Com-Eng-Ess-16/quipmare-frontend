@@ -42,7 +42,7 @@ function Header() {
     return <></>
 
   // Standing page
-  if (userContext.gameData.gameState === 2) {
+  if (userContext.gameData.gameState === 3) {
     return (
       <header className={styles.container}>
         <Typography
