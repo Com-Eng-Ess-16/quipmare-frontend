@@ -6,12 +6,14 @@ import { initFirebase } from 'utils/firebaseUtil'
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    minHeight: '100vh',
+    minHeight: '-webkit-fill-available',
+    width: '100vw',
     display: 'flex',
     flexDirection: 'column',
   },
   body: {
     maxWidth: '1000px',
+    width: '90%',
     margin: 'auto',
     display: 'block',
     flexGrow: 1,
