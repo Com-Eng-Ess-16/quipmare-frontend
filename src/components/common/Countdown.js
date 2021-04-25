@@ -48,7 +48,9 @@ export default function Countdown(props) {
       }}
       renderer={(prop) => (
         <div className={styles.container}>
-          <Typography className={styles.text}>Ending in...</Typography>
+          <Typography className={styles.text}>
+            {props.text ? props.text : 'Ending in...'}
+          </Typography>
           <div className={styles.time}>{prop.seconds + prop.minutes * 60}</div>
         </div>
       )}
