@@ -9,13 +9,20 @@ const useStyles = makeStyles((theme) => ({
     right: '20px',
     bottom: '20px',
     position: 'absolute',
+    display: 'flex',
+    alignItems: 'flex-end',
   },
   text: {
+    marginLeft: '10px',
+    textAlign: 'right',
     fontSize: '3rem',
     fontFamily: 'Architects Daughter',
     display: 'inline-block',
     [theme.breakpoints.down('sm')]: {
       fontSize: '2rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.5rem',
     },
   },
   time: {
