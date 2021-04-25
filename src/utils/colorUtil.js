@@ -1,6 +1,6 @@
 export const getColor = (id) => {
   return {
-    lgiht: '#FFFFDC',
+    light: '#FFFFDC',
     dark: '#DAC452',
   }
 }
