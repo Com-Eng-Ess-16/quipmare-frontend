@@ -7,7 +7,7 @@ import { UserContext } from 'context/context'
 
 function Profile(action) {
   const [username, setUsername] = useState('')
-  const [color, setColor] = useState(0)
+  const [color, setColor] = useState('0')
   const userContext = useContext(UserContext)
   const joinRoom = async () => {
     const res = await postJoinRoom(
