@@ -56,6 +56,12 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     zIndex: -1,
   },
+  waiting: {
+    marginTop: '30vh',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '25vh',
+    },
+  },
 }))
 function Answer() {
   // const userContext = useContext(UserContext)
@@ -71,7 +77,7 @@ function Answer() {
   // TODO get value
   const question = 'When will I get 5 stars character?'
   const [answer, setAnswer] = useState('')
-  const isWaiting = false
+  const isWaiting = true
 
   const styles = useStyles({ color: getColor('0') })
   const theme = useTheme()
@@ -81,8 +87,12 @@ function Answer() {
     return (
       <>
         <div className={styles.background} />
-        <Box marginTop="30vh">
-          <Typography variant="h5" color="primary">
+        <Box className={styles.waiting}>
+          <Typography
+            variant="h5"
+            color="primary"
+            style={{ textAlign: 'center' }}
+          >
             Your answer has been submitted!
           </Typography>
         </Box>
