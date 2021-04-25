@@ -37,7 +37,7 @@ function Header() {
   // Home page, Waiting room, Podium page
   if (
     userContext.gameData.appState !== 2 ||
-    userContext.gameData.gameState === 3
+    userContext.gameData.gameState === 4
   )
     return <></>
 
