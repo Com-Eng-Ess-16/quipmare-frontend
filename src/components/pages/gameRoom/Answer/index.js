@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: (props) => props.color.light,
     height: '100vh',
     width: '100vw',
-    position: 'absolute',
+    position: 'fixed',
     left: 0,
     top: 0,
     zIndex: -1,
