@@ -10,13 +10,27 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node 12.x
+        uses: actions/setup-node@v1
         with:
-          cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build # will run `yarn build` command
+          node-version: 12.x
+
+      - name: Install Dependencies (prod)
+        run: yarn install --frozen-lockfile --production
+
+      - name: Build
+        run: yarn build --ci
+        env:
+          CI: true
+          REACT_APP_FIREBASE_API_KEY: '${{ secrets.REACT_APP_FIREBASE_API_KEY }}'
+          REACT_APP_AUTH_DOMAIN: '${{ secrets.REACT_APP_AUTH_DOMAIN }}'
+          REACT_APP_DATABASE_URL: '${{ secrets.REACT_APP_DATABASE_URL }}'
+          REACT_APP_STORAGE_BUCKET: '${{ secrets.REACT_APP_STORAGE_BUCKET }}'
+          REACT_APP_API_URL: '${{ secrets.REACT_APP_API_URL }}'
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
@@ -25,8 +39,3 @@ jobs:
           projectId: quipmare-game
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
-          REACT_APP_FIREBASE_API_KEY: '${{ secrets.REACT_APP_FIREBASE_API_KEY }}'
-          REACT_APP_AUTH_DOMAIN: '${{ secrets.REACT_APP_AUTH_DOMAIN }}'
-          REACT_APP_DATABASE_URL: '${{ secrets.REACT_APP_DATABASE_URL }}'
-          REACT_APP_STORAGE_BUCKET: '${{ secrets.REACT_APP_STORAGE_BUCKET }}'
-          REACT_APP_API_URL: '${{ secrets.REACT_APP_API_URL }}'

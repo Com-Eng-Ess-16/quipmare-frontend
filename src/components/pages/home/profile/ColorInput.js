@@ -41,8 +41,6 @@ function ColorInput({ color, setColor }) {
 
   const ColorButton = ({ colorID, selected }) => {
     const colorCode = getColor(colorID)
-    console.log({ colorID, color })
-    console.log(colorID === color)
     return (
       <div
         className={styles.colorButton}
@@ -52,7 +50,6 @@ function ColorInput({ color, setColor }) {
         onClick={() => {
           if (!selected) {
             setColor(colorID)
-            console.log(colorID)
           }
         }}
       >

@@ -27,7 +27,6 @@ export const postJoinRoom = (roomCode, username, color, type) => {
 export const getStartGame = async (roomCode) => {
   try {
     const res = await apiClient.get('/start/' + roomCode)
-    console.log(res.gameID)
   } catch (err) {
     //handle error
   }
