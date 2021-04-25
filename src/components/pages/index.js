@@ -72,7 +72,7 @@ function Pages() {
             })
           }}
         >
-          Standing Page
+          Vote Result Page
         </Button>
         <Button
           color="primary"
@@ -82,6 +82,19 @@ function Pages() {
               ...userContext.gameData,
               appState: 2,
               gameState: 3,
+            })
+          }}
+        >
+          Standing Page
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            userContext.setGameData({
+              ...userContext.gameData,
+              appState: 2,
+              gameState: 4,
             })
           }}
         >

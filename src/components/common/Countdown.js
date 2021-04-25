@@ -6,9 +6,8 @@ import { UserContext } from 'context/context'
 import { getColor } from 'utils/colorUtil'
 const useStyles = makeStyles((theme) => ({
   container: {
-    right: '20px',
-    bottom: '20px',
-    position: 'absolute',
+    marginTop: '15px',
+    alignSelf: 'flex-end',
     display: 'flex',
     alignItems: 'flex-end',
   },
