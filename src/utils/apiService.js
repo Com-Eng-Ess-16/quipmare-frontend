@@ -8,6 +8,7 @@ export const apiClient = axios.create(config)
 export const getCreateRoom = async () => {
   try {
     const res = await apiClient.get('/room/create')
+    console.log(res.data)
     return res.data
   } catch (err) {
     //handle error
