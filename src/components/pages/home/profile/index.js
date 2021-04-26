@@ -1,4 +1,4 @@
-import { Button, TextField, Card, CardContent, Typography, Avatar } from '@material-ui/core'
+import { Button, TextField, Card, CardContent, Typography, Avatar, CardActions } from '@material-ui/core'
 import { useContext, useState } from 'react'
 import { postJoinRoom } from 'utils/apiService'
 import { addListener } from 'utils/firebaseUtil'
@@ -7,42 +7,73 @@ import { UserContext } from 'context/context'
 import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
+  page: {
+    margin: '10vh -5vw 0 -5vw'
+  },
   cards: {
-    display: 'flex'
+    display: 'flex',
+    border: '1px solid black'
   },
   inputCard: {
-    marginTop: '5vh',
-    marginLeft: '-13vw',
-    width: '750px'
+    border: '1px solid black',
+    width: '60%'
   },
   inputCardContent: {
-    marginLeft: '2vw'
+    margin: '0 5% 0 5%'
+  },
+  text: {
+    textShadow: '1px 1px #00000020',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '3rem'
+    }
   },
   usernameField: {
-    width: '300px',
-    marginTop: '20px'
-  },
-  selectText: {
-    fontFamily: 'Architects Daughter',
-    fontSize: '2.25rem',
-    marginTop: '3vh'
+    width: '80%',
+    margin: '5% 0 5% 0',
+    [theme.breakpoints.down('md')]: {
+      margin: '7% 0 5% 0',
+      fontSize: '1.5rem'
+    }
   },
   profileCard: {
-    marginTop: '5vh',
-    marginLeft: '3vw',
-    width: '400px'
+    border: '1px solid black',
+    marginLeft: '5%',
+    width: '35%',
+    height: '60%'
   },
-  profileCardContext: {
-    marginLeft: '2vw',
-    alignItems: 'center',
+  textContainer: {
+    marginLeft: '5%'
+  },
+  avatarContainer: {
+    display: 'flex',
     justifyContent: 'center'
   },
   profileAvatar: {
-    color: 'white',
-    backgroundColor: 'white',
     border: '1px solid black',
-    width: '250px',
-    height: '250px'
+    width: '25vh',
+    height: '25vh'
+  },
+  profileCardActions: {
+    justifyContent: 'center'
+  },
+  confirmButton: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '1.5rem',
+    width: '65%',
+    margin: '5% 0 10% 0',
+    border: '1px solid black',
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main
+  },
+  playerCount: {
+    
+  },
+  playerCountText: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '2rem',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '3rem',
+    }
   }
 }))
 
@@ -62,11 +93,11 @@ function Profile(action) {
     addListener(res.userID, userContext.roomCode, userContext)
   }
   return (
-    <>
+    <div className={styles.page}>
       <div className={styles.cards}>
         <Card className={styles.inputCard}>
           <CardContent className={styles.inputCardContent}>
-            <Typography variant='h6'>
+            <Typography className={styles.text} variant='h5'>
               Username
             </Typography>
             <TextField className={styles.usernameField}
@@ -75,25 +106,31 @@ function Profile(action) {
                 setUsername(event.target.value)
               }}
             />
-            <Typography className={styles.selectText}>
-              Select your color
-            </Typography>
             <ColorInput color={color} setColor={setColor} />
           </CardContent>
         </Card>
         <Card className={styles.profileCard}>
-          <CardContent className={styles.profileCardContext}>
-              <Typography variant='h6'>
+            <CardContent className={styles.textContainer}>
+              <Typography className={styles.text} variant='h5'>
                 Profile
               </Typography>
-              <Avatar className={styles.profileAvatar}>
-
-              </Avatar>
-          </CardContent>
+            </CardContent>
+            <CardContent className={styles.avatarContainer}>
+                <Avatar className={styles.profileAvatar}>
+                  {username}
+                </Avatar>
+            </CardContent>
+            <CardActions className={styles.profileCardActions}>
+              <Button className={styles.confirmButton} onClick={joinRoom} variant='contained'>Confirm</Button>
+            </CardActions>
         </Card>
-        <Button onClick={joinRoom}>Confirm</Button>
+        <div className={styles.playerCount}>
+          <Typography className={styles.playerCountText}>players</Typography>
+          <Typography className={styles.playerCountText}>waiting</Typography>
       </div>
-    </>
+      </div>
+      
+    </div>
   )
 }
 export default Profile

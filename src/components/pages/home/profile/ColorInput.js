@@ -10,28 +10,30 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '0 15px 0 15px',
+    margin: '0 5% 0 5%',
     border: '2px solid black',
     cursor: 'pointer',
     [theme.breakpoints.down('sm')]: {
-      width: '50px',
-      height: '50px',
-      borderRadius: '50px',
+      width: '60px',
+      height: '60px',
+      borderRadius: '60px',
       border: '1px solid black',
-      margin: '2px 15px 2px 15px',
+      margin: '0% 5% -3% 5%',
     },
   },
   colorContainer: {
     display: 'flex',
     justifyContent: 'center',
+    marginBottom: '25px'
   },
   text: {
     fontFamily: 'Architects Daughter',
-    fontSize: '2.5rem',
+    fontSize: '2rem',
     textShadow: '2px 2px #00000020',
-    marginBottom: '10px',
+    margin: '5% 0 5% 0',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '1.5rem',
+      margin: '0% 0 5% 0',
+      fontSize: '1.8rem',
     },
   },
 }))
