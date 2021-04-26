@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   roomCodeInput: {
     margin: '10vh 0 20vh 0',
-    width: '70%',
+    width: '60%',
     fontSize: '2rem',
     [theme.breakpoints.down('sm')]: {
       margin: '10vh 0 15vh 0'
@@ -39,12 +39,23 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
     border: '2px solid black',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.contrastText,
+      border: '2px solid black'
+    },
     [theme.breakpoints.down('sm')]: {
       width: '100%',
       fontSize: '1rem',
       margin: '20% 0 0% 0%'
     },
-  }
+  },
+  textFieldFont: {
+    fontSize: '2.5rem',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.5rem',
+    }
+  } 
 }))
 
 function RoomCodeInput(action) {
@@ -63,9 +74,16 @@ function RoomCodeInput(action) {
     <div className={styles.page}>
       <Typography className={styles.actionText}>{action.action.toUpperCase()+' A ROOM'}</Typography>
       <div>
-        <TextField className={styles.roomCodeInput}
+        <TextField 
+          className={styles.roomCodeInput}
           label="room code"
           value={roomCode}
+          style={{
+            fontSize: '3rem'
+          }}
+          InputProps={{
+            className: styles.textFieldFont,
+          }}
           onChange={(event) => {
           setRoomCode(event.target.value)
             }}

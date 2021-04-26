@@ -1,4 +1,4 @@
-import { Avatar, Button, Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import React, { useContext, useState } from 'react'
 import { addPlayerListener } from 'utils/firebaseUtil'
 import { getCreateRoom } from 'utils/apiService'
@@ -42,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2.5rem',
     border: '3px solid',
     backgroundColor: 'white',
+    '&:hover': {
+      color: theme.palette.primary.contrastText,
+      backgroundColor: theme.palette.primary.main,
+      border: '3px solid black'
+    },
     [theme.breakpoints.down('md')]: {
       fontSize: '1.8rem'
     },
@@ -56,6 +61,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '6vh',
     border: '3px solid',
     backgroundColor: 'white',
+    '&:hover': {
+      color: theme.palette.primary.contrastText,
+      backgroundColor: theme.palette.primary.main,
+      border: '3px solid black'
+    },
     [theme.breakpoints.down('md')]: {
       fontSize: '1.8rem'
     },
@@ -68,9 +78,14 @@ const useStyles = makeStyles((theme) => ({
     height: '15%',
     fontSize: '2.5rem',
     marginTop: '6vh',
-    marginLeft: '5vw',
+    marginLeft: '3vw',
     border: '3px solid',
     backgroundColor: 'white',
+    '&:hover': {
+      color: theme.palette.primary.contrastText,
+      backgroundColor: theme.palette.primary.main,
+      border: '3px solid black'
+    },
     [theme.breakpoints.down('md')]: {
       fontSize: '1.8rem'
     },
