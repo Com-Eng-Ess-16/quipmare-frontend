@@ -40,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
   usernameField: {
     width: '80%',
-    margin: '5% 0 5% 0',
-    [theme.breakpoints.down('md')]: {
-      margin: '0 0 5% 0'
+    margin: '0% 0 0% 0',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0% 0 3% 0'
     }
   },
   rightSide: {
@@ -71,7 +71,13 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   textContainer: {
-    margin: '-2% 0 -10% 3%'
+    margin: '-2% 0 0 3%',
+    [theme.breakpoints.down('sm')]: {
+      margin: '-2% 0 -10% 3%'
+    },
+    [theme.breakpoints.down('xs')]: {
+      margin: '-2% 0 -12% 3%'
+    }
   },
   avatarContainer: {
     display: 'flex',
@@ -79,11 +85,11 @@ const useStyles = makeStyles((theme) => ({
   },
   profileAvatar: {
     border: '1px solid black',
-    width: '20vh',
-    height: '20vh',
+    width: '23vh',
+    height: '23vh',
     [theme.breakpoints.down('sm')]: {
-      width: '12vh',
-      height: '12vh',
+      width: '14vh',
+      height: '14vh',
     }
   },
   profileCardActions: {
@@ -95,14 +101,19 @@ const useStyles = makeStyles((theme) => ({
     width: '65%',
     margin: '10% 0 10% 0',
     border: '1px solid black',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.contrastText,
+      border: '1px solid black'
+    },
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main,
     [theme.breakpoints.down('sm')]: {
-      margin: '0% 0 3% 0',
+      margin: '-5% 0 -1% 0',
       fontSize: '0.8rem'
     },
     [theme.breakpoints.down('xs')]: {
-      margin: '-5% 0 10% 0',
+      margin: '-7% 0 5% 0',
       fontSize: '0.75rem'
     }
   },
@@ -118,7 +129,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       fontSize: '1.25rem'
     }
-  }
+  },
+  textFieldFont: {
+    fontSize: '2.25rem',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.25rem',
+    }
+  } 
 }))
 
 function Profile(action) {
@@ -146,11 +163,14 @@ function Profile(action) {
             </Typography>
             <TextField className={styles.usernameField}
               value={username}
+              InputProps={{
+                className: styles.textFieldFont,
+              }}
               onChange={(event) => {
                 setUsername(event.target.value)
               }}
             />
-            <ColorInput color={color} setColor={setColor} />
+            <ColorInput className={styles.colorInput} color={color} setColor={setColor} />
           </CardContent>
         </Card>
         <div className={styles.rightSide}>
