@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function RoomCodeInput(props) {
-  const { action } = props
+  const { action, setAction } = props
   const styles = useStyles()
   const setError = useError()
   const userContext = useContext(UserContext)
@@ -137,7 +137,13 @@ function RoomCodeInput(props) {
         >
           JOIN
         </Button>
-        <Button className={styles.button} variant="contained">
+        <Button
+          className={styles.button}
+          variant="contained"
+          onClick={() => {
+            setAction('')
+          }}
+        >
           LEAVE
         </Button>
       </div>

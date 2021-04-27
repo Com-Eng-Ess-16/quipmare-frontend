@@ -153,7 +153,7 @@ function Home() {
     )
   if (userContext.roomCode !== null) return <Profile action={action} />
   if (action === 'join' || action === 'spectate')
-    return <RoomCodeInput action={action} />
+    return <RoomCodeInput action={action} setAction={setAction} />
   return <></>
 }
 export default Home

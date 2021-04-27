@@ -21,7 +21,8 @@ export const useListener = () => {
     playerRef.off()
     playerRef.on('value', (snapshot) => {
       const data = snapshot.val()
-      playerContext.setPlayer(data)
+      if (data) playerContext.setPlayer(data)
+      else playerContext.setPlayer({})
     })
   }
 
