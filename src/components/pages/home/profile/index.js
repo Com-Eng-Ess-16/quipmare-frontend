@@ -158,7 +158,7 @@ function Profile(props) {
       const res = await postJoinRoom(
         userContext.roomCode,
         username,
-        color,
+        color === -1 ? Math.floor(Math.random() * 8) : color,
         'player'
       )
       if (res.type === 'spectate') {
