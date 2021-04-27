@@ -1,102 +1,15 @@
 import { Button, Typography } from '@material-ui/core'
 import React, { useContext, useState } from 'react'
 import { useListener } from 'utils/firebaseUtil'
-import { getCreateRoom } from 'utils/apiService'
+import { getCreateRoom, getIsRoomExist, postJoinRoom } from 'utils/apiService'
 import Profile from './profile'
 import RoomCodeInput from './roomCodeInput'
 import { UserContext } from 'context/context'
-import { makeStyles } from '@material-ui/core'
 import { useError } from 'components/common/Error'
-
-const useStyles = makeStyles((theme) => ({
-  page: {
-    margin: '13vh 0 0 0',
-    [theme.breakpoints.down('sm')]: {
-      margin: '7vh 3vh 0 3vh',
-    },
-    [theme.breakpoints.down('xs')]: {
-      margin: '10vh 3vh 0 3vh',
-    },
-  },
-  gameTitle: {
-    fontSize: '3.5rem',
-    display: 'flex',
-    justifyContent: 'center',
-    fontFamily: 'Architects Daughter',
-    marginBottom: '15vh',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5rem',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '2rem',
-    },
-  },
-  buttons: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  joinButton: {
-    width: '100%',
-    height: '20%',
-    fontSize: '2.5rem',
-    border: '3px solid',
-    backgroundColor: 'white',
-    '&:hover': {
-      color: theme.palette.primary.contrastText,
-      backgroundColor: theme.palette.primary.main,
-      border: '3px solid black',
-    },
-    [theme.breakpoints.down('md')]: {
-      fontSize: '1.8rem',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '1.6rem',
-    },
-  },
-  spectateButton: {
-    width: '47.5%',
-    height: '15%',
-    fontSize: '2.5rem',
-    marginTop: '6vh',
-    border: '3px solid',
-    backgroundColor: 'white',
-    '&:hover': {
-      color: theme.palette.primary.contrastText,
-      backgroundColor: theme.palette.primary.main,
-      border: '3px solid black',
-    },
-    [theme.breakpoints.down('md')]: {
-      fontSize: '1.8rem',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '1.6rem',
-    },
-  },
-  hostButton: {
-    width: '47.5%',
-    height: '15%',
-    fontSize: '2.5rem',
-    marginTop: '6vh',
-    marginLeft: '3vw',
-    border: '3px solid',
-    backgroundColor: 'white',
-    '&:hover': {
-      color: theme.palette.primary.contrastText,
-      backgroundColor: theme.palette.primary.main,
-      border: '3px solid black',
-    },
-    [theme.breakpoints.down('md')]: {
-      fontSize: '1.8rem',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '1.6rem',
-    },
-  },
-}))
+import { useIndexStyles } from './styles'
 
 function Home() {
-  const styles = useStyles()
+  const styles = useIndexStyles()
   const userContext = useContext(UserContext)
   const [action, setAction] = useState('')
   const setError = useError()
@@ -108,6 +21,45 @@ function Home() {
       setAction('create')
       userContext.setRoomCode(roomCode)
       listener.addPlayerListener(roomCode)
+    } catch (err) {
+      setError(err)
+    }
+  }
+
+  const checkRoom = async (roomCode) => {
+    try {
+      const res = await getIsRoomExist(roomCode)
+      if (res) {
+        userContext.setRoomCode(roomCode)
+        listener.addPlayerListener(roomCode)
+        if (action === 'spectate') joinRoom(roomCode, '', 1)
+      } else {
+        // eslint-disable-next-line no-throw-literal
+        throw { response: { statusText: 'Invalid Room' } }
+      }
+    } catch (err) {
+      setError(err)
+    }
+  }
+
+  const joinRoom = async (roomCode, username, color) => {
+    if (!roomCode) roomCode = userContext.roomCode
+    try {
+      const res = await postJoinRoom(roomCode, username, color, action)
+      if (res.type === 'spectate' && action !== 'spectate') {
+        setError({
+          response: {
+            statusText: 'The room is full! You will become a spectator',
+          },
+        })
+      }
+      userContext.setUserID(res.spectateId)
+      userContext.setUserType(res.type)
+      userContext.setGameData({
+        ...userContext.gameData,
+        appState: 1,
+      })
+      listener.addRoomStateListener(roomCode)
     } catch (err) {
       setError(err)
     }
@@ -151,9 +103,16 @@ function Home() {
         </div>
       </div>
     )
-  if (userContext.roomCode !== null) return <Profile action={action} />
+  if (userContext.roomCode !== null)
+    return <Profile action={action} joinRoom={joinRoom} />
   if (action === 'join' || action === 'spectate')
-    return <RoomCodeInput action={action} setAction={setAction} />
+    return (
+      <RoomCodeInput
+        action={action}
+        setAction={setAction}
+        checkRoom={checkRoom}
+      />
+    )
   return <></>
 }
 export default Home

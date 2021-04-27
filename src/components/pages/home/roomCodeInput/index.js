@@ -1,106 +1,12 @@
 import { Button, TextField, Typography } from '@material-ui/core'
-import { useContext, useState } from 'react'
-import { getIsRoomExist, postJoinRoom } from 'utils/apiService'
-import { useListener } from 'utils/firebaseUtil'
-import { UserContext } from 'context/context'
-import { makeStyles } from '@material-ui/core'
-import { useError } from 'components/common/Error'
+import { useState } from 'react'
+import { useRoomCodeInputStyles } from '../styles'
 
-const useStyles = makeStyles((theme) => ({
-  page: {
-    margin: '10vh 5vw 0 5vw',
-  },
-  actionText: {
-    fontFamily: 'Architects Daughter',
-    fontSize: '3.5rem',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '1.9rem',
-    },
-  },
-  roomCodeInput: {
-    margin: '10vh 0 20vh 0',
-    width: '60%',
-    fontSize: '2rem',
-    [theme.breakpoints.down('sm')]: {
-      margin: '10vh 0 15vh 0',
-    },
-  },
-  buttons: {
-    marginLeft: '60%',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-      marginLeft: '50%',
-    },
-  },
-  button: {
-    fontSize: '1.5rem',
-    fontFamily: 'Architects Daughter',
-    width: '15vw',
-    marginLeft: '13%',
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    border: '2px solid black',
-    '&:hover': {
-      color: theme.palette.primary.main,
-      backgroundColor: theme.palette.primary.contrastText,
-      border: '2px solid ' + theme.palette.primary.main,
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      fontSize: '1rem',
-      margin: '20% 0 0% 0%',
-    },
-  },
-  textFieldFont: {
-    fontSize: '2.5rem',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '1.5rem',
-    },
-  },
-}))
-
-function RoomCodeInput(props) {
-  const { action, setAction } = props
-  const styles = useStyles()
-  const setError = useError()
-  const userContext = useContext(UserContext)
+function RoomCodeInput({ action, setAction, checkRoom }) {
+  const styles = useRoomCodeInputStyles()
   const [roomCode, setRoomCode] = useState('')
   const [isBlank, setBlank] = useState(false)
-  const listener = useListener()
-  const checkRoom = async () => {
-    if (roomCode === '') {
-      setBlank(true)
-      return
-    }
-    try {
-      const res = await getIsRoomExist(roomCode)
-      if (res) {
-        userContext.setRoomCode(roomCode)
-        listener.addPlayerListener(roomCode)
-        if (action === 'spectate') joinRoom(roomCode)
-      } else {
-        // eslint-disable-next-line no-throw-literal
-        throw { response: { statusText: 'Invalid Room' } }
-      }
-    } catch (err) {
-      setError(err)
-    }
-  }
 
-  const joinRoom = async (roomCode) => {
-    try {
-      const res = await postJoinRoom(roomCode, '', 0, 'spectator')
-      userContext.setUserID(res.spectateId)
-      userContext.setUserType(res.type)
-      userContext.setGameData({
-        ...userContext.gameData,
-        appState: 1,
-      })
-      listener.addRoomStateListener(roomCode)
-    } catch (err) {
-      setError(err)
-    }
-  }
   return (
     <div className={styles.page}>
       <Typography className={styles.actionText}>
@@ -133,7 +39,13 @@ function RoomCodeInput(props) {
       <div className={styles.buttons}>
         <Button
           className={styles.button}
-          onClick={checkRoom}
+          onClick={() => {
+            if (roomCode === '') {
+              setBlank(true)
+              return
+            }
+            checkRoom(roomCode)
+          }}
           variant="contained"
         >
           JOIN

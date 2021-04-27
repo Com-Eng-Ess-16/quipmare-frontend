@@ -61,6 +61,7 @@ function ColorInput({ color, setColor }) {
     }
     return false
   }
+
   const ColorButton = ({ colorID, selected }) => {
     const colorCode = getColor(colorID)
     return (
@@ -79,6 +80,7 @@ function ColorInput({ color, setColor }) {
       </div>
     )
   }
+
   if (isSelected(color)) setColor(-1)
   return (
     <>
