@@ -101,6 +101,7 @@ function Home() {
   const [action, setAction] = useState('')
   const setError = useError()
   const listener = useListener()
+
   const createRoom = async () => {
     try {
       const roomCode = await getCreateRoom()
@@ -152,7 +153,7 @@ function Home() {
     )
   if (userContext.roomCode !== null) return <Profile action={action} />
   if (action === 'join' || action === 'spectate')
-    return <RoomCodeInput action={action} setAction={setAction} />
+    return <RoomCodeInput action={action} />
   return <></>
 }
 export default Home

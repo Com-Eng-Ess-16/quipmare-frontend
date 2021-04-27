@@ -19,10 +19,10 @@ function useError() {
   const errorContext = useContext(ErrorContext)
   const setError = (err) => {
     if (err.response) {
-      const status = err.response.status
+      let status = err.response.status
       let text = err.response.statusText
+      status = status ? status : ''
       if (status === 404 && text === '') text = 'Not Found'
-
       errorContext.setError(status + (status && text ? ': ' : '') + text)
       console.log(err.response)
     } else if (ErrorEvent.request) {

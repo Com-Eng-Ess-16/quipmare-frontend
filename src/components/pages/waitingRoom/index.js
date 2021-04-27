@@ -301,7 +301,7 @@ function WaitingRoom() {
                         <Avatar className={styles.avatar}></Avatar>
                       </TableCell>
                       <TableCell className={styles.usernameCell}>
-                        {playerContext.player[key]}
+                        {playerContext.player[key].username}
                       </TableCell>
                       <IconButton className={styles.kickButton}>
                         <HighlightOffIcon />

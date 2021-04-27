@@ -18,11 +18,9 @@ export const useListener = () => {
 
   const addPlayerListener = (roomCode) => {
     const playerRef = firebase.database().ref('room/' + roomCode + '/players')
-    console.log(roomCode)
     playerRef.off()
     playerRef.on('value', (snapshot) => {
       const data = snapshot.val()
-      console.log(data)
       playerContext.setPlayer(data)
     })
   }
