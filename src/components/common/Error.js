@@ -19,10 +19,24 @@ function useError() {
   const errorContext = useContext(ErrorContext)
   const setError = (err) => {
     if (err.response) {
-      const res = err.response
-      errorContext.setError(
-        res.status + (res.status && res.statusText ? ': ' : '') + res.statusText
-      )
+      const status = err.response.status
+      let text = err.response.statusText
+      if (status === 404 && text === '') text = 'Not Found'
+
+      errorContext.setError(status + (status && text ? ': ' : '') + text)
+      console.log(err.response)
+    } else if (ErrorEvent.request) {
+      /*
+       * The request was made but no response was received, `error.request`
+       * is an instance of XMLHttpRequest in the browser and an instance
+       * of http.ClientRequest in Node.js
+       */
+      errorContext.setError('Request Error: no response was received')
+      console.log(err.request)
+    } else {
+      // Something happened in setting up the request and triggered an Error
+      errorContext.setError('Error: Cannot set up the request')
+      console.log('Error', err.message)
     }
     errorContext.setOpen(true)
   }
