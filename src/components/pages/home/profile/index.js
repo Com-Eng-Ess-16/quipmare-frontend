@@ -6,11 +6,12 @@ import {
   Typography,
   Avatar,
   CardActions,
+  Box,
 } from '@material-ui/core'
 import { useContext, useState } from 'react'
 import { postJoinRoom } from 'utils/apiService'
 import ColorInput from './ColorInput'
-import { UserContext } from 'context/context'
+import { PlayerContext, UserContext } from 'context/context'
 import { makeStyles } from '@material-ui/core'
 import { useError } from 'components/common/Error'
 
@@ -127,7 +128,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   playerCount: {
-    margin: '20% 0 0 60%',
+    display: 'flex',
+    flexDirection: 'row',
+    margin: '20% 0 0 40%',
     [theme.breakpoints.down('sm')]: {
       margin: '35% 0 0 5vw',
     },
@@ -145,6 +148,13 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.25rem',
     },
   },
+  playerCountAvatar: {
+    backgroundColor: theme.palette.primary.main,
+    width: '80px',
+    height: '80px',
+    fontSize: '3rem',
+    marginRight: '20px',
+  },
 }))
 
 function Profile(props) {
@@ -153,6 +163,7 @@ function Profile(props) {
   const [username, setUsername] = useState('')
   const [color, setColor] = useState('0')
   const userContext = useContext(UserContext)
+  const playerContext = useContext(PlayerContext)
   const [isBlank, setBlank] = useState(false)
   const joinRoom = async () => {
     if (username === '') {
@@ -183,6 +194,7 @@ function Profile(props) {
       setError(err)
     }
   }
+  if (playerContext.player === null) return <></>
   if (props.action === 'spectate') return <></>
   return (
     <div className={styles.page}>
@@ -228,10 +240,19 @@ function Profile(props) {
             </CardActions>
           </Card>
           <div className={styles.playerCount}>
-            <Typography className={styles.playerCountText}>players</Typography>
-            <Typography className={styles.playerCountText}>
-              waiting...
-            </Typography>
+            <Avatar className={styles.playerCountAvatar}>
+              {playerContext.player
+                ? Object.keys(playerContext.player).length
+                : 0}
+            </Avatar>
+            <Box display="flex" flexDirection="column">
+              <Typography className={styles.playerCountText}>
+                players
+              </Typography>
+              <Typography className={styles.playerCountText}>
+                waiting...
+              </Typography>
+            </Box>
           </div>
         </div>
       </div>
