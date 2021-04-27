@@ -1,6 +1,8 @@
 import { makeStyles, Typography } from '@material-ui/core'
 import { getColor } from './../../../../utils/colorUtil'
 import CheckIcon from '@material-ui/icons/Check'
+import { useContext } from 'react'
+import { PlayerContext } from 'context/context'
 
 const useStyles = makeStyles((theme) => ({
   colorButton: {
@@ -51,7 +53,14 @@ const useStyles = makeStyles((theme) => ({
 
 function ColorInput({ color, setColor }) {
   const styles = useStyles()
+  const playerContext = useContext(PlayerContext)
 
+  const isSelected = (colorID) => {
+    for (let player in playerContext.player) {
+      if (playerContext.player[player].color === colorID) return true
+    }
+    return false
+  }
   const ColorButton = ({ colorID, selected }) => {
     const colorCode = getColor(colorID)
     return (
@@ -70,23 +79,23 @@ function ColorInput({ color, setColor }) {
       </div>
     )
   }
-
+  if (isSelected(color)) setColor(-1)
   return (
     <>
       <Typography className={styles.text}>Select your color</Typography>
       <div className={styles.colorContainer}>
-        <ColorButton colorID="0" />
-        <ColorButton colorID="1" />
-        <ColorButton colorID="2" />
+        <ColorButton colorID={0} selected={isSelected(0)} />
+        <ColorButton colorID={1} selected={isSelected(1)} />
+        <ColorButton colorID={2} selected={isSelected(2)} />
       </div>
       <div className={styles.colorContainer}>
-        <ColorButton colorID="3" />
-        <ColorButton colorID="4" />
+        <ColorButton colorID={3} selected={isSelected(3)} />
+        <ColorButton colorID={4} selected={isSelected(4)} />
       </div>
       <div className={styles.colorContainer}>
-        <ColorButton colorID="5" />
-        <ColorButton colorID="6" />
-        <ColorButton colorID="7" />
+        <ColorButton colorID={5} selected={isSelected(5)} />
+        <ColorButton colorID={6} selected={isSelected(6)} />
+        <ColorButton colorID={7} selected={isSelected(7)} />
       </div>
     </>
   )
