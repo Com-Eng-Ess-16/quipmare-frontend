@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: theme.palette.primary.main,
       backgroundColor: theme.palette.primary.contrastText,
-      border: '2px solid black'
+      border: '2px solid '+theme.palette.primary.main
     },
     [theme.breakpoints.down('sm')]: {
       width: '100%',

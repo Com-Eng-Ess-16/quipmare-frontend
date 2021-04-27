@@ -8,9 +8,9 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   page: {
-    margin: '10vh 0 10vh 0',
+    margin: '2vh 0 2vh 0',
     [theme.breakpoints.down('md')]: {
-      margin: '2vh 1vw 1vh 2vw'
+      margin: '1vh 1vw 1vh 1vw'
     }
   },
   cards: {
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid black',
     width: '60%',
     [theme.breakpoints.down('md')]: {
+      marginBottom: '4%',
       width: '100%'
     }
   },
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   usernameField: {
     width: '80%',
-    margin: '0% 0 0% 0',
+    margin: '0% 0 7% 0',
     [theme.breakpoints.down('sm')]: {
       margin: '0% 0 3% 0'
     }
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   rightSide: {
     [theme.breakpoints.up('sm')]: {
       marginLeft: '5%',
-      width: '35%',
+      width: '30%',
       height: '60%'
     },
     [theme.breakpoints.down('sm')]: {
@@ -100,11 +101,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.2rem',
     width: '65%',
     margin: '10% 0 10% 0',
-    border: '1px solid black',
+    border: '2px solid black',
     '&:hover': {
       color: theme.palette.primary.main,
       backgroundColor: theme.palette.primary.contrastText,
-      border: '1px solid black'
+      border: '2px solid '+theme.palette.primary.main
     },
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main,
@@ -118,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   playerCount: {
-    margin: '20% 0 0 15vw',
+    margin: '20% 0 0 60%',
     [theme.breakpoints.down('sm')]: {
       margin: '35% 0 0 5vw',
     }
