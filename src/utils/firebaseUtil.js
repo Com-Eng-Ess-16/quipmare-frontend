@@ -25,8 +25,20 @@ export const useListener = () => {
       else playerContext.setPlayer({})
     })
   }
+  const addRoomStateListener = (roomCode) => {
+    const roomStateRef = firebase
+      .database()
+      .ref('room/' + roomCode + '/roomState')
+    roomStateRef.off()
+    roomStateRef.on('value', (snapshot) => {
+      const data = snapshot.val()
+      if (data !== 'waiting') {
+        //TODO getGameID
+      }
+    })
+  }
 
-  return { addPlayerListener }
+  return { addPlayerListener, addRoomStateListener }
 }
 export const addPlayerListener = async (roomCode, playerContext) => {
   // const playerRef = firebase.database().ref('room/' + roomCode)

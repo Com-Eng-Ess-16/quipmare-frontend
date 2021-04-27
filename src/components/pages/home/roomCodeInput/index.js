@@ -96,6 +96,7 @@ function RoomCodeInput(props) {
         ...userContext.gameData,
         appState: 1,
       })
+      listener.addRoomStateListener(roomCode)
     } catch (err) {
       setError(err)
     }
