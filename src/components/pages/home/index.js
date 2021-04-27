@@ -1,13 +1,12 @@
 import { Button, Typography } from '@material-ui/core'
 import React, { useContext, useState } from 'react'
-import { addPlayerListener } from 'utils/firebaseUtil'
+import { useListener } from 'utils/firebaseUtil'
 import { getCreateRoom } from 'utils/apiService'
 import Profile from './profile'
 import RoomCodeInput from './roomCodeInput'
-import { PlayerContext, UserContext } from 'context/context'
+import { UserContext } from 'context/context'
 import { makeStyles } from '@material-ui/core'
 import { useError } from 'components/common/Error'
-//import zIndex from '@material-ui/core/styles/zIndex'
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -101,13 +100,13 @@ function Home() {
   const userContext = useContext(UserContext)
   const [action, setAction] = useState('')
   const setError = useError()
-  const playerContext = useContext(PlayerContext)
+  const listener = useListener()
   const createRoom = async () => {
     try {
-      const res = await getCreateRoom()
+      const roomCode = await getCreateRoom()
       setAction('create')
-      addPlayerListener(res.roomCode, playerContext)
-      userContext.setRoomCode(res.roomCode)
+      userContext.setRoomCode(roomCode)
+      listener.addPlayerListener(roomCode)
     } catch (err) {
       setError(err)
     }
@@ -153,7 +152,7 @@ function Home() {
     )
   if (userContext.roomCode !== null) return <Profile action={action} />
   if (action === 'join' || action === 'spectate')
-    return <RoomCodeInput action={action} />
+    return <RoomCodeInput action={action} setAction={setAction} />
   return <></>
 }
 export default Home
