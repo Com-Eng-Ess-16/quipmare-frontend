@@ -11,7 +11,7 @@ export const getCreateRoom = async () => {
     console.log(res.data)
     return res.data
   } catch (err) {
-    //handle error
+    throw err
   }
 }
 export const getIsRoomExist = (roomCode) => {

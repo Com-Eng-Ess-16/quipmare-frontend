@@ -4,9 +4,11 @@ import Home from './home'
 import WaitingRoom from './waitingRoom'
 import GameRoom from './gameRoom/index'
 import { Box, Button } from '@material-ui/core'
+import { useError } from 'components/common/Error'
 function Pages() {
   const appState = useContext(UserContext).gameData.appState
   const userContext = useContext(UserContext)
+  const setError = useError()
   if (appState === -1)
     return (
       <Box
@@ -99,6 +101,13 @@ function Pages() {
           }}
         >
           Podium Page
+        </Button>
+        <Button
+          onClick={() => {
+            setError('test')
+          }}
+        >
+          test Error
         </Button>
       </Box>
     )
