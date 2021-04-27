@@ -4,13 +4,14 @@ import { useListener } from 'utils/firebaseUtil'
 import { getCreateRoom, getIsRoomExist, postJoinRoom } from 'utils/apiService'
 import Profile from './profile'
 import RoomCodeInput from './roomCodeInput'
-import { UserContext } from 'context/context'
+import { PlayerContext, UserContext } from 'context/context'
 import { useError } from 'components/common/Error'
 import { useIndexStyles } from './styles'
 
 function Home() {
   const styles = useIndexStyles()
   const userContext = useContext(UserContext)
+  const playerContext = useContext(PlayerContext)
   const [action, setAction] = useState('')
   const setError = useError()
   const listener = useListener()
@@ -47,11 +48,24 @@ function Home() {
     try {
       const res = await postJoinRoom(roomCode, username, color, action)
       if (res.type === 'spectate' && action !== 'spectate') {
-        setError({
-          response: {
-            statusText: 'The room is full! You will become a spectator',
-          },
-        })
+        if (
+          (playerContext.player
+            ? Object.keys(playerContext.player).length
+            : 0) === 8
+        ) {
+          setError({
+            response: {
+              statusText: 'The room is full! You will become a spectator',
+            },
+          })
+        } else {
+          setError({
+            response: {
+              statusText:
+                'The game has already started! You will become a spectator',
+            },
+          })
+        }
       }
       userContext.setUserID(res.spectateId)
       userContext.setUserType(res.type)
