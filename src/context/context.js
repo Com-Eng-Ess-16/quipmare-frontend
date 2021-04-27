@@ -27,7 +27,6 @@ function UserProvider(props) {
 
 const PlayerContext = createContext()
 function PlayerProvider(props) {
-  // const [player, setPlayer] = useState(null)
   const [player, setPlayer] = useState({
     1: 'PKhing',
     2: 'Palmcm',
@@ -44,5 +43,28 @@ function PlayerProvider(props) {
     </PlayerContext.Provider>
   )
 }
-
-export { UserContext, UserProvider, PlayerContext, PlayerProvider }
+const ErrorContext = createContext()
+function ErrorProvider(props) {
+  const [error, setError] = useState(null)
+  const [open, setOpen] = useState(false)
+  return (
+    <ErrorContext.Provider
+      value={{
+        error,
+        setError,
+        open,
+        setOpen,
+      }}
+    >
+      {props.children}
+    </ErrorContext.Provider>
+  )
+}
+export {
+  UserContext,
+  UserProvider,
+  PlayerContext,
+  PlayerProvider,
+  ErrorContext,
+  ErrorProvider,
+}

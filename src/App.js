@@ -4,6 +4,7 @@ import Header from 'components/shell/Header'
 import Pages from 'components/pages'
 import { initFirebase } from 'utils/firebaseUtil'
 import Div100vh from 'react-div-100vh'
+import Error from 'components/common/Error'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -37,6 +38,7 @@ function App() {
           <Pages />
         </div>
       </div>
+      <Error />
     </Div100vh>
   )
 }

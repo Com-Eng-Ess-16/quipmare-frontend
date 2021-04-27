@@ -6,17 +6,18 @@ import Profile from './profile'
 import RoomCodeInput from './roomCodeInput'
 import { PlayerContext, UserContext } from 'context/context'
 import { makeStyles } from '@material-ui/core'
+import { useError } from 'components/common/Error'
 //import zIndex from '@material-ui/core/styles/zIndex'
 
 const useStyles = makeStyles((theme) => ({
   page: {
     margin: '13vh 0 0 0',
     [theme.breakpoints.down('sm')]: {
-      margin: '7vh 3vh 0 3vh'
+      margin: '7vh 3vh 0 3vh',
     },
     [theme.breakpoints.down('xs')]: {
-      margin: '10vh 3vh 0 3vh'
-    }
+      margin: '10vh 3vh 0 3vh',
+    },
   },
   gameTitle: {
     fontSize: '3.5rem',
@@ -25,16 +26,16 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Architects Daughter',
     marginBottom: '15vh',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5rem'
+      fontSize: '2.5rem',
     },
     [theme.breakpoints.down('xs')]: {
-      fontSize: '2rem'
-    }
+      fontSize: '2rem',
+    },
   },
   buttons: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   joinButton: {
     width: '100%',
@@ -45,14 +46,14 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.primary.main,
-      border: '3px solid black'
+      border: '3px solid black',
     },
     [theme.breakpoints.down('md')]: {
-      fontSize: '1.8rem'
+      fontSize: '1.8rem',
     },
     [theme.breakpoints.down('xs')]: {
-      fontSize: '1.6rem'
-    }
+      fontSize: '1.6rem',
+    },
   },
   spectateButton: {
     width: '47.5%',
@@ -64,14 +65,14 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.primary.main,
-      border: '3px solid black'
+      border: '3px solid black',
     },
     [theme.breakpoints.down('md')]: {
-      fontSize: '1.8rem'
+      fontSize: '1.8rem',
     },
     [theme.breakpoints.down('xs')]: {
-      fontSize: '1.6rem'
-    }
+      fontSize: '1.6rem',
+    },
   },
   hostButton: {
     width: '47.5%',
@@ -84,41 +85,69 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.primary.main,
-      border: '3px solid black'
+      border: '3px solid black',
     },
     [theme.breakpoints.down('md')]: {
-      fontSize: '1.8rem'
+      fontSize: '1.8rem',
     },
     [theme.breakpoints.down('xs')]: {
-      fontSize: '1.6rem'
-    }
-  }
+      fontSize: '1.6rem',
+    },
+  },
 }))
 
 function Home() {
   const styles = useStyles()
   const userContext = useContext(UserContext)
   const [action, setAction] = useState('')
+  const setError = useError()
   const playerContext = useContext(PlayerContext)
   const createRoom = async () => {
-    const res = await getCreateRoom()
-    setAction('create')
-    addPlayerListener(res.roomCode, playerContext)
-    userContext.setRoomCode(res.roomCode)
+    try {
+      const res = await getCreateRoom()
+      setAction('create')
+      addPlayerListener(res.roomCode, playerContext)
+      userContext.setRoomCode(res.roomCode)
+    } catch (err) {
+      setError(err)
+    }
   }
 
   if (action === '')
     return (
       <div className={styles.page}>
         <div>
-          <Typography className={styles.gameTitle}>The Greatest Jester</Typography>
+          <Typography className={styles.gameTitle}>
+            The Greatest Jester
+          </Typography>
         </div>
         <div className={styles.buttons}>
-          <Button className={styles.joinButton} color="primary" variant="outlined" onClick={() => setAction('join')}>join</Button>
+          <Button
+            className={styles.joinButton}
+            color="primary"
+            variant="outlined"
+            onClick={() => setAction('join')}
+          >
+            join
+          </Button>
         </div>
         <div className={styles.buttons}>
-          <Button className={styles.spectateButton} color="primary" variant="outlined" onClick={() => setAction('spectate')}>spectate</Button>
-          <Button className={styles.hostButton} color="primary" variant="outlined" onClick={createRoom}>host</Button>
+          <Button
+            className={styles.spectateButton}
+            color="primary"
+            variant="outlined"
+            onClick={() => setAction('spectate')}
+          >
+            spectate
+          </Button>
+          <Button
+            className={styles.hostButton}
+            color="primary"
+            variant="outlined"
+            onClick={createRoom}
+          >
+            host
+          </Button>
         </div>
       </div>
     )
