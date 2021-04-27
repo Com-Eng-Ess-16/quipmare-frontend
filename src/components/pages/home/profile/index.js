@@ -14,6 +14,7 @@ import ColorInput from './ColorInput'
 import { PlayerContext, UserContext } from 'context/context'
 import { makeStyles } from '@material-ui/core'
 import { useError } from 'components/common/Error'
+import { useListener } from 'utils/firebaseUtil'
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -165,6 +166,7 @@ function Profile(props) {
   const userContext = useContext(UserContext)
   const playerContext = useContext(PlayerContext)
   const [isBlank, setBlank] = useState(false)
+  const listener = useListener()
   const joinRoom = async () => {
     if (username === '') {
       setBlank(true)
@@ -190,6 +192,7 @@ function Profile(props) {
         ...userContext.gameData,
         appState: 1,
       })
+      listener.addRoomStateListener(userContext.roomCode)
     } catch (err) {
       setError(err)
     }
