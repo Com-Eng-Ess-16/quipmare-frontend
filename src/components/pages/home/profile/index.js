@@ -1,10 +1,10 @@
 import { Button, TextField, Card, CardContent, Typography, Avatar, CardActions } from '@material-ui/core'
 import { useContext, useState } from 'react'
 import { postJoinRoom } from 'utils/apiService'
-import { addListener } from 'utils/firebaseUtil'
 import ColorInput from './ColorInput'
 import { UserContext } from 'context/context'
 import { makeStyles } from '@material-ui/core'
+import { useError } from 'components/common/Error'
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -139,21 +139,38 @@ const useStyles = makeStyles((theme) => ({
   } 
 }))
 
-function Profile(action) {
+function Profile(props) {
   const styles = useStyles()
+  const setError = useError()
   const [username, setUsername] = useState('')
   const [color, setColor] = useState('0')
   const userContext = useContext(UserContext)
   const joinRoom = async () => {
-    const res = await postJoinRoom(
-      userContext.roomCode,
-      username,
-      color,
-      action
-    )
-    userContext.setUserID(res.userID)
-    addListener(res.userID, userContext.roomCode, userContext)
+    try {
+      const res = await postJoinRoom(
+        userContext.roomCode,
+        username,
+        color,
+        'player'
+      )
+      if (res.type === 'spectate') {
+        setError({
+          response: {
+            statusText: 'The room is full! You will become a spectator',
+          },
+        })
+      }
+      userContext.setUserID(res.playerId ? res.playerId : res.spectateId)
+      userContext.setUserType(res.type)
+      userContext.setGameData({
+        ...userContext.gameData,
+        appState: 1,
+      })
+    } catch (err) {
+      setError(err)
+    }
   }
+  if (props.action === 'spectate') return <></>
   return (
     <div className={styles.page}>
       <div className={styles.cards}>

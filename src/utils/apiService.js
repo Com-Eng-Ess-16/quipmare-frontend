@@ -14,13 +14,26 @@ export const getCreateRoom = async () => {
     throw err
   }
 }
-export const getIsRoomExist = (roomCode) => {
-  return true
+export const getIsRoomExist = async (roomCode) => {
+  try {
+    const res = await apiClient.get('/room/check/' + roomCode)
+    return res.data.exist
+  } catch (err) {
+    throw err
+  }
 }
-export const postJoinRoom = (roomCode, username, color, type) => {
+export const postJoinRoom = async (roomCode, username, color, type) => {
   // type : 'create'|'join'|'spectate'
-  return {
-    userID: '0',
+  try {
+    const body = {
+      username,
+      color,
+      type,
+    }
+    const res = await apiClient.post('/room/join/' + roomCode, body)
+    return res.data
+  } catch (err) {
+    throw err
   }
 }
 
