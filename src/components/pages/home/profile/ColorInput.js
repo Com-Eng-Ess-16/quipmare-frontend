@@ -4,9 +4,9 @@ import CheckIcon from '@material-ui/icons/Check'
 
 const useStyles = makeStyles((theme) => ({
   colorButton: {
-    width: '10vh',
-    height: '10vh',
-    borderRadius: '10vh',
+    width: '75px',
+    height: '75px',
+    borderRadius: '75px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -14,9 +14,16 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid black',
     cursor: 'pointer',
     [theme.breakpoints.down('sm')]: {
-      width: '6vh',
-      height: '6vh',
-      borderRadius: '6vh',
+      width: '50px',
+      height: '50px',
+      borderRadius: '50px',
+      border: '1px solid black',
+      margin: '0% 5% -3% 5%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '40px',
+      height: '40px',
+      borderRadius: '50px',
       border: '1px solid black',
       margin: '0% 5% -3% 5%',
     },
@@ -28,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       margin: '5% 0 0% 0',
       fontSize: '1.25rem',
-    }
+    },
   },
   text: {
     fontFamily: 'Architects Daughter',
