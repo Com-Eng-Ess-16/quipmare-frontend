@@ -37,7 +37,7 @@ function PlayerProvider(props) {
     4: 'LorkLuang',
     5: 'Lunar',
     6: 'Lucia',
-    7: 'Dreams'
+    7: 'Dreams',
   })
   return (
     <PlayerContext.Provider
