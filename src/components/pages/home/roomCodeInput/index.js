@@ -65,8 +65,13 @@ function RoomCodeInput(props) {
   const setError = useError()
   const userContext = useContext(UserContext)
   const [roomCode, setRoomCode] = useState('')
+  const [isBlank, setBlank] = useState(false)
   const listener = useListener()
   const checkRoom = async () => {
+    if (roomCode === '') {
+      setBlank(true)
+      return
+    }
     try {
       const res = await getIsRoomExist(roomCode)
       if (res) {
@@ -103,6 +108,7 @@ function RoomCodeInput(props) {
       <div>
         <TextField
           className={styles.roomCodeInput}
+          error={isBlank}
           label="room code"
           value={roomCode}
           style={{
@@ -110,9 +116,16 @@ function RoomCodeInput(props) {
           }}
           InputProps={{
             className: styles.textFieldFont,
+            style: {
+              marginTop: '30px',
+            },
+          }}
+          InputLabelProps={{
+            className: styles.textFieldFont,
           }}
           onChange={(event) => {
             setRoomCode(event.target.value)
+            if (roomCode !== '') setBlank(false)
           }}
         />
       </div>
