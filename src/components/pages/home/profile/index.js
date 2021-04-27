@@ -153,7 +153,12 @@ function Profile(props) {
   const [username, setUsername] = useState('')
   const [color, setColor] = useState('0')
   const userContext = useContext(UserContext)
+  const [isBlank, setBlank] = useState(false)
   const joinRoom = async () => {
+    if (username === '') {
+      setBlank(true)
+      return
+    }
     try {
       const res = await postJoinRoom(
         userContext.roomCode,
@@ -186,6 +191,7 @@ function Profile(props) {
           <CardContent className={styles.inputCardContent}>
             <Typography className={styles.text}>Username</Typography>
             <TextField
+              error={isBlank}
               className={styles.usernameField}
               value={username}
               InputProps={{
@@ -193,6 +199,7 @@ function Profile(props) {
               }}
               onChange={(event) => {
                 setUsername(event.target.value)
+                if (username !== '') setBlank(false)
               }}
             />
             <ColorInput
