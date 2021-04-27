@@ -27,8 +27,8 @@ export const postJoinRoom = async (roomCode, username, color, type) => {
   try {
     const body = {
       username,
-      color,
-      type,
+      color: color === -1 ? Math.floor(Math.random() * 8) : color,
+      type: type === 'spectate' ? 'spectator' : 'player',
     }
     const res = await apiClient.post('/room/join/' + roomCode, body)
     return res.data
