@@ -1,8 +1,8 @@
 import { Button, TextField, Typography } from '@material-ui/core'
 import { useContext, useState } from 'react'
 import { getIsRoomExist } from 'utils/apiService'
-import { addPlayerListener } from 'utils/firebaseUtil'
-import { PlayerContext, UserContext } from 'context/context'
+import { useListener } from 'utils/firebaseUtil'
+import { UserContext } from 'context/context'
 import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -60,14 +60,14 @@ const useStyles = makeStyles((theme) => ({
 
 function RoomCodeInput(action) {
   const styles = useStyles()
-  const playerContext = useContext(PlayerContext)
   const userContext = useContext(UserContext)
   const [roomCode, setRoomCode] = useState('')
+  const listener = useListener()
   const joinRoom = async () => {
     const res = await getIsRoomExist(roomCode)
     if (res) {
-      addPlayerListener(roomCode, playerContext)
       userContext.setRoomCode(roomCode)
+      listener.addPlayerListener(roomCode)
     }
   }
   return (

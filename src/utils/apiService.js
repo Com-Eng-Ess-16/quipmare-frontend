@@ -9,7 +9,7 @@ export const getCreateRoom = async () => {
   try {
     const res = await apiClient.get('/room/create')
     console.log(res.data)
-    return res.data
+    return res.data.roomcode
   } catch (err) {
     throw err
   }
