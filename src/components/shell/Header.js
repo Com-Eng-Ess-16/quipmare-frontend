@@ -1,4 +1,4 @@
-import { makeStyles, Typography } from '@material-ui/core'
+import { Hidden, makeStyles, Typography } from '@material-ui/core'
 import { useContext } from 'react'
 import { UserContext } from 'context/context'
 import { useColor } from 'utils/colorUtil'
@@ -29,6 +29,7 @@ function Header() {
   const getColor = useColor()
   const username = 'PKHING'
   const score = '1234'
+  const roomCode = 'ASFDLD'
 
   const styles = useStyles(getColor())
   const userContext = useContext(UserContext)
@@ -55,9 +56,20 @@ function Header() {
   }
 
   // TODO check if this player is spectator
+  if (userContext.userType === 'spectate') {
+    return (
+      <header className={styles.container}>
+        <Typography className={styles.text}>{'<' + roomCode + '>'}</Typography>
+      </header>
+    )
+  }
+
   return (
     <header className={styles.container}>
       <Typography className={styles.text}>{username}</Typography>
+      <Hidden smDown>
+        <Typography className={styles.text}>{'<' + roomCode + '>'}</Typography>
+      </Hidden>
       <Typography
         className={styles.text}
         style={{ fontFamily: 'Architects Daughter' }}

@@ -35,8 +35,7 @@ function Home() {
         listener.addPlayerListener(roomCode)
         if (action === 'spectate') joinRoom(roomCode, '', 1)
       } else {
-        // eslint-disable-next-line no-throw-literal
-        throw { response: { statusText: 'Invalid Room' } }
+        setError({ response: { statusText: 'Invalid Room' } })
       }
     } catch (err) {
       setError(err)
