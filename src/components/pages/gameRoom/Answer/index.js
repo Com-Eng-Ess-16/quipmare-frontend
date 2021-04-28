@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check'
 import Countdown from 'components/common/Countdown'
-import { getColor } from 'utils/colorUtil'
+import { useColor } from 'utils/colorUtil'
 const useStyles = makeStyles((theme) => ({
   question: {
     marginTop: '20px',
@@ -79,8 +79,9 @@ function Answer() {
   const question = 'When will I get 5 stars character?'
   const [answer, setAnswer] = useState('')
   const isWaiting = false
+  const getColor = useColor()
 
-  const styles = useStyles({ color: getColor('0') })
+  const styles = useStyles({ color: getColor() })
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
 

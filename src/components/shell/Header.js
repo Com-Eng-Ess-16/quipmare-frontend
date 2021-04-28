@@ -1,7 +1,7 @@
 import { makeStyles, Typography } from '@material-ui/core'
-import { getColor } from './../../utils/colorUtil'
 import { useContext } from 'react'
 import { UserContext } from 'context/context'
+import { useColor } from 'utils/colorUtil'
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 function Header() {
   // TODO get value
+  const getColor = useColor()
   const username = 'PKHING'
   const score = '1234'
-  const color = '0'
 
-  const styles = useStyles(getColor(color))
+  const styles = useStyles(getColor())
   const userContext = useContext(UserContext)
 
   // Home page, Waiting room, Podium page

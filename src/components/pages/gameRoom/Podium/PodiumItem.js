@@ -1,5 +1,5 @@
 import { makeStyles, Typography } from '@material-ui/core'
-import { getColor } from 'utils/colorUtil'
+import { useColor } from 'utils/colorUtil'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,11 +18,10 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Architects Daughter',
   },
 }))
-function PodiumItem(props) {
-  const { size, fontSize, score, style } = props
+function PodiumItem({ size, fontSize, score, style }) {
+  const getColor = useColor()
   const username = 'test'
-  const color = '0'
-  const styles = useStyles({ size, color: getColor(color), fontSize })
+  const styles = useStyles({ size, color: getColor(), fontSize })
   return (
     <div className={styles.container} style={style}>
       <Typography variant="h3" className={styles.username}>

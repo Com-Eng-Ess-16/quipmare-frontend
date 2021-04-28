@@ -4,7 +4,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core'
-import { getColor } from 'utils/colorUtil'
+import { useColor } from 'utils/colorUtil'
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: '0px 10px 0px 10px',
@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
 function AnswerResult(props) {
   const name = 'PKhing'
   const answer = 'Never'
-
+  const colorID = -1
+  const getColor = useColor()
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
   const vote = [0, 1, 2, 3, 4, 5, 6, 7]
@@ -88,7 +89,7 @@ function AnswerResult(props) {
           return (
             <div
               className={styles.color}
-              style={{ backgroundColor: getColor(0).dark }}
+              style={{ backgroundColor: getColor(colorID).dark }}
             ></div>
           )
         })}
