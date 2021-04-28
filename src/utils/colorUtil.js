@@ -47,7 +47,7 @@ export const useColor = () => {
   const userContext = useContext(UserContext)
   const playerContext = useContext(PlayerContext)
   const getColor = (id) => {
-    if (!id) {
+    if (id === null) {
       if (userContext.userType === 'spectate') {
         id = -1
       }

@@ -67,7 +67,9 @@ function Home() {
           })
         }
       }
-      userContext.setUserID(res.spectateId)
+      userContext.setUserID(
+        res.playerId !== null ? res.playerId : res.spectateId
+      )
       userContext.setUserType(res.type)
       userContext.setGameData({
         ...userContext.gameData,
