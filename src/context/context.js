@@ -31,13 +31,14 @@ function UserProvider(props) {
 const PlayerContext = createContext()
 function PlayerProvider(props) {
   const [player, setPlayer] = useState({
-    1: 'PKhing',
-    2: 'Palmcm',
-    3: 'luangjay',
-    4: 'LorkLuang',
-    5: 'Lunar',
-    6: 'Lucia',
-    7: 'Dreams',
+    0: {
+      username: 'user0',
+      color: 0,
+    },
+    1: {
+      username: 'user1',
+      color: 1,
+    },
   })
   return (
     <PlayerContext.Provider
