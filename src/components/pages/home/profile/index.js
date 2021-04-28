@@ -13,6 +13,7 @@ import ColorInput from './ColorInput'
 import { PlayerContext } from 'context/context'
 import { useProfileStyles } from '../styles'
 import { useColor } from 'utils/colorUtil'
+import Loading from 'components/common/Loading'
 
 function Profile({ action, joinRoom }) {
   const styles = useProfileStyles()
@@ -22,8 +23,8 @@ function Profile({ action, joinRoom }) {
   const [isBlank, setBlank] = useState(false)
   const getColor = useColor()
 
-  if (playerContext.player === null) return <></>
-  if (action === 'spectate') return <></>
+  if (playerContext.player === null) return <Loading />
+  if (action === 'spectate') return <Loading />
   return (
     <div className={styles.page}>
       <div className={styles.cards}>

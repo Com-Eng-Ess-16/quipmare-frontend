@@ -5,6 +5,7 @@ import { Avatar } from '@material-ui/core'
 import { useStyles } from './styles'
 import HostView from './HostView'
 import { useColor } from 'utils/colorUtil'
+import Loading from 'components/common/Loading'
 
 const { Typography, Button } = require('@material-ui/core')
 
@@ -14,7 +15,8 @@ function WaitingRoom() {
   const playerContext = useContext(PlayerContext)
   const player = playerContext.player
   const getColor = useColor()
-  if (playerContext.player === null || userContext.userID === null) return <></>
+  if (playerContext.player === null || userContext.userID === null)
+    return <Loading />
   return (
     <div className={styles.page}>
       {userContext.userID === 0 && <HostView />}

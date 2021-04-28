@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   body: {
+    height: '100%',
     maxWidth: '1000px',
     width: '90%',
     margin: 'auto',
