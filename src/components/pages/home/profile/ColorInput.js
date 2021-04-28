@@ -68,7 +68,7 @@ function ColorInput({ color, setColor }) {
       <div
         className={styles.colorButton}
         style={{
-          backgroundColor: selected ? 'grey' : colorCode.dark,
+          backgroundColor: selected ? 'grey' : colorCode.light,
         }}
         onClick={() => {
           if (!selected) {
