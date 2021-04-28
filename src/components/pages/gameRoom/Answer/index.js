@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   button: {
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    },
     [theme.breakpoints.up('md')]: {
       width: '20%',
       marginLeft: '20px',
