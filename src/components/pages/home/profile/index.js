@@ -12,6 +12,7 @@ import { useContext, useState } from 'react'
 import ColorInput from './ColorInput'
 import { PlayerContext } from 'context/context'
 import { useProfileStyles } from '../styles'
+import { useColor } from 'utils/colorUtil'
 
 function Profile({ action, joinRoom }) {
   const styles = useProfileStyles()
@@ -19,6 +20,7 @@ function Profile({ action, joinRoom }) {
   const [color, setColor] = useState(-1)
   const playerContext = useContext(PlayerContext)
   const [isBlank, setBlank] = useState(false)
+  const getColor = useColor()
 
   if (playerContext.player === null) return <></>
   if (action === 'spectate') return <></>
@@ -53,7 +55,12 @@ function Profile({ action, joinRoom }) {
               <Typography className={styles.text}>Profile</Typography>
             </CardContent>
             <CardContent className={styles.avatarContainer}>
-              <Avatar className={styles.profileAvatar}>{username}</Avatar>
+              <Avatar
+                style={{ backgroundColor: getColor(color).light }}
+                className={styles.profileAvatar}
+              >
+                {username}
+              </Avatar>
             </CardContent>
             <CardActions className={styles.profileCardActions}>
               <Button
