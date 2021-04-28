@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { PlayerContext, UserContext } from 'context/context'
-import { getStartGame } from 'utils/apiService'
+//import { getStartGame } from 'utils/apiService'
 import {
   Table,
   TableBody,
@@ -19,6 +19,7 @@ const { Typography, Button } = require('@material-ui/core')
 const useStyles = makeStyles((theme) => ({
   page: {
     margin: '2vh 0 2vh 0',
+    /* HOST VIEW */
   },
   table: {
     overflowY: 'auto',
@@ -154,7 +155,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '10%',
     width: '45%',
     [theme.breakpoints.down('sm')]: {
-      border: '1px solid black',
       margin: '5% 0 0 0',
       width: '100%',
     },
@@ -261,6 +261,150 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1rem',
     },
   },
+  /* NON HOST VIEW */
+  firstSection: {
+    display: 'flex',
+    margin: '8vh 0 0 5%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+      margin: '6vh 0 0 0',
+    },
+    [theme.breakpoints.down('xs')]: {
+      marginTop: '10vh',
+    },
+  },
+  joinText: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '2.1rem',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.4rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.1rem',
+    },
+  },
+  roomText: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '2.6rem',
+    marginTop: '-1.5vh',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.9rem',
+      margin: '0 0 0 45%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.6rem',
+    },
+  },
+  secondSection: {
+    margin: '5vh 0 0 0',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontFamily: 'Architects Daughter',
+    fontSize: '5rem',
+    width: '100%',
+    height: '25vh',
+    textShadow: '3px 3px #00000020',
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.light,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3rem',
+      height: '12.5vh',
+      marginTop: '3vh',
+    },
+  },
+  thirdSection: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '5vh 5% 0 5%',
+  },
+  countNonHost: {},
+  waitTextNonHost: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '1.6rem',
+    width: '30vw',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.1rem',
+      width: '100%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1rem',
+    },
+  },
+  playerCountTextNonHost: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '2.1rem',
+    width: '30vw',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.5rem',
+      width: '100%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.3rem',
+    },
+  },
+  avatarList: {
+    margin: '4vh 5% 0 5%',
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {},
+  },
+  avatarNonHost: {
+    width: '6vw',
+    height: '6vw',
+    margin: '0 2% 0 0',
+    border: '1px solid black',
+    color: 'black',
+    backgroundColor: 'white',
+    [theme.breakpoints.down('sm')]: {
+      width: '30px',
+      height: '30px',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '25px',
+      height: '25px',
+    },
+  },
+  leaveButtonUpMd: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '2.1rem',
+    width: '30%',
+    marginLeft: '10vw',
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
+    border: '3px solid black',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.contrastText,
+      border: '3px solid ' + theme.palette.primary.main,
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  smBottomSection: {
+    marginTop: '5vh',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  leaveButtonDownSm: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '1.6rem',
+    width: '50%',
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
+    border: '2px solid black',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.contrastText,
+      border: '2px solid ' + theme.palette.primary.main,
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.3rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
 }))
 
 function WaitingRoom() {
@@ -270,78 +414,116 @@ function WaitingRoom() {
   if (playerContext.player === null) return <></>
   return (
     <div className={styles.page}>
-      <Typography>{userContext.roomCode}</Typography>
-      <Typography className={styles.createRoomText}>CREATING A ROOM</Typography>
-      <Typography className={styles.hostText}>you are the host :)</Typography>
-      <div className={styles.body}>
-        <div className={styles.leftSide}>
-          <Typography className={styles.playerText}>players</Typography>
-          <TableContainer className={styles.tableContainer}>
-            <Table
-              className={styles.table}
-              stickyHeader
-              aria-label="simple table"
-            >
-              <TableHead>
-                <TableRow className={styles.tableHeadRow}>
-                  <TableCell className={styles.headAvatarCell}>
-                    <Avatar className={styles.headAvatar}></Avatar>
-                  </TableCell>
-                  <TableCell className={styles.headUsernameCell}>
-                    Host
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {Object.keys(playerContext.player).map((key) => {
-                  return (
-                    <TableRow className={styles.tableRow}>
-                      <TableCell className={styles.avatarCell}>
-                        <Avatar className={styles.avatar}></Avatar>
+      {userContext.userID === 0 && (
+        <>
+          <Typography>{userContext.roomCode}</Typography>
+          <Typography className={styles.createRoomText}>
+            CREATING A ROOM
+          </Typography>
+          <Typography className={styles.hostText}>
+            you are the host :)
+          </Typography>
+          <div className={styles.body}>
+            <div className={styles.leftSide}>
+              <Typography className={styles.playerText}>players</Typography>
+              <TableContainer className={styles.tableContainer}>
+                <Table
+                  className={styles.table}
+                  stickyHeader
+                  aria-label="simple table"
+                >
+                  <TableHead>
+                    <TableRow className={styles.tableHeadRow}>
+                      <TableCell className={styles.headAvatarCell}>
+                        <Avatar className={styles.headAvatar}></Avatar>
                       </TableCell>
-                      <TableCell className={styles.usernameCell}>
-                        {playerContext.player[key].username}
+                      <TableCell className={styles.headUsernameCell}>
+                        Host
                       </TableCell>
-                      <IconButton className={styles.kickButton}>
-                        <HighlightOffIcon />
-                      </IconButton>
                     </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-        <div className={styles.rightSide}>
-          <div className={styles.room}>
-            <Typography className={styles.roomCodeText}>
-              room code{'>'}
-            </Typography>
-            <Typography className={styles.roomCode}>XXXXXX</Typography>
+                  </TableHead>
+
+                  <TableBody>
+                    {Object.keys(playerContext.player).map((key) => {
+                      return (
+                        <TableRow className={styles.tableRow}>
+                          <TableCell className={styles.avatarCell}>
+                            <Avatar className={styles.avatar}></Avatar>
+                          </TableCell>
+                          <TableCell className={styles.usernameCell}>
+                            {playerContext.player[key].username}
+                          </TableCell>
+                          <IconButton className={styles.kickButton}>
+                            <HighlightOffIcon />
+                          </IconButton>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+            <div className={styles.rightSide}>
+              <div className={styles.room}>
+                <Typography className={styles.roomCodeText}>
+                  room code{'>'}
+                </Typography>
+                <Typography className={styles.roomCode}>XXXXXX</Typography>
+              </div>
+              <div className={styles.buttons}>
+                <Button className={styles.startButton} variant="contained">
+                  START
+                </Button>
+                <Button className={styles.leaveButton} variant="contained">
+                  LEAVE
+                </Button>
+              </div>
+              <div className={styles.count}>
+                <Typography className={styles.waitText}>
+                  &nbsp;Waiting for players...&nbsp;
+                </Typography>
+                <Typography className={styles.playerCountText}>
+                  &nbsp;_ players joined&nbsp;
+                </Typography>
+              </div>
+            </div>
           </div>
-          <div className={styles.buttons}>
-            <Button className={styles.startButton} variant="contained">
-              START
-            </Button>
-            <Button className={styles.leaveButton} variant="contained">
+        </>
+      )}
+      {userContext.userID !== 0 && (
+        <>
+          <div className={styles.firstSection}>
+            <Typography className={styles.joinText}>
+              you have joined&nbsp;&nbsp;
+            </Typography>
+            <Typography className={styles.roomText}>room code</Typography>
+          </div>
+          <Typography className={styles.secondSection}>XXXXXX</Typography>
+
+          <div className={styles.thirdSection}>
+            <div className={styles.countNonHost}>
+              <Typography className={styles.waitTextNonHost}>
+                Waiting for players...
+              </Typography>
+              <Typography className={styles.playerCountTextNonHost}>
+                _ players joined
+              </Typography>
+            </div>
+            <Button className={styles.leaveButtonUpMd} variant="contained">
               LEAVE
             </Button>
           </div>
-          <div className={styles.count}>
-            <Typography className={styles.waitText}>
-              Waiting for players...
-            </Typography>
-            <Typography className={styles.playerCountText}>
-              _ players joined
-            </Typography>
+          <div className={styles.avatarList}>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((a) => (
+              <Avatar className={styles.avatarNonHost}>{a}</Avatar>
+            ))}
           </div>
-        </div>
-      </div>
-      {userContext.userID === 0 && (
-        <Button variant="contained" color="primary" onClick={getStartGame}>
-          start
-        </Button>
+          <div className={styles.smBottomSection}>
+            <Button className={styles.leaveButtonDownSm} variant="contained">
+              LEAVE
+            </Button>
+          </div>
+        </>
       )}
     </div>
   )
