@@ -52,7 +52,11 @@ export const useColor = () => {
         id = -1
       }
       const userID = userContext.userID
-      id = playerContext.player[userID].color
+      if (userID && playerContext.player[userID]) {
+        id = playerContext.player[userID].color
+      } else {
+        id = -1
+      }
     }
 
     if (0 <= id && id <= 7) {
