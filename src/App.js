@@ -8,6 +8,7 @@ import Error from 'components/common/Error'
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    overflowX: 'hidden',
     height: '100%',
     width: '100vw',
     display: 'flex',
