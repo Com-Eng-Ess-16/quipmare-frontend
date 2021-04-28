@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     overflowWrap: 'break-word',
     wordBreak: 'break-word',
     hyphens: 'auto',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    },
     [theme.breakpoints.down('sm')]: {
       minHeight: '70px',
       fontSize: '2rem',

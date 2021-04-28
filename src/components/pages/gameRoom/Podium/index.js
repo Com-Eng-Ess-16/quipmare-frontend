@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'stretch',
     },
   },
+  brownButton: {
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
   button: {
     fontSize: '2rem',
     fontFamily: 'Architects Daughter',
@@ -69,7 +74,11 @@ function Podium() {
         <Button variant="outlined" color="primary" className={styles.button}>
           LEAVE
         </Button>
-        <Button variant="contained" color="primary" className={styles.button}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={styles.button + ' ' + styles.brownButton}
+        >
           play again
         </Button>
       </div>
