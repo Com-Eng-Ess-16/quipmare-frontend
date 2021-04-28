@@ -3,7 +3,7 @@ import Countdown from 'components/common/Countdown'
 import { UserContext } from 'context/context'
 import { useContext, useEffect, useState } from 'react'
 import { getStanding } from 'utils/apiService'
-import { getColor } from 'utils/colorUtil'
+import { useColor } from 'utils/colorUtil'
 import StandingItem from './StandingItem'
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
 function Standing() {
   const userContext = useContext(UserContext)
   const [score, setScore] = useState(null)
-  const styles = useStyles({ color: getColor(0) })
+  const getColor = useColor()
+  const styles = useStyles({ color: getColor() })
   useEffect(() => {
     async function getData() {
       const res = await getStanding(userContext.roomCode)

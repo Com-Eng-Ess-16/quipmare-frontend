@@ -3,7 +3,7 @@ import Countdown from 'components/common/Countdown'
 import { UserContext } from 'context/context'
 import { useContext, useEffect, useState } from 'react'
 import { getAnswer } from 'utils/apiService'
-import { getColor } from 'utils/colorUtil'
+import { useColor } from 'utils/colorUtil'
 import AnswerResult from './AnswerResult'
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
 function VoteResult() {
   const [data, setData] = useState(null)
   const userContext = useContext(UserContext)
-  const styles = useStyles({ color: getColor('0') })
+  const getColor = useColor()
+  const styles = useStyles({ color: getColor() })
 
   useEffect(() => {
     async function getData() {
@@ -70,6 +71,7 @@ function VoteResult() {
       <Box flexGrow={1}>
         <div className={styles.background} />
         <Typography className={styles.question}>{data.question}</Typography>
+        {/*TODO change color later */}
         <AnswerResult id={0} style={{ backgroundColor: getColor(0).dark }} />
         <AnswerResult id={1} style={{ width: '80%' }} />
       </Box>

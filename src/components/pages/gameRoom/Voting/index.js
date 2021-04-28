@@ -3,7 +3,7 @@ import Countdown from 'components/common/Countdown'
 import { UserContext } from 'context/context'
 import { useContext, useEffect, useState } from 'react'
 import { getAnswer } from 'utils/apiService'
-import { getColor } from 'utils/colorUtil'
+import { useColor } from 'utils/colorUtil'
 
 const useStyles = makeStyles((theme) => ({
   question: {
@@ -56,7 +56,8 @@ function Voting() {
   // TODO
   const [data, setData] = useState(null)
   const userContext = useContext(UserContext)
-  const styles = useStyles({ color: getColor('0') })
+  const getColor = useColor()
+  const styles = useStyles({ color: getColor() })
   const isWaiting = false
   // eslint-disable-next-line no-unused-vars
   const [votedAnswer, SetVotedAnswer] = useState('Never')

@@ -1,8 +1,8 @@
 import { makeStyles, Typography } from '@material-ui/core'
-import { getColor } from './../../../../utils/colorUtil'
 import CheckIcon from '@material-ui/icons/Check'
 import { useContext } from 'react'
 import { PlayerContext } from 'context/context'
+import { useColor } from 'utils/colorUtil'
 
 const useStyles = makeStyles((theme) => ({
   colorButton: {
@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 function ColorInput({ color, setColor }) {
   const styles = useStyles()
   const playerContext = useContext(PlayerContext)
+  const getColor = useColor()
 
   const isSelected = (colorID) => {
     for (let player in playerContext.player) {

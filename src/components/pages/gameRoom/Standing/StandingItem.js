@@ -1,5 +1,5 @@
 import { makeStyles, Typography } from '@material-ui/core'
-import { getColor } from 'utils/colorUtil'
+import { useColor } from 'utils/colorUtil'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 function StandingItem(props) {
   const { win } = props
-  const styles = useStyles({ color: getColor(0), win })
+  const getColor = useColor()
+  const styles = useStyles({ color: getColor(), win })
   const username = 'PKhing'
   const score = 400
   return (

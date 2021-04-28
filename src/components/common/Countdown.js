@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { default as ReactCountdown } from 'react-countdown'
 import { postCountdownEnd } from 'utils/apiService'
 import { UserContext } from 'context/context'
-import { getColor } from 'utils/colorUtil'
+import { useColor } from 'utils/colorUtil'
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: '15px',
@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 export default function Countdown(props) {
+  const getColor = useColor()
   const userContext = useContext(UserContext)
-  const color = '0'
-  const styles = useStyles(getColor(color))
+  const styles = useStyles(getColor())
   return (
     <ReactCountdown
       date={userContext.gameData.countdownEnd}
