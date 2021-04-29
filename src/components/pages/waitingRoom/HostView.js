@@ -71,7 +71,10 @@ function HostView() {
                       <TableCell className={styles.usernameCell}>
                         {player[id].username}
                       </TableCell>
-                      <IconButton className={styles.kickButton}>
+                      <IconButton
+                        onClick={() => appController.kickPlayer(id)}
+                        className={styles.kickButton}
+                      >
                         <HighlightOffIcon />
                       </IconButton>
                     </TableRow>
@@ -98,7 +101,11 @@ function HostView() {
             >
               START
             </Button>
-            <Button className={styles.leaveButton} variant="contained">
+            <Button
+              className={styles.leaveButton}
+              onClick={() => appController.kickPlayer()}
+              variant="contained"
+            >
               LEAVE
             </Button>
           </div>
