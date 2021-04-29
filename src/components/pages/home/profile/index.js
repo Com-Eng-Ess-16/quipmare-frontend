@@ -8,22 +8,20 @@ import {
   CardActions,
   Box,
 } from '@material-ui/core'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import ColorInput from './ColorInput'
-import { PlayerContext } from 'context/context'
 import { useProfileStyles } from '../styles'
-import { useColor } from 'utils/colorUtil'
 import Loading from 'components/common/Loading'
+import { useAppController } from 'utils/appController'
 
-function Profile({ action, joinRoom }) {
+function Profile({ action }) {
   const styles = useProfileStyles()
   const [username, setUsername] = useState('')
   const [color, setColor] = useState(-1)
-  const playerContext = useContext(PlayerContext)
   const [isBlank, setBlank] = useState(false)
-  const getColor = useColor()
+  const appController = useAppController()
 
-  if (playerContext.player === null) return <Loading />
+  if (appController.player === null) return <Loading />
   if (action === 'spectate') return <Loading />
   return (
     <div className={styles.page}>
@@ -57,7 +55,7 @@ function Profile({ action, joinRoom }) {
             </CardContent>
             <CardContent className={styles.avatarContainer}>
               <Avatar
-                style={{ backgroundColor: getColor(color).light }}
+                style={{ backgroundColor: appController.getColor(color).light }}
                 className={styles.profileAvatar}
               >
                 {username}
@@ -71,7 +69,7 @@ function Profile({ action, joinRoom }) {
                     setBlank(true)
                     return
                   }
-                  joinRoom(null, username, color)
+                  appController.joinRoom(null, username, color, action)
                 }}
                 variant="contained"
               >
@@ -81,8 +79,8 @@ function Profile({ action, joinRoom }) {
           </Card>
           <div className={styles.playerCount}>
             <Avatar className={styles.playerCountAvatar}>
-              {playerContext.player
-                ? Object.keys(playerContext.player).length
+              {appController.player
+                ? Object.keys(appController.player).length
                 : 0}
             </Avatar>
             <Box display="flex" flexDirection="column">

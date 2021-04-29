@@ -1,6 +1,3 @@
-import { useContext } from 'react'
-import { PlayerContext, UserContext } from 'context/context'
-//import { getStartGame } from 'utils/apiService'
 import {
   Table,
   TableBody,
@@ -15,24 +12,13 @@ import {
 import IconButton from '@material-ui/core/IconButton'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import { useStyles } from './styles'
-import { useColor } from 'utils/colorUtil'
-import { postStartGame } from 'utils/apiService'
-import { useError } from 'components/common/Error'
+import { useAppController } from 'utils/appController'
 function HostView() {
-  const setError = useError()
-
+  const appController = useAppController()
   const styles = useStyles()
-  const playerContext = useContext(PlayerContext)
-  const userContext = useContext(UserContext)
-  const player = playerContext.player
-  const getColor = useColor()
-  const startGame = async () => {
-    try {
-      await postStartGame(userContext.roomCode)
-    } catch (err) {
-      setError(err)
-    }
-  }
+
+  const player = appController.player
+
   return (
     <>
       <Typography className={styles.createRoomText}>CREATING A ROOM</Typography>
@@ -52,14 +38,15 @@ function HostView() {
                     <Avatar
                       className={styles.headAvatar}
                       style={{
-                        backgroundColor: getColor(player[0].color).light,
+                        backgroundColor: appController.getColor(player[0].color)
+                          .light,
                       }}
                     >
                       {' '}
                     </Avatar>
                   </TableCell>
                   <TableCell className={styles.headUsernameCell}>
-                    {playerContext.player[0].username}
+                    {player[0].username}
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -73,14 +60,16 @@ function HostView() {
                         <Avatar
                           className={styles.avatar}
                           style={{
-                            backgroundColor: getColor(player[id].color).light,
+                            backgroundColor: appController.getColor(
+                              player[id].color
+                            ).light,
                           }}
                         >
                           {' '}
                         </Avatar>
                       </TableCell>
                       <TableCell className={styles.usernameCell}>
-                        {playerContext.player[id].username}
+                        {player[id].username}
                       </TableCell>
                       <IconButton className={styles.kickButton}>
                         <HighlightOffIcon />
@@ -98,12 +87,12 @@ function HostView() {
               room code{'>'}
             </Typography>
             <Typography className={styles.roomCode}>
-              {userContext.roomCode}
+              {appController.roomCode}
             </Typography>
           </div>
           <div className={styles.buttons}>
             <Button
-              onClick={startGame}
+              onClick={() => appController.startGame()}
               className={styles.startButton}
               variant="contained"
             >
@@ -119,7 +108,7 @@ function HostView() {
             </Typography>
             <Typography className={styles.playerCountText}>
               &nbsp;
-              {Object.keys(playerContext.player).length + ' players joined'}
+              {Object.keys(appController.player).length + ' players joined'}
               &nbsp;
             </Typography>
           </div>
