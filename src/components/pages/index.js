@@ -7,10 +7,9 @@ import { Box, Button } from '@material-ui/core'
 import { useError } from 'components/common/Error'
 import { Link } from 'react-router-dom'
 function Pages() {
-  const appState = useContext(UserContext).gameData.appState
   const userContext = useContext(UserContext)
   const setError = useError()
-  if (appState === -1)
+  if (userContext.roomState === -1)
     return (
       <Box
         display="flex"
@@ -23,7 +22,7 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setGameData({ ...userContext.gameData, appState: 0 })
+            userContext.setRoomState(null)
           }}
         >
           Home page
@@ -32,7 +31,7 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setGameData({ ...userContext.gameData, appState: 1 })
+            userContext.setRoomState('waiting')
           }}
         >
           Waiting Room
@@ -42,11 +41,8 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setGameData({
-              ...userContext.gameData,
-              appState: 2,
-              gameState: 0,
-            })
+            userContext.setRoomState('playing')
+            userContext.setGameState(0)
           }}
         >
           Answer Page
@@ -55,11 +51,8 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setGameData({
-              ...userContext.gameData,
-              appState: 2,
-              gameState: 1,
-            })
+            userContext.setRoomState('playing')
+            userContext.setGameState(1)
           }}
         >
           Voting Page
@@ -68,11 +61,8 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setGameData({
-              ...userContext.gameData,
-              appState: 2,
-              gameState: 2,
-            })
+            userContext.setRoomState('playing')
+            userContext.setGameState(2)
           }}
         >
           Vote Result Page
@@ -81,11 +71,8 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setGameData({
-              ...userContext.gameData,
-              appState: 2,
-              gameState: 3,
-            })
+            userContext.setRoomState('playing')
+            userContext.setGameState(3)
           }}
         >
           Standing Page
@@ -94,11 +81,8 @@ function Pages() {
           color="primary"
           variant="contained"
           onClick={() => {
-            userContext.setGameData({
-              ...userContext.gameData,
-              appState: 2,
-              gameState: 4,
-            })
+            userContext.setRoomState('playing')
+            userContext.setGameState(4)
           }}
         >
           Podium Page
@@ -117,8 +101,8 @@ function Pages() {
         </Button>
       </Box>
     )
-  if (appState === 1) return <WaitingRoom />
-  if (appState === 2) return <GameRoom />
+  if (userContext.roomState === 'waiting') return <WaitingRoom />
+  if (userContext.roomState === 'playing') return <GameRoom />
   return <Home />
 }
 export default Pages
