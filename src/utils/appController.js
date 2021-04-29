@@ -67,10 +67,14 @@ export function useAppController() {
           })
         }
       }
-      if (res.playerId) {
+      if (res.playerId !== null && res.playerId !== undefined) {
         listener.addPlayerListener(roomCode, res.playerId)
       }
-      userContext.setUserID(res.playerId ? res.playerId : res.spectateId)
+      userContext.setUserID(
+        res.playerId !== null && res.playerId !== undefined
+          ? res.playerId
+          : res.spectateId
+      )
       userContext.setUserType(res.type)
       listener.addRoomStateListener(roomCode)
     } catch (err) {
