@@ -35,7 +35,7 @@ function Home() {
         listener.addPlayerListener(roomCode)
         if (action === 'spectate') joinRoom(roomCode, '', 1)
       } else {
-        setError({ response: { statusText: 'Invalid Room' } })
+        setError({ response: { data: 'Invalid Room' } })
       }
     } catch (err) {
       setError(err)
@@ -54,14 +54,13 @@ function Home() {
         ) {
           setError({
             response: {
-              statusText: 'The room is full! You will become a spectator',
+              data: 'The room is full! You will become a spectator',
             },
           })
         } else {
           setError({
             response: {
-              statusText:
-                'The game has already started! You will become a spectator',
+              data: 'The game has already started! You will become a spectator',
             },
           })
         }
