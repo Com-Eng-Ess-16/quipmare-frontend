@@ -1,26 +1,22 @@
-import { useContext } from 'react'
-import { PlayerContext, UserContext } from 'context/context'
-//import { getStartGame } from 'utils/apiService'
 import { Avatar } from '@material-ui/core'
 import { useStyles } from './styles'
 import HostView from './HostView'
 import { useColor } from 'utils/colorUtil'
 import Loading from 'components/common/Loading'
+import { useAppController } from 'utils/appController'
 
 const { Typography, Button } = require('@material-ui/core')
 
 function WaitingRoom() {
   const styles = useStyles()
-  const userContext = useContext(UserContext)
-  const playerContext = useContext(PlayerContext)
-  const player = playerContext.player
+  const appController = useAppController()
+  const player = appController.player
   const getColor = useColor()
-  if (playerContext.player === null || userContext.userID === null)
-    return <Loading />
+  if (player === null || appController.userID === null) return <Loading />
   return (
     <div className={styles.page}>
-      {userContext.userID === 0 && <HostView />}
-      {userContext.userID !== 0 && (
+      {appController.userID === 0 && <HostView />}
+      {appController.userID !== 0 && (
         <>
           <div className={styles.firstSection}>
             <Typography className={styles.joinText}>
@@ -29,7 +25,7 @@ function WaitingRoom() {
             <Typography className={styles.roomText}>room code</Typography>
           </div>
           <Typography className={styles.secondSection}>
-            {userContext.roomCode}
+            {appController.roomCode}
           </Typography>
 
           <div className={styles.thirdSection}>
@@ -38,7 +34,7 @@ function WaitingRoom() {
                 Waiting for players...
               </Typography>
               <Typography className={styles.playerCountTextNonHost}>
-                {Object.keys(playerContext.player).length + ' players joined'}
+                {Object.keys(appController.player).length + ' players joined'}
               </Typography>
             </div>
             <Button className={styles.leaveButtonUpMd} variant="contained">

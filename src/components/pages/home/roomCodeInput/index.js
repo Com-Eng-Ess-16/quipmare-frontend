@@ -1,9 +1,11 @@
 import { Button, TextField, Typography } from '@material-ui/core'
 import { useState } from 'react'
+import { useAppController } from 'utils/appController'
 import { useRoomCodeInputStyles } from '../styles'
 
-function RoomCodeInput({ action, setAction, checkRoom }) {
+function RoomCodeInput({ action, setAction }) {
   const styles = useRoomCodeInputStyles()
+  const appController = useAppController()
   const [roomCode, setRoomCode] = useState('')
   const [isBlank, setBlank] = useState(false)
 
@@ -44,7 +46,7 @@ function RoomCodeInput({ action, setAction, checkRoom }) {
               setBlank(true)
               return
             }
-            checkRoom(roomCode)
+            appController.checkRoom(roomCode, action)
           }}
           variant="contained"
         >
