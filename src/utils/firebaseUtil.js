@@ -17,7 +17,16 @@ export const useListener = () => {
   const playerContext = useContext(PlayerContext)
   const userContext = useContext(UserContext)
 
-  const addPlayerListener = (roomCode) => {
+  const closeListener = (roomCode) => {
+    const playerRef = firebase.database().ref('room/' + roomCode + '/players')
+    const roomStateRef = firebase
+      .database()
+      .ref('room/' + roomCode + '/roomState')
+
+    playerRef.off()
+    roomStateRef.off()
+  }
+  const addPlayerListenerSpectator = (roomCode) => {
     const playerRef = firebase.database().ref('room/' + roomCode + '/players')
     playerRef.off()
     playerRef.on('value', (snapshot) => {
@@ -26,6 +35,31 @@ export const useListener = () => {
       else playerContext.setPlayer({})
     })
   }
+
+  const addPlayerListener = (roomCode, userID) => {
+    const playerRef = firebase.database().ref('room/' + roomCode + '/players')
+    playerRef.off()
+    playerRef.on('value', (snapshot) => {
+      const data = snapshot.val()
+      if (data) playerContext.setPlayer(data)
+      else playerContext.setPlayer({})
+      let isInRoom = false
+      for (let playerID in data) {
+        if (playerID === String(userID)) isInRoom = true
+      }
+
+      if (!isInRoom) {
+        closeListener(roomCode)
+        userContext.setRoomState(null)
+        userContext.setUserID(-1)
+        userContext.setRoomCode(null)
+        userContext.setUserType('')
+        userContext.setGameState(-1)
+        userContext.setGameData(null)
+      }
+    })
+  }
+
   const addRoomStateListener = (roomCode) => {
     const roomStateRef = firebase
       .database()
@@ -40,5 +74,10 @@ export const useListener = () => {
     })
   }
 
-  return { addPlayerListener, addRoomStateListener }
+  return {
+    addPlayerListener,
+    addPlayerListenerSpectator,
+    addRoomStateListener,
+    closeListener,
+  }
 }

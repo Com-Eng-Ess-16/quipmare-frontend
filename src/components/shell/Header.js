@@ -1,7 +1,6 @@
 import { Hidden, makeStyles, Typography } from '@material-ui/core'
-import { useContext } from 'react'
-import { UserContext } from 'context/context'
 import { useColor } from 'utils/colorUtil'
+import { useAppController } from 'utils/appController'
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -32,17 +31,14 @@ function Header() {
   const roomCode = 'ASFDLD'
 
   const styles = useStyles(getColor())
-  const userContext = useContext(UserContext)
+  const appController = useAppController
 
   // Home page, Waiting room, Podium page
-  if (
-    userContext.gameData.appState !== 2 ||
-    userContext.gameData.gameState === 4
-  )
+  if (appController.roomState !== 'playing' || appController.gameState === 4)
     return <></>
 
   // Standing page
-  if (userContext.gameData.gameState === 3) {
+  if (appController.gameState === 3) {
     return (
       <header className={styles.container}>
         <Typography
@@ -56,7 +52,7 @@ function Header() {
   }
 
   // TODO check if this player is spectator
-  if (userContext.userType === 'spectate') {
+  if (appController.userType === 'spectate') {
     return (
       <header className={styles.container}>
         <Typography className={styles.text}>{'<' + roomCode + '>'}</Typography>

@@ -12,7 +12,9 @@ function WaitingRoom() {
   const appController = useAppController()
   const player = appController.player
   const getColor = useColor()
-  if (player === null || appController.userID === null) return <Loading />
+
+  if (player === null || appController.userID === null || !player[0])
+    return <Loading />
   return (
     <div className={styles.page}>
       {appController.userID === 0 && <HostView />}
@@ -37,7 +39,13 @@ function WaitingRoom() {
                 {Object.keys(appController.player).length + ' players joined'}
               </Typography>
             </div>
-            <Button className={styles.leaveButtonUpMd} variant="contained">
+            <Button
+              onClick={() => {
+                appController.kickPlayer()
+              }}
+              className={styles.leaveButtonUpMd}
+              variant="contained"
+            >
               LEAVE
             </Button>
           </div>
@@ -53,7 +61,11 @@ function WaitingRoom() {
             ))}
           </div>
           <div className={styles.smBottomSection}>
-            <Button className={styles.leaveButtonDownSm} variant="contained">
+            <Button
+              className={styles.leaveButtonDownSm}
+              onClick={() => appController.kickPlayer()}
+              variant="contained"
+            >
               LEAVE
             </Button>
           </div>

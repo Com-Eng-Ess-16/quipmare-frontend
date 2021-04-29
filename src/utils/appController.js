@@ -6,6 +6,7 @@ import {
   getIsRoomExist,
   postJoinRoom,
   postStartGame,
+  deleteKickPlayer,
 } from './apiService'
 import { useColor } from './colorUtil'
 import { useListener } from './firebaseUtil'
@@ -22,7 +23,7 @@ export function useAppController() {
       const roomCode = await getCreateRoom()
       setAction('create')
       userContext.setRoomCode(roomCode)
-      listener.addPlayerListener(roomCode)
+      listener.addPlayerListenerSpectator(roomCode)
     } catch (err) {
       setError(err)
     }
@@ -33,8 +34,8 @@ export function useAppController() {
       const res = await getIsRoomExist(roomCode)
       if (res) {
         userContext.setRoomCode(roomCode)
-        listener.addPlayerListener(roomCode)
-        if (action === 'spectate') joinRoom(roomCode, '', 1)
+        listener.addPlayerListenerSpectator(roomCode)
+        if (action === 'spectate') joinRoom(roomCode, '', 1, action)
       } else {
         setError({ response: { data: 'Invalid Room' } })
       }
@@ -66,15 +67,32 @@ export function useAppController() {
           })
         }
       }
-      userContext.setUserID(
-        res.playerId !== null ? res.playerId : res.spectateId
-      )
+      if (res.playerId) {
+        listener.addPlayerListener(roomCode, res.playerId)
+      }
+      userContext.setUserID(res.playerId ? res.playerId : res.spectateId)
       userContext.setUserType(res.type)
-      userContext.setGameData({
-        ...userContext.gameData,
-        appState: 1,
-      })
       listener.addRoomStateListener(roomCode)
+    } catch (err) {
+      setError(err)
+    }
+  }
+
+  const kickPlayer = async (playerID) => {
+    if (userContext.userType === 'spectate') {
+      listener.closeListener(userContext.roomCode)
+      userContext.setRoomState(null)
+      userContext.setUserID(-1)
+      userContext.setRoomCode(null)
+      userContext.setUserType('')
+      userContext.setGameState(-1)
+      userContext.setGameData(null)
+    }
+
+    if (playerID === null || playerID === undefined)
+      playerID = userContext.userID
+    try {
+      await deleteKickPlayer(userContext.roomCode, playerID)
     } catch (err) {
       setError(err)
     }
@@ -96,5 +114,6 @@ export function useAppController() {
     joinRoom,
     checkRoom,
     startGame,
+    kickPlayer,
   }
 }

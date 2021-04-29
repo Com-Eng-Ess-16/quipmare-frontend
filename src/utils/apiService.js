@@ -45,6 +45,15 @@ export const postStartGame = async (roomCode) => {
   }
 }
 
+export const deleteKickPlayer = async (roomCode, playerID) => {
+  const body = { playerId: playerID }
+  try {
+    await apiClient.delete('/room/kick/' + roomCode, { data: body })
+  } catch (err) {
+    throw err
+  }
+}
+
 export const getQuestion = async (questionID) => {
   try {
     const res = await apiClient.get('/question/' + questionID)
