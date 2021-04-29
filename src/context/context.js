@@ -4,9 +4,9 @@ function UserProvider(props) {
   const [userID, setUserID] = useState(-1)
   const [userType, setUserType] = useState('')
   const [roomCode, setRoomCode] = useState(null)
+  const [roomState, setRoomState] = useState(-1) // change to null later
+  const [gameState, setGameState] = useState(-1)
   const [gameData, setGameData] = useState({
-    appState: -1,
-    gameState: -1,
     currentQuestionID: -1,
     countdownEnd: '2021-04-23T12:15:00+07:00',
   })
@@ -21,6 +21,10 @@ function UserProvider(props) {
         setGameData,
         roomCode,
         setRoomCode,
+        roomState,
+        setRoomState,
+        gameState,
+        setGameState,
       }}
     >
       {props.children}

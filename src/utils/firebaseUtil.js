@@ -1,4 +1,4 @@
-import { PlayerContext } from 'context/context'
+import { PlayerContext, UserContext } from 'context/context'
 import firebase from 'firebase'
 import { useContext } from 'react'
 export const initFirebase = () => {
@@ -15,6 +15,7 @@ export const initFirebase = () => {
 }
 export const useListener = () => {
   const playerContext = useContext(PlayerContext)
+  const userContext = useContext(UserContext)
 
   const addPlayerListener = (roomCode) => {
     const playerRef = firebase.database().ref('room/' + roomCode + '/players')
@@ -32,6 +33,7 @@ export const useListener = () => {
     roomStateRef.off()
     roomStateRef.on('value', (snapshot) => {
       const data = snapshot.val()
+      userContext.setRoomState(data)
       if (data !== 'waiting') {
         //TODO getGameID
       }
@@ -39,22 +41,4 @@ export const useListener = () => {
   }
 
   return { addPlayerListener, addRoomStateListener }
-}
-export const addPlayerListener = async (roomCode, playerContext) => {
-  // const playerRef = firebase.database().ref('room/' + roomCode)
-  // playerRef.off()
-  // playerRef.on('value', (snapshot) => {
-  //   const data = snapshot.val()
-  //   playerContext.setPlayer(data)
-  // })
-}
-export const addListener = async (userID, roomCode, userContext) => {
-  // const ref = firebase
-  //   .database()
-  //   .ref('room/' + roomCode + '/gameData/' + userID)
-  // ref.off()
-  // ref.on('value', (snapshot) => {
-  //   const data = snapshot.val()
-  //   userContext.setGameData({ ...data, appState: data.roomState + 1 })
-  // })
 }

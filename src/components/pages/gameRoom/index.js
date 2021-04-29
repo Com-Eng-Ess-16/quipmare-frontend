@@ -1,3 +1,4 @@
+import Loading from 'components/common/Loading'
 import { UserContext } from 'context/context'
 import React, { useContext } from 'react'
 import Answer from './Answer'
@@ -12,6 +13,6 @@ function GameRoom() {
   if (gameState === 2) return <VoteResult />
   if (gameState === 3) return <Standing />
   if (gameState === 4) return <Podium />
-  return <></>
+  return <Loading />
 }
 export default GameRoom
