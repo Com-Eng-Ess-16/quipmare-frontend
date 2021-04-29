@@ -16,12 +16,23 @@ import IconButton from '@material-ui/core/IconButton'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import { useStyles } from './styles'
 import { useColor } from 'utils/colorUtil'
+import { postStartGame } from 'utils/apiService'
+import { useError } from 'components/common/Error'
 function HostView() {
+  const setError = useError()
+
   const styles = useStyles()
   const playerContext = useContext(PlayerContext)
   const userContext = useContext(UserContext)
   const player = playerContext.player
   const getColor = useColor()
+  const startGame = async () => {
+    try {
+      await postStartGame(userContext.roomCode)
+    } catch (err) {
+      setError(err)
+    }
+  }
   return (
     <>
       <Typography className={styles.createRoomText}>CREATING A ROOM</Typography>
@@ -91,7 +102,11 @@ function HostView() {
             </Typography>
           </div>
           <div className={styles.buttons}>
-            <Button className={styles.startButton} variant="contained">
+            <Button
+              onClick={startGame}
+              className={styles.startButton}
+              variant="contained"
+            >
               START
             </Button>
             <Button className={styles.leaveButton} variant="contained">

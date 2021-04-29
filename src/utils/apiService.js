@@ -37,12 +37,11 @@ export const postJoinRoom = async (roomCode, username, color, type) => {
   }
 }
 
-export const getStartGame = async (roomCode) => {
+export const postStartGame = async (roomCode) => {
   try {
-    const res = await apiClient.get('/start/' + roomCode)
-    return res
+    await apiClient.get('game/start/' + roomCode)
   } catch (err) {
-    //handle error
+    throw err
   }
 }
 
