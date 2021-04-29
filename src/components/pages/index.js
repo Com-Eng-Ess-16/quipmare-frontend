@@ -5,6 +5,7 @@ import WaitingRoom from './waitingRoom'
 import GameRoom from './gameRoom/index'
 import { Box, Button } from '@material-ui/core'
 import { useError } from 'components/common/Error'
+import { Link } from 'react-router-dom'
 function Pages() {
   const appState = useContext(UserContext).gameData.appState
   const userContext = useContext(UserContext)
@@ -102,6 +103,11 @@ function Pages() {
         >
           Podium Page
         </Button>
+        <Link to="/gallery/gameID" style={{ textDecoration: 'none' }}>
+          <Button color="primary" variant="contained">
+            Gallery
+          </Button>
+        </Link>
         <Button
           onClick={() => {
             setError('test')

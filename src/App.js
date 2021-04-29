@@ -5,6 +5,8 @@ import Pages from 'components/pages'
 import { initFirebase } from 'utils/firebaseUtil'
 import Div100vh from 'react-div-100vh'
 import Error from 'components/common/Error'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Gallery from 'components/pages/gallery'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -37,7 +39,12 @@ function App() {
       <div className={styles.container}>
         <Header />
         <div className={styles.body}>
-          <Pages />
+          <BrowserRouter>
+            <Switch>
+              <Route path={'/gallery/:id'} exact component={Gallery} />
+              <Route path={'*'} exact component={Pages} />
+            </Switch>
+          </BrowserRouter>
         </div>
       </div>
       <Error />
