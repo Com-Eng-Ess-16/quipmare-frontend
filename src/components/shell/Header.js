@@ -1,5 +1,4 @@
 import { Hidden, makeStyles, Typography } from '@material-ui/core'
-import { useColor } from 'utils/colorUtil'
 import { useAppController } from 'utils/appController'
 const useStyles = makeStyles((theme) => ({
   container: {
