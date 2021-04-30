@@ -10,9 +10,8 @@ import {
 } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check'
 import Countdown from 'components/common/Countdown'
-import { useColor } from 'utils/colorUtil'
 import { useAppController } from 'utils/appController'
-import { getPlayerQuestion } from 'utils/apiService'
+import { getPlayerQuestion, postAnswer } from 'utils/apiService'
 import { useError } from 'components/common/Error'
 import Loading from 'components/common/Loading'
 const useStyles = makeStyles((theme) => ({
@@ -75,6 +74,8 @@ function Answer() {
   const [question, setQuestion] = useState(null)
   const appController = useAppController()
   const setError = useError()
+  const [index, setIndex] = useState(0)
+  const [answer, setAnswer] = useState('')
   useEffect(() => {
     async function getData() {
       try {
@@ -91,12 +92,22 @@ function Answer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.gameID, appController.userID])
 
-  // TODO get value
-  const [index, setIndex] = useState(0)
-  const [answer, setAnswer] = useState('')
-  const getColor = useColor()
+  const sendAnswer = async () => {
+    try {
+      await postAnswer(
+        appController.gameID,
+        appController.userID,
+        answer,
+        index
+      )
+      setIndex(index + 1)
+      setAnswer('')
+    } catch (err) {
+      setError(err)
+    }
+  }
 
-  const styles = useStyles({ color: getColor() })
+  const styles = useStyles({ color: appController.getColor() })
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -151,10 +162,7 @@ function Answer() {
             className={styles.button}
             variant="contained"
             color="primary"
-            onClick={() => {
-              // postAnswer(userContext.roomCode, userContext.userID)
-              setIndex(index + 1)
-            }}
+            onClick={sendAnswer}
           >
             <CheckIcon fontSize="large" />
           </Button>
