@@ -1,9 +1,9 @@
 import React, { createContext, useState } from 'react'
 const UserContext = createContext()
 function UserProvider(props) {
-  const [userID, setUserID] = useState(-1)
-  const [userType, setUserType] = useState(null)
-  const [roomCode, setRoomCode] = useState(null)
+  const [userID, setUserIDState] = useState(-1)
+  const [userType, setUserTypeState] = useState(null)
+  const [roomCode, setRoomCodeState] = useState(null)
   const [roomState, setRoomState] = useState(-1) // change to null later
   const [gameState, setGameState] = useState(-1)
   const [gameID, setGameID] = useState(null)
@@ -13,6 +13,19 @@ function UserProvider(props) {
     currentQuestionID: -1,
     countdownEnd: '2021-04-23T12:15:00+07:00',
   }) // change to null later
+
+  const setRoomCode = (roomCode) => {
+    setRoomCodeState(roomCode)
+    localStorage.setItem('roomCode', roomCode)
+  }
+  const setUserType = (type) => {
+    setUserTypeState(type)
+    localStorage.setItem('userType', type)
+  }
+  const setUserID = (id) => {
+    setUserIDState(id)
+    localStorage.setItem('userID', id)
+  }
   const reset = () => {
     setUserID(-1)
     setUserType(null)
