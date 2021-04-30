@@ -1,6 +1,7 @@
 import { PlayerContext, UserContext } from 'context/context'
 import firebase from 'firebase'
 import { useContext } from 'react'
+import { getGameID } from './apiService'
 export const initFirebase = () => {
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -61,15 +62,28 @@ export const useListener = () => {
       .database()
       .ref('room/' + roomCode + '/roomState')
     roomStateRef.off()
-    roomStateRef.on('value', (snapshot) => {
+    roomStateRef.on('value', async (snapshot) => {
       const data = snapshot.val()
       userContext.setRoomState(data)
       if (!data) {
         userContext.reset()
         playerContext.reset()
       } else if (data !== 'waiting') {
-        //TODO getGameID
+        console.log(roomCode)
+        const gameID = await getGameID(roomCode)
+        userContext.setGameID(gameID)
+        addGameDataListener(gameID)
       }
+    })
+  }
+
+  const addGameDataListener = (gameID) => {
+    const gameDataRef = firebase.database().ref('game/' + gameID)
+    gameDataRef.off()
+    gameDataRef.on('value', (snapshot) => {
+      const data = snapshot.val()
+      console.log(data)
+      if (data) userContext.setGameData(data)
     })
   }
 

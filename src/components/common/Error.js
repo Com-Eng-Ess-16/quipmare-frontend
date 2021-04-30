@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 function useError() {
   const errorContext = useContext(ErrorContext)
   const setError = (err) => {
-    if (err.response.data) {
+    if (err.response && err.response.data) {
       errorContext.setError(err.response.data)
     } else if (err.response) {
       let status = err.response.status

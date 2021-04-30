@@ -6,6 +6,7 @@ function UserProvider(props) {
   const [roomCode, setRoomCode] = useState(null)
   const [roomState, setRoomState] = useState(-1) // change to null later
   const [gameState, setGameState] = useState(-1)
+  const [gameID, setGameID] = useState(null)
   const [gameData, setGameData] = useState({
     currentQuestionID: -1,
     countdownEnd: '2021-04-23T12:15:00+07:00',
@@ -17,6 +18,7 @@ function UserProvider(props) {
     setRoomState(null)
     setGameState(-1)
     setGameData(null)
+    setGameID(null)
   }
   return (
     <UserContext.Provider
@@ -33,6 +35,8 @@ function UserProvider(props) {
         setRoomState,
         gameState,
         setGameState,
+        gameID,
+        setGameID,
         reset,
       }}
     >
