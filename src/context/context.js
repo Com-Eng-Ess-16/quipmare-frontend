@@ -8,6 +8,7 @@ function UserProvider(props) {
   const [gameState, setGameState] = useState(-1)
   const [gameID, setGameID] = useState(null)
   const [score, setScore] = useState(0)
+  const [username, setUsername] = useState(null)
   const [gameData, setGameData] = useState({
     currentQuestionID: -1,
     countdownEnd: '2021-04-23T12:15:00+07:00',
@@ -20,6 +21,7 @@ function UserProvider(props) {
     setGameState(-1)
     setGameData(null)
     setGameID(null)
+    setUsername(null)
     setScore(0)
   }
   return (
@@ -41,6 +43,8 @@ function UserProvider(props) {
         setGameID,
         score,
         setScore,
+        username,
+        setUsername,
         reset,
       }}
     >

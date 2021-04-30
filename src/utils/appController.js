@@ -75,6 +75,9 @@ export function useAppController() {
           ? res.playerId
           : res.spectateId
       )
+      if (res.username) {
+        userContext.setUsername(res.username)
+      }
       userContext.setUserType(res.type)
       listener.addRoomStateListener(roomCode)
     } catch (err) {
