@@ -2,14 +2,22 @@ import React, { createContext, useState } from 'react'
 const UserContext = createContext()
 function UserProvider(props) {
   const [userID, setUserID] = useState(-1)
-  const [userType, setUserType] = useState('')
+  const [userType, setUserType] = useState(null)
   const [roomCode, setRoomCode] = useState(null)
   const [roomState, setRoomState] = useState(-1) // change to null later
   const [gameState, setGameState] = useState(-1)
   const [gameData, setGameData] = useState({
     currentQuestionID: -1,
     countdownEnd: '2021-04-23T12:15:00+07:00',
-  })
+  }) // change to null later
+  const reset = () => {
+    setUserID(-1)
+    setUserType(null)
+    setRoomCode(null)
+    setRoomState(null)
+    setGameState(-1)
+    setGameData(null)
+  }
   return (
     <UserContext.Provider
       value={{
@@ -25,6 +33,7 @@ function UserProvider(props) {
         setRoomState,
         gameState,
         setGameState,
+        reset,
       }}
     >
       {props.children}
@@ -43,12 +52,16 @@ function PlayerProvider(props) {
       username: 'user1',
       color: 1,
     },
-  })
+  }) //change to null later
+  const reset = () => {
+    setPlayer(null)
+  }
   return (
     <PlayerContext.Provider
       value={{
         player,
         setPlayer,
+        reset,
       }}
     >
       {props.children}

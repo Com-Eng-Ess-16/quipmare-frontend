@@ -50,12 +50,8 @@ export const useListener = () => {
 
       if (!isInRoom) {
         closeListener(roomCode)
-        userContext.setRoomState(null)
-        userContext.setUserID(-1)
-        userContext.setRoomCode(null)
-        userContext.setUserType('')
-        userContext.setGameState(-1)
-        userContext.setGameData(null)
+        userContext.reset()
+        playerContext.reset()
       }
     })
   }
@@ -68,7 +64,10 @@ export const useListener = () => {
     roomStateRef.on('value', (snapshot) => {
       const data = snapshot.val()
       userContext.setRoomState(data)
-      if (data !== 'waiting') {
+      if (!data) {
+        userContext.reset()
+        playerContext.reset()
+      } else if (data !== 'waiting') {
         //TODO getGameID
       }
     })
