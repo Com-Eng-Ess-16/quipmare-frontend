@@ -25,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 function Header() {
   // TODO get value
-  const getColor = useColor()
-  const username = 'PKHING'
-  const score = '1234'
-  const roomCode = 'ASFDLD'
+  const appController = useAppController()
+  const getColor = appController.getColor
+  const username = appController.username
+  const score = appController.score
+  const roomCode = appController.roomCode
 
   const styles = useStyles(getColor())
-  const appController = useAppController
 
   // Home page, Waiting room, Podium page
   if (appController.roomState !== 'playing' || appController.gameState === 4)
