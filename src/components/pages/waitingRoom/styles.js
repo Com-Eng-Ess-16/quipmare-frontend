@@ -302,14 +302,18 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     margin: '5vh 5% 0 5%',
   },
-  countNonHost: {},
+  countNonHost: {
+    width: '100%',
+  },
   waitTextNonHost: {
     fontFamily: 'Architects Daughter',
     fontSize: '1.6rem',
-    width: '30vw',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
       fontSize: '1.1rem',
       width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
     },
     [theme.breakpoints.down('xs')]: {
       fontSize: '1rem',
@@ -318,10 +322,12 @@ export const useStyles = makeStyles((theme) => ({
   playerCountTextNonHost: {
     fontFamily: 'Architects Daughter',
     fontSize: '2.1rem',
-    width: '30vw',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
       fontSize: '1.5rem',
       width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
     },
     [theme.breakpoints.down('xs')]: {
       fontSize: '1.3rem',
@@ -352,7 +358,6 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: 'Architects Daughter',
     fontSize: '2.1rem',
     width: '30%',
-    marginLeft: '10vw',
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main,
     border: '3px solid black',
