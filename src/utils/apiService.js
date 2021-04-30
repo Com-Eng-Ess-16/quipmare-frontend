@@ -83,7 +83,18 @@ export const getAnswer = (questionID, gameID) => {
     },
   }
 }
-export const postAnswer = (gameID, userID, questionID) => {}
+export const postAnswer = async (gameID, userID, answer, questionOrder) => {
+  try {
+    const body = {
+      playerId: userID,
+      answer,
+      questionOrder,
+    }
+    await apiClient.post('/game/answer/' + gameID, body)
+  } catch (err) {
+    throw err
+  }
+}
 export const postVote = (gameID, userID, questionID, AnswerUserID) => {}
 export const getStanding = (gameID) => {
   return {
