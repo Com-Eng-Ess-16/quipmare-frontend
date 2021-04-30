@@ -2,7 +2,6 @@ import { UserContext } from 'context/context'
 import firebase from 'firebase'
 import { useContext } from 'react'
 import { useListener } from './firebaseUtil'
-import { randomString } from './randomUtil'
 export const useGameUtil = () => {
   const userContext = useContext(UserContext)
   const listener = useListener()
