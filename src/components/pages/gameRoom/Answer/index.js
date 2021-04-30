@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -11,6 +11,10 @@ import {
 import CheckIcon from '@material-ui/icons/Check'
 import Countdown from 'components/common/Countdown'
 import { useColor } from 'utils/colorUtil'
+import { useAppController } from 'utils/appController'
+import { getPlayerQuestion } from 'utils/apiService'
+import { useError } from 'components/common/Error'
+import Loading from 'components/common/Loading'
 const useStyles = makeStyles((theme) => ({
   question: {
     marginTop: '20px',
@@ -68,27 +72,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 function Answer() {
-  // const userContext = useContext(UserContext)
-  // const [question, setQuestion] = useState(null)
-  // useEffect(() => {
-  //   async function getData() {
-  //     const res = await getQuestion(userContext.gameData.currentQuestionID)
-  //     setQuestion(res.question)
-  //   }
-  //   getData()
-  // }, [userContext.gameData.currentQuestionID])
+  const [question, setQuestion] = useState(null)
+  const appController = useAppController()
+  const setError = useError()
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await getPlayerQuestion(
+          appController.gameID,
+          appController.userID
+        )
+        setQuestion(res.playerQuestion)
+      } catch (err) {
+        setError(err)
+      }
+    }
+    getData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appController.gameID, appController.userID])
 
   // TODO get value
-  const question = 'When will I get 5 stars character?'
+  const [index, setIndex] = useState(0)
   const [answer, setAnswer] = useState('')
-  const isWaiting = false
   const getColor = useColor()
 
   const styles = useStyles({ color: getColor() })
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
 
-  if (isWaiting) {
+  if (index === 2) {
     return (
       <Box display="flex" flexDirection="column" height="100%">
         <div className={styles.background} />
@@ -105,11 +117,14 @@ function Answer() {
       </Box>
     )
   }
+  if (question === null) return <Loading />
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <div className={styles.background} />
       <Box flexGrow={1}>
-        <Typography className={styles.question}>{question}</Typography>
+        <Typography className={styles.question}>
+          {question[index].question}
+        </Typography>
         <div className={styles.answer}>
           <TextField
             className={styles.textField}
@@ -138,6 +153,7 @@ function Answer() {
             color="primary"
             onClick={() => {
               // postAnswer(userContext.roomCode, userContext.userID)
+              setIndex(index + 1)
             }}
           >
             <CheckIcon fontSize="large" />

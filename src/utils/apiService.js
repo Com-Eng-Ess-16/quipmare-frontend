@@ -65,12 +65,12 @@ export const deleteKickPlayer = async (roomCode, playerID) => {
   }
 }
 
-export const getQuestion = async (questionID) => {
+export const getPlayerQuestion = async (gameID, userID) => {
   try {
-    const res = await apiClient.get('/question/' + questionID)
+    const res = await apiClient.get('/game/player/' + gameID + '/' + userID)
     return res.data
   } catch (err) {
-    //handle error
+    throw err
   }
 }
 
