@@ -7,6 +7,7 @@ import Div100vh from 'react-div-100vh'
 import Error from 'components/common/Error'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Gallery from 'components/pages/gallery'
+import { useGameUtil } from 'utils/gameUtil'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   initFirebase()
+  const gameUtil = useGameUtil()
+  gameUtil.rejoin()
   const styles = useStyles()
   return (
     <Div100vh>

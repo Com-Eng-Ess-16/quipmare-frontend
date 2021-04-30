@@ -18,33 +18,6 @@ export const initFirebase = async () => {
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
   }
-
-  if (localStorage.getItem('roomCode') !== null) {
-    const roomCode = localStorage.getItem('roomCode')
-    const userType = localStorage.getItem('userType')
-    const userID = localStorage.getItem('userID')
-    if (roomCode !== null && userType !== null && userID !== null) {
-      if (userType === 'player') {
-        const playerRef = firebase
-          .database()
-          .ref('room/' + roomCode + '/players/' + userID)
-        const snapshot = await playerRef.get()
-        if (snapshot.exists()) {
-          console.log(snapshot.val())
-          //TODO set data and add listener
-        }
-      } else {
-        const spectatorRef = firebase
-          .database()
-          .ref('room/' + roomCode + '/spectator/' + userID)
-        const snapshot = await spectatorRef.get()
-        if (snapshot.exists()) {
-          console.log(snapshot.val())
-          //TODO set data and add listener
-        }
-      }
-    }
-  }
 }
 export const useListener = () => {
   const playerContext = useContext(PlayerContext)
