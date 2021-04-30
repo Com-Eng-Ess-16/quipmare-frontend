@@ -85,12 +85,8 @@ export function useAppController() {
   const kickPlayer = async (playerID) => {
     if (userContext.userType === 'spectate') {
       listener.closeListener(userContext.roomCode)
-      userContext.setRoomState(null)
-      userContext.setUserID(-1)
-      userContext.setRoomCode(null)
-      userContext.setUserType('')
-      userContext.setGameState(-1)
-      userContext.setGameData(null)
+      userContext.reset()
+      playerContext.reset()
     }
 
     if (playerID === null || playerID === undefined)
