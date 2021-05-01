@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     textAlign: 'center',
     fontSize: '4rem',
+    fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
       fontSize: '2.5rem',
     },
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     overflowWrap: 'break-word',
     wordBreak: 'break-word',
     hyphens: 'auto',
+    fontFamily: 'Prompt',
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
     },
@@ -54,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
     overflowWrap: 'break-word',
     wordBreak: 'break-word',
     hyphens: 'auto',
+  },
+  votedAnswer: {
+    fontFamily: 'Prompt',
   },
 }))
 
@@ -154,7 +159,11 @@ function Voting() {
           >
             Your vote has been submitted!
           </Typography>
-          <Typography variant="h5" color="primary">
+          <Typography
+            variant="h5"
+            color="primary"
+            className={styles.votedAnswer}
+          >
             {'You vote "' + votedAnswer + '"'}
           </Typography>
         </Box>

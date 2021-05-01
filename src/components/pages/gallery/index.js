@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   questionText: {
     margin: '3% 3% 3% 3%',
+    fontFamily: 'Prompt',
     fontSize: '2rem',
     width: '100%',
     display: 'flex',
@@ -78,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
   answerText: {
     margin: '2.5% 2.5% 2.5% 2.5%',
+    fontFamily: 'Prompt',
     fontSize: '1.6rem',
     width: '100%',
     [theme.breakpoints.down('sm')]: {

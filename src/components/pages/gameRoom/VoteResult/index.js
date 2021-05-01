@@ -13,9 +13,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '20px',
     color: theme.palette.primary.main,
     textAlign: 'center',
-    fontSize: '4rem',
+    fontSize: '3.5rem',
+    fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5rem',
+      fontSize: '2rem',
     },
     [theme.breakpoints.down('xs')]: {
       marginTop: '5px',

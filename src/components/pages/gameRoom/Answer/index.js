@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     textAlign: 'center',
     fontSize: '4rem',
+    fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
       marginTop: '15vh',
       fontSize: '2.5rem',
@@ -30,14 +31,16 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '30vh',
     display: 'flex',
     marginTop: '10px',
+    fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
   },
   textFieldFont: {
     fontSize: '3rem',
+    fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5rem',
+      fontSize: '1.5rem',
     },
   },
   button: {
