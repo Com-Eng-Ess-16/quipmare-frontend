@@ -104,8 +104,8 @@ function Voting() {
           setVotedAnswer(localStorage.getItem('vote'))
           setWaiting(true)
         } else {
+          await appController.clearGameData()
           localStorage.setItem('questionIndex', questionState)
-          localStorage.setItem('vote', null)
         }
       } catch (err) {
         setError(err)

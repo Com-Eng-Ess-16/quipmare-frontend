@@ -53,11 +53,17 @@ export const useGameUtil = () => {
       }
     }
   }
-  return { rejoin }
-}
+  const clearStorage = () => {
+    const deviceID = localStorage.getItem('deviceID')
+    localStorage.clear()
+    localStorage.setItem('deviceID', deviceID)
+  }
 
-export const clearStorage = () => {
-  const deviceID = localStorage.getItem('deviceID')
-  localStorage.clear()
-  localStorage.setItem('deviceID', deviceID)
+  const clearGameData = () => {
+    localStorage.removeItem('questionIndex')
+    localStorage.removeItem('vote')
+    localStorage.removeItem('index')
+  }
+
+  return { rejoin, clearStorage, clearGameData }
 }

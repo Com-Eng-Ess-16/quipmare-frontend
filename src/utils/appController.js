@@ -10,6 +10,7 @@ import {
 } from './apiService'
 import { useColor } from './colorUtil'
 import { useListener } from './firebaseUtil'
+import { useGameUtil } from './gameUtil'
 
 export function useAppController() {
   const userContext = useContext(UserContext)
@@ -17,6 +18,7 @@ export function useAppController() {
   const listener = useListener()
   const setError = useError()
   const getColor = useColor()
+  const gameUtil = useGameUtil()
 
   const createRoom = async (setAction) => {
     try {
@@ -112,6 +114,7 @@ export function useAppController() {
   return {
     ...userContext,
     ...playerContext,
+    ...gameUtil,
     getColor,
     createRoom,
     joinRoom,
