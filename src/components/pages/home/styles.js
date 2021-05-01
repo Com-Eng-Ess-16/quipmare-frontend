@@ -206,12 +206,12 @@ export const useProfileStyles = makeStyles((theme) => ({
     },
   },
   textContainer: {
-    margin: '-2% 0 0 3%',
+    margin: '-2% 0 -10% 3%',
     [theme.breakpoints.down('sm')]: {
-      margin: '-2% 0 -10% 3%',
+      margin: '-2% 0 -15% 3%',
     },
     [theme.breakpoints.down('xs')]: {
-      margin: '-2% 0 -12% 3%',
+      margin: '-2% 0 -15% 3%',
     },
   },
   avatarContainer: {
@@ -220,11 +220,15 @@ export const useProfileStyles = makeStyles((theme) => ({
   },
   profileAvatar: {
     border: '1px solid black',
-    width: '23vh',
-    height: '23vh',
+    width: '120px',
+    height: '120px',
     [theme.breakpoints.down('sm')]: {
-      width: '14vh',
-      height: '14vh',
+      width: '90px',
+      height: '90px',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '70px',
+      height: '70px',
     },
   },
   profileCardActions: {
@@ -255,7 +259,9 @@ export const useProfileStyles = makeStyles((theme) => ({
   playerCount: {
     display: 'flex',
     flexDirection: 'row',
-    margin: '20% 0 0 40%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '20% 0 0 0',
     [theme.breakpoints.down('sm')]: {
       margin: '35% 0 0 5vw',
     },
@@ -265,6 +271,9 @@ export const useProfileStyles = makeStyles((theme) => ({
     fontSize: '1.5rem',
     [theme.breakpoints.down('sm')]: {
       fontSize: '1.25rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '0.8rem',
     },
   },
   textFieldFont: {
@@ -279,5 +288,15 @@ export const useProfileStyles = makeStyles((theme) => ({
     height: '80px',
     fontSize: '3rem',
     marginRight: '20px',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+      width: '60px',
+      height: '60px',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.5rem',
+      width: '40px',
+      height: '40px',
+    },
   },
 }))
