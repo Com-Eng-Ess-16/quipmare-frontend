@@ -219,6 +219,7 @@ export const useProfileStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   profileAvatar: {
+    color: 'black',
     border: '1px solid black',
     width: '120px',
     height: '120px',
