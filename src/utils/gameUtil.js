@@ -48,8 +48,16 @@ export const useGameUtil = () => {
             }
           }
         }
+      } else {
+        clearStorage()
       }
     }
   }
   return { rejoin }
+}
+
+export const clearStorage = () => {
+  const deviceID = localStorage.getItem('deviceID')
+  localStorage.clear()
+  localStorage.setItem('deviceID', deviceID)
 }
