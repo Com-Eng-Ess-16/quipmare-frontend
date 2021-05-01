@@ -76,11 +76,12 @@ function Voting() {
         choice
       )
       setVotedAnswer(data[choice].answer)
+      localStorage.setItem('vote', data[choice].answer)
       setWaiting(true)
     } catch (err) {
       setError(err)
       if (err.response.data === 'Already Vote') {
-        setVotedAnswer(data[choice].answer)
+        setVotedAnswer(localStorage.getItem('vote'))
         setWaiting(true)
       }
     }
@@ -96,6 +97,16 @@ function Voting() {
         setQuestionIndex(questionState)
         const res = await getVoteQuestion(appController.gameID, questionState)
         setData(res.question)
+        if (
+          localStorage.getItem('questionIndex') === String(questionState) &&
+          localStorage.getItem('vote') !== null
+        ) {
+          setVotedAnswer(localStorage.getItem('vote'))
+          setWaiting(true)
+        } else {
+          localStorage.setItem('questionIndex', questionState)
+          localStorage.setItem('vote', null)
+        }
       } catch (err) {
         setError(err)
       }
