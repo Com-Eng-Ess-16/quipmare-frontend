@@ -1,5 +1,11 @@
 import { useState } from 'react'
-import { Typography, Switch, Avatar, makeStyles } from '@material-ui/core'
+import {
+  Typography,
+  Switch,
+  Avatar,
+  makeStyles,
+  Button,
+} from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -95,6 +101,32 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       width: '30px',
       height: '30px',
+    },
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    paddingBottom: '10%',
+  },
+  leaveButton: {
+    fontFamily: 'Architects Daughter',
+    fontSize: '1.5rem',
+    width: '20%',
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
+    border: '2px solid black',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.contrastText,
+      border: '2px solid ' + theme.palette.primary.main,
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.25rem',
+      width: '45%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
+      width: '45%',
     },
   },
 }))
@@ -205,6 +237,11 @@ function Gallery(props) {
             </div>
           )
         })}
+        <div className={styles.buttonContainer}>
+          <Button className={styles.leaveButton} variant="contained">
+            LEAVE
+          </Button>
+        </div>
       </div>
     </div>
   )
