@@ -85,6 +85,12 @@ function Answer() {
           appController.userID
         )
         setQuestion(res.playerQuestion)
+        if (localStorage.getItem('index') !== null) {
+          setIndex(Number(localStorage.getItem('index')))
+        } else {
+          await appController.clearGameData()
+          localStorage.setItem('index', 0)
+        }
       } catch (err) {
         setError(err)
       }
@@ -105,6 +111,7 @@ function Answer() {
         answer,
         index
       )
+      localStorage.setItem('index', index + 1)
       setIndex(index + 1)
       setAnswer('')
     } catch (err) {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, makeStyles, Typography } from '@material-ui/core'
 import Countdown from 'components/common/Countdown'
 import { UserContext } from 'context/context'
@@ -54,16 +55,16 @@ function VoteResult() {
   const getColor = useColor()
   const styles = useStyles({ color: getColor() })
 
-  useEffect(() => {
-    async function getData() {
-      const res = await getAnswer(
-        userContext.gameData.currentQuestionID,
-        userContext.roomCode
-      )
-      setData(res)
-    }
-    getData()
-  }, [userContext.gameData.currentQuestionID, userContext.roomCode])
+  // useEffect(() => {
+  //   async function getData() {
+  //     const res = await getAnswer(
+  //       userContext.gameData.currentQuestionID,
+  //       userContext.roomCode
+  //     )
+  //     setData(res)
+  //   }
+  //   getData()
+  // }, [userContext.gameData.currentQuestionID, userContext.roomCode])
 
   if (data === null) return <></>
   return (
