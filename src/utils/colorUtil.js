@@ -47,7 +47,7 @@ export const useColor = () => {
   const userContext = useContext(UserContext)
   const playerContext = useContext(PlayerContext)
   const getColor = (id) => {
-    if (id === null) {
+    if (id === null || id === undefined) {
       if (userContext.userType === 'spectate') {
         id = -1
       }
@@ -58,7 +58,6 @@ export const useColor = () => {
         id = -1
       }
     }
-
     if (0 <= id && id <= 7) {
       return color[id]
     }
