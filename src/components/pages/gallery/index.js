@@ -4,6 +4,14 @@ import { Typography, Switch, Avatar, makeStyles } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   page: {
     padding: theme.spacing(3),
+    paddingBottom: '10%',
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '10%',
+      paddingBottom: '50%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      paddingBottom: '10%',
+    },
   },
   header: {
     width: '100%',
@@ -12,34 +20,50 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Architects Daughter',
     textShadow: '2px 2px #00000020',
     fontSize: '2.5rem',
+    marginBottom: '5vh',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '1.75rem',
+      fontSize: '1.85rem',
+      marginBottom: '3vh',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.35rem',
     },
   },
   body: {},
+  container: {
+    marginBottom: '5vh',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '3vh',
+    },
+  },
   question: {
-    marginTop: '5vh',
-    height: '13vh',
     display: 'flex',
     alignItems: 'center',
     backgroundColor: theme.palette.primary.light,
     border: '3px solid ' + theme.palette.primary.main,
   },
   questionText: {
-    marginLeft: '5%',
+    margin: '3% 3% 3% 3%',
     fontSize: '2rem',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      margin: '5% 5% 5% 5%',
+      fontSize: '1.75rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.35rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.15rem',
+    },
   },
   switch: {
     marginRight: '5%',
   },
-  answers: {
-    marginBottom: '5vh',
-  },
+  answers: {},
   answer: {
-    height: '10vh',
     border: '1px solid black',
     display: 'flex',
     alignItems: 'center',
@@ -47,9 +71,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   answerText: {
-    marginLeft: '5%',
-    fontSize: '1.4rem',
+    margin: '2.5% 2.5% 2.5% 2.5%',
+    fontSize: '1.6rem',
     width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      margin: '4% 4% 4% 4%',
+      fontSize: '1.2rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1rem',
+    },
   },
   avatars: {
     display: 'flex',
@@ -59,27 +90,34 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     backgroundColor: 'white',
     border: '1px solid black',
+    width: '50px',
+    height: '50px',
+    [theme.breakpoints.down('sm')]: {
+      width: '30px',
+      height: '30px',
+    },
   },
 }))
 
 function Gallery(props) {
   const styles = useStyles()
-  const [hide, setHide] = useState({ 0: true, 1: true })
+  const [hide, setHide] = useState({ 0: true, 1: true, 2: true, 3: true })
   //const gameID = props.match.params.id
   return (
     //<Typography>{gameID}</Typography>
     <div className={styles.page}>
-      <Typography className={styles.header}>(Insert gallery name)</Typography>
+      <Typography className={styles.header}>Jester Gallery</Typography>
       <div className={styles.body}>
         {[
           {
-            questionText: 'question12321313123213123312312',
+            questionText:
+              'On your wedding night, it would be horrible to find out that the person you married is ______',
             winner: {
-              answer: 'answer1ddddddddddddddddddddd',
+              answer: 'no one no one no one no one :(',
               voters: [1, 2, 3],
             },
             loser: {
-              answer: 'answer2',
+              answer: 'yourself',
               voters: [4, 5],
             },
           },
@@ -94,11 +132,36 @@ function Gallery(props) {
               voters: [4, 5],
             },
           },
+          {
+            questionText: 'question3',
+            winner: {
+              answer: 'answer1',
+              voters: [1, 2, 3],
+            },
+            loser: {
+              answer: 'answer2',
+              voters: [4, 5],
+            },
+          },
+          {
+            questionText: 'question4',
+            winner: {
+              answer: 'answer1',
+              voters: [1, 2, 3],
+            },
+            loser: {
+              answer: 'answer2',
+              voters: [4, 5],
+            },
+          },
         ].map(({ questionText, winner, loser }, index) => {
           return (
-            <>
+            <div className={styles.container}>
               <div className={styles.question}>
-                <Typography className={styles.questionText}>
+                <Typography
+                  className={styles.questionText}
+                  style={{ wordWrap: 'break-word' }}
+                >
                   {questionText}
                 </Typography>
                 <Switch
@@ -112,7 +175,10 @@ function Gallery(props) {
               {!hide[index] && (
                 <div className={styles.answers}>
                   <div className={styles.answer}>
-                    <Typography className={styles.answerText}>
+                    <Typography
+                      className={styles.answerText}
+                      style={{ wordWrap: 'break-word' }}
+                    >
                       {winner.answer}
                     </Typography>
                     <div className={styles.avatars}>
@@ -122,7 +188,10 @@ function Gallery(props) {
                     </div>
                   </div>
                   <div className={styles.answer}>
-                    <Typography className={styles.answerText}>
+                    <Typography
+                      className={styles.answerText}
+                      style={{ wordWrap: 'break-word' }}
+                    >
                       {loser.answer}
                     </Typography>
                     <div className={styles.avatars}>
@@ -133,7 +202,7 @@ function Gallery(props) {
                   </div>
                 </div>
               )}
-            </>
+            </div>
           )
         })}
       </div>
