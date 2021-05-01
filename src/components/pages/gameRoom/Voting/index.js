@@ -1,7 +1,7 @@
 import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import Countdown from 'components/common/Countdown'
 import { useEffect, useState } from 'react'
-import { getVoteQuestion } from 'utils/apiService'
+import { getVoteQuestion, postVote } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
 import firebase from 'firebase'
 import { useError } from 'components/common/Error'
@@ -64,8 +64,28 @@ function Voting() {
   const [isWaiting, setWaiting] = useState(false)
   const [questionIndex, setQuestionIndex] = useState(null)
   // eslint-disable-next-line no-unused-vars
-  const [votedAnswer, SetVotedAnswer] = useState('Never')
+  const [votedAnswer, setVotedAnswer] = useState('Never')
   const setError = useError()
+
+  const sendVote = async (choice) => {
+    try {
+      await postVote(
+        appController.gameID,
+        appController.userID,
+        questionIndex,
+        choice
+      )
+      setVotedAnswer(data[choice].answer)
+      setWaiting(true)
+    } catch (err) {
+      setError(err)
+      if (err.response.data === 'Already Vote') {
+        setVotedAnswer(data[choice].answer)
+        setWaiting(true)
+      }
+    }
+  }
+
   useEffect(() => {
     async function getData() {
       try {
@@ -117,14 +137,18 @@ function Voting() {
           className={styles.button}
           variant="contained"
           color="primary"
-          onClick={() => {}}
+          onClick={() => {
+            sendVote('a')
+          }}
         >
           {data['a'].answer}
         </Button>
         <Button
           className={styles.button}
           style={{ backgroundColor: 'white' }}
-          onClick={() => {}}
+          onClick={() => {
+            sendVote('b')
+          }}
         >
           {data['b'].answer}
         </Button>
