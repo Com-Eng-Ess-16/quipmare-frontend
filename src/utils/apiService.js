@@ -74,13 +74,14 @@ export const getPlayerQuestion = async (gameID, userID) => {
   }
 }
 
-export const getAnswer = (questionID, gameID) => {
-  return {
-    question: 'When will I get 5 star?', // or call getQuestion again?
-    answer: {
-      0: 'Never',
-      1: 'Never',
-    },
+export const getVoteQuestion = async (gameID, questionIndex) => {
+  try {
+    const res = await apiClient.get(
+      '/game/question/' + gameID + '/' + questionIndex
+    )
+    return res.data
+  } catch (err) {
+    throw err
   }
 }
 export const postAnswer = async (gameID, userID, answer, questionOrder) => {

@@ -1,9 +1,10 @@
 import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import Countdown from 'components/common/Countdown'
-import { UserContext } from 'context/context'
-import { useContext, useEffect, useState } from 'react'
-import { getAnswer } from 'utils/apiService'
-import { useColor } from 'utils/colorUtil'
+import { useEffect, useState } from 'react'
+import { getVoteQuestion } from 'utils/apiService'
+import { useAppController } from 'utils/appController'
+import firebase from 'firebase'
+import { useError } from 'components/common/Error'
 
 const useStyles = makeStyles((theme) => ({
   question: {
@@ -57,26 +58,33 @@ const useStyles = makeStyles((theme) => ({
 
 function Voting() {
   // TODO
+  const appController = useAppController()
   const [data, setData] = useState(null)
-  const userContext = useContext(UserContext)
-  const getColor = useColor()
-  const styles = useStyles({ color: getColor() })
-  const isWaiting = false
+  const styles = useStyles({ color: appController.getColor() })
+  const [isWaiting, setWaiting] = useState(false)
+  const [questionIndex, setQuestionIndex] = useState(null)
   // eslint-disable-next-line no-unused-vars
   const [votedAnswer, SetVotedAnswer] = useState('Never')
-
+  const setError = useError()
   useEffect(() => {
     async function getData() {
-      const res = await getAnswer(
-        userContext.gameData.currentQuestionID,
-        userContext.roomCode
-      )
-      setData(res)
+      try {
+        const dbRef = firebase
+          .database()
+          .ref('game/' + appController.gameID + '/questionState')
+        const questionState = (await dbRef.get()).val()
+        setQuestionIndex(questionState)
+        const res = await getVoteQuestion(appController.gameID, questionState)
+        setData(res.question)
+      } catch (err) {
+        setError(err)
+      }
     }
     getData()
-  }, [userContext.gameData.currentQuestionID, userContext.roomCode])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appController.gameID])
 
-  if (data === null) return <></>
+  if (data === null || data === undefined) return <></>
   if (isWaiting) {
     return (
       <Box display="flex" flexDirection="column" height="100%">
@@ -101,7 +109,9 @@ function Voting() {
     <Box display="flex" flexDirection="column" height="100%">
       <div className={styles.background} />
       <Box flexGrow={1}>
-        <Typography className={styles.question}>{data.question}</Typography>
+        <Typography className={styles.question}>
+          {data.questionPrompt}
+        </Typography>
 
         <Button
           className={styles.button}
@@ -109,14 +119,14 @@ function Voting() {
           color="primary"
           onClick={() => {}}
         >
-          {data.answer[0]}
+          {data['a'].answer}
         </Button>
         <Button
           className={styles.button}
           style={{ backgroundColor: 'white' }}
           onClick={() => {}}
         >
-          {data.answer[1]}
+          {data['b'].answer}
         </Button>
       </Box>
       <Countdown />
