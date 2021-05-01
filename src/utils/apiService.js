@@ -49,7 +49,6 @@ export const postStartGame = async (roomCode) => {
 export const getGameID = async (roomCode) => {
   try {
     const res = await apiClient.get('game/id/' + roomCode)
-    console.log(res.data)
     return res.data.gameId
   } catch (err) {
     throw err

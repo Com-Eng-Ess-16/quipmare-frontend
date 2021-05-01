@@ -90,7 +90,6 @@ export const useListener = () => {
         userContext.reset()
         playerContext.reset()
       } else if (data !== 'waiting') {
-        console.log(roomCode)
         const gameID = await getGameID(roomCode)
         userContext.setGameID(gameID)
         addGameStateListener(gameID)
