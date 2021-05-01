@@ -81,7 +81,12 @@ export function useAppController() {
         userContext.setUsername(res.username)
       }
       userContext.setUserType(res.type)
-      listener.addRoomStateListener(roomCode)
+      listener.addRoomStateListener(
+        roomCode,
+        res.playerId !== null && res.playerId !== undefined
+          ? res.playerId
+          : null
+      )
     } catch (err) {
       setError(err)
     }
