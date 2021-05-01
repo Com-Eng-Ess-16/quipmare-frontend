@@ -79,6 +79,7 @@ function Answer() {
   const [isBlank, setBlank] = useState(false)
   useEffect(() => {
     async function getData() {
+      if (appController.userType === 'spectate') return
       try {
         const res = await getPlayerQuestion(
           appController.gameID,
@@ -122,6 +123,23 @@ function Answer() {
   const styles = useStyles({ color: appController.getColor() })
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
+  if (appController.userType === 'spectate') {
+    return (
+      <Box display="flex" flexDirection="column" height="100%">
+        <div className={styles.background} />
+        <div className={styles.waiting}>
+          <Typography
+            variant="h5"
+            color="primary"
+            style={{ textAlign: 'center' }}
+          >
+            Wait for players answer questions!
+          </Typography>
+        </div>
+        <Countdown text="Waiting for other players..." />
+      </Box>
+    )
+  }
 
   if (index === 2) {
     return (
