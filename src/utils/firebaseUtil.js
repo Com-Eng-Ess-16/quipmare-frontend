@@ -23,7 +23,7 @@ export const useListener = () => {
   const playerContext = useContext(PlayerContext)
   const userContext = useContext(UserContext)
 
-  const closeListener = (roomCode) => {
+  const closeListener = (roomCode, gameID) => {
     const playerRef = firebase.database().ref('room/' + roomCode + '/players')
     const roomStateRef = firebase
       .database()
@@ -31,6 +31,12 @@ export const useListener = () => {
 
     playerRef.off()
     roomStateRef.off()
+    if (gameID) {
+      const gameStateRef = firebase
+        .database()
+        .ref('game/' + gameID + '/gameState')
+      gameStateRef.off()
+    }
   }
   const addPlayerListenerSpectator = (roomCode) => {
     const playerRef = firebase.database().ref('room/' + roomCode + '/players')
@@ -77,18 +83,20 @@ export const useListener = () => {
         console.log(roomCode)
         const gameID = await getGameID(roomCode)
         userContext.setGameID(gameID)
-        addGameDataListener(gameID)
+        addGameStateListener(gameID)
       }
     })
   }
 
-  const addGameDataListener = (gameID) => {
-    const gameDataRef = firebase.database().ref('game/' + gameID)
-    gameDataRef.off()
-    gameDataRef.on('value', (snapshot) => {
+  const addGameStateListener = (gameID) => {
+    const gameStateRef = firebase
+      .database()
+      .ref('game/' + gameID + '/gameState')
+    gameStateRef.off()
+    gameStateRef.on('value', (snapshot) => {
       const data = snapshot.val()
       console.log(data)
-      if (data) userContext.setGameData(data)
+      if (data) userContext.setGameState(data)
     })
   }
 

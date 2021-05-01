@@ -8,7 +8,7 @@ import VoteResult from './VoteResult'
 import Voting from './Voting'
 function GameRoom() {
   const gameState = useAppController().gameState
-  if (gameState === 0) return <Answer />
+  if (gameState === 'answer') return <Answer />
   if (gameState === 1) return <Voting />
   if (gameState === 2) return <VoteResult />
   if (gameState === 3) return <Standing />
