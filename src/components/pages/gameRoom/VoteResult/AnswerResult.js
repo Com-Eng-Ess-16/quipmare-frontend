@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     fontSize: '2.5rem',
+    fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
       fontSize: '2rem',
       margin: '0px 0 -5px 0',
