@@ -116,6 +116,26 @@ function Voting() {
   }, [appController.gameID])
 
   if (data === null || data === undefined) return <></>
+  if (
+    data.a.owner === appController.userID ||
+    data.b.owner === appController.userID
+  ) {
+    return (
+      <Box display="flex" flexDirection="column" height="100%">
+        <div className={styles.background} />
+        <Box flexGrow={1} className={styles.waitingText}>
+          <Typography
+            variant="h5"
+            color="primary"
+            style={{ marginTop: '30px' }}
+          >
+            Wait for other players to vote!
+          </Typography>
+        </Box>
+        <Countdown text="Waiting for other players..." />
+      </Box>
+    )
+  }
   if (isWaiting) {
     return (
       <Box display="flex" flexDirection="column" height="100%">
