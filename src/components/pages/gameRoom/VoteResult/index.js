@@ -3,9 +3,12 @@ import { Box, makeStyles, Typography } from '@material-ui/core'
 import Countdown from 'components/common/Countdown'
 import { UserContext } from 'context/context'
 import { useContext, useEffect, useState } from 'react'
-import { getAnswer } from 'utils/apiService'
+import { getAnswer, getVoteQuestion } from 'utils/apiService'
 import { useColor } from 'utils/colorUtil'
 import AnswerResult from './AnswerResult'
+import firebase from 'firebase'
+import { useAppController } from 'utils/appController'
+import { useError } from 'components/common/Error'
 
 const useStyles = makeStyles((theme) => ({
   question: {
@@ -51,30 +54,38 @@ const useStyles = makeStyles((theme) => ({
 
 function VoteResult() {
   const [data, setData] = useState(null)
-  const userContext = useContext(UserContext)
-  const getColor = useColor()
-  const styles = useStyles({ color: getColor() })
+  const appController = useAppController()
+  const styles = useStyles({ color: appController.getColor() })
+  const setError = useError()
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     const res = await getAnswer(
-  //       userContext.gameData.currentQuestionID,
-  //       userContext.roomCode
-  //     )
-  //     setData(res)
-  //   }
-  //   getData()
-  // }, [userContext.gameData.currentQuestionID, userContext.roomCode])
+  useEffect(() => {
+    async function getData() {
+      try {
+        const dbRef = firebase
+          .database()
+          .ref('game/' + appController.gameID + '/questionState')
+        const questionState = (await dbRef.get()).val()
+        const res = await getVoteQuestion(appController.gameID, questionState)
+        setData(res.question)
+      } catch (err) {
+        setError(err)
+      }
+    }
+    getData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appController.gameID])
 
-  if (data === null) return <></>
+  if (data === null || data === undefined) return <></>
+  data.a.score = appController.getScore(data.a.vote)
+  data.b.score = appController.getScore(data.b.vote)
   return (
     <Box height="100%" display="flex" flexDirection="column">
       <Box flexGrow={1}>
         <div className={styles.background} />
         <Typography className={styles.question}>{data.question}</Typography>
         {/*TODO change color later */}
-        <AnswerResult id={0} style={{ backgroundColor: getColor(0).dark }} />
-        <AnswerResult id={1} style={{ width: '80%' }} />
+        <AnswerResult win={data.a.score > data.b.score} data={data.a} />
+        <AnswerResult win={data.b.score > data.a.score} data={data.b} />
       </Box>
       <Countdown />
     </Box>

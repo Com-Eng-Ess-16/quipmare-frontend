@@ -65,5 +65,9 @@ export const useGameUtil = () => {
     localStorage.removeItem('index')
   }
 
-  return { rejoin, clearStorage, clearGameData }
+  const getScore = (vote) => {
+    return vote ? vote.length : 0
+  }
+
+  return { rejoin, clearStorage, clearGameData, getScore }
 }

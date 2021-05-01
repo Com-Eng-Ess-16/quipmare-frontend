@@ -4,7 +4,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core'
-import { useColor } from 'utils/colorUtil'
+import { useAppController } from 'utils/appController'
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: '0px 10px 0px 10px',
@@ -58,18 +58,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function AnswerResult(props) {
-  const name = 'PKhing'
-  const answer = 'Never'
-  const colorID = -1
-  const getColor = useColor()
+function AnswerResult({ win, data }) {
+  const appController = useAppController()
+  const name = appController.player[data.owner].username
+  const answer = data.answer
+  const colorID = appController.player[data.owner].color
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
-  const vote = [0, 1, 2, 3, 4, 5, 6, 7]
-  const styles = useStyles({ color: 'white' })
-  const spectator = 5
+  const vote = data.vote ? data.vote : []
+  let spectatorVote = 0
+  for (let id in vote) {
+    if (vote[id].length > 2) {
+      spectatorVote++
+    }
+  }
+  const styles = useStyles({
+    color: win ? appController.getColor(colorID).dark : 'white',
+  })
   return (
-    <div className={styles.container} style={props.style}>
+    <div className={styles.container} style={{ width: win ? '90%' : '80%' }}>
       <div className={styles.textContainer}>
         <Typography
           className={styles.text}
@@ -86,14 +93,21 @@ function AnswerResult(props) {
       </div>
       <div className={styles.voteContainer}>
         {vote.map((val) => {
+          if (val.length > 2) return <></>
           return (
             <div
               className={styles.color}
-              style={{ backgroundColor: getColor(colorID).dark }}
+              style={{
+                backgroundColor: appController.getColor(
+                  appController.player[val].color
+                ).light,
+              }}
             ></div>
           )
         })}
-        <Typography variant="h6">{'+' + spectator}</Typography>
+        <Typography variant="h6">
+          {spectatorVote ? '+' + spectatorVote : ''}
+        </Typography>
       </div>
     </div>
   )
