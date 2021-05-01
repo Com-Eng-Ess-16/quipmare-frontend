@@ -37,7 +37,12 @@ function Profile({ action }) {
                 className: styles.textFieldFont,
               }}
               onChange={(event) => {
-                setUsername(event.target.value)
+                const regex = /^[a-zA-Z]*$/
+                if (
+                  regex.test(event.target.value) &&
+                  event.target.value.length <= 12
+                )
+                  setUsername(event.target.value.toUpperCase())
                 if (username !== '') setBlank(false)
               }}
             />
