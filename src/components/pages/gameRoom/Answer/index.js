@@ -76,6 +76,7 @@ function Answer() {
   const setError = useError()
   const [index, setIndex] = useState(0)
   const [answer, setAnswer] = useState('')
+  const [isBlank, setBlank] = useState(false)
   useEffect(() => {
     async function getData() {
       try {
@@ -93,6 +94,10 @@ function Answer() {
   }, [appController.gameID, appController.userID])
 
   const sendAnswer = async () => {
+    if (answer === '') {
+      setBlank(true)
+      return
+    }
     try {
       await postAnswer(
         appController.gameID,
@@ -139,6 +144,7 @@ function Answer() {
         <div className={styles.answer}>
           <TextField
             className={styles.textField}
+            error={isBlank}
             style={{
               minWidth: '80%',
               fontSize: '2rem',
@@ -155,7 +161,10 @@ function Answer() {
             variant="outlined"
             value={answer}
             onChange={(event) => {
-              setAnswer(event.target.value)
+              console.log(event.target.value.length)
+              const value = event.target.value.replace('\n', '')
+              setAnswer(value)
+              if (value !== '') setBlank(false)
             }}
           />
           <Button
