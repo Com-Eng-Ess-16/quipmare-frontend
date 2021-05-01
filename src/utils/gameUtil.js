@@ -28,7 +28,7 @@ export const useGameUtil = () => {
               userContext.setUserID(userID)
               userContext.setUsername(snapshot.val().username)
               listener.addPlayerListener(roomCode, userID)
-              listener.addRoomStateListener(roomCode)
+              listener.addRoomStateListener(roomCode, userID)
             }
           }
         } else {
