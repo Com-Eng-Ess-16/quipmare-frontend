@@ -81,8 +81,6 @@ function VoteResult() {
         <Loading />
       </>
     )
-  data.a.score = appController.getScore(data.a.vote)
-  data.b.score = appController.getScore(data.b.vote)
   return (
     <Box height="100%" display="flex" flexDirection="column">
       <Box flexGrow={1}>
@@ -90,8 +88,8 @@ function VoteResult() {
         <Typography className={styles.question}>
           {data.questionPrompt}
         </Typography>
-        <AnswerResult win={data.a.score > data.b.score} data={data.a} />
-        <AnswerResult win={data.b.score > data.a.score} data={data.b} />
+        <AnswerResult win={data.a.point > data.b.point} data={data.a} />
+        <AnswerResult win={data.b.point > data.a.point} data={data.b} />
       </Box>
       <Countdown />
     </Box>
