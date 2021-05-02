@@ -24,6 +24,16 @@ const useStyles = makeStyles((theme) => ({
     wordBreak: 'break-word',
     hyphens: 'auto',
   },
+  score: {
+    fontSize: '2.5rem',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+      margin: '0px 0 -5px 0',
+    },
+    [theme.breakpoints.up('md')]: {
+      marginLeft: '10%',
+    },
+  },
   text: {
     fontSize: '2.5rem',
     fontFamily: 'Prompt',
@@ -100,7 +110,7 @@ function AnswerResult({ win, data }) {
             marginRight: '5px',
           }}
         >
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+{data.score}
+          {data.score}&nbsp;points
         </Typography>
       </div>
       <div className={styles.voteContainer}>
