@@ -2,7 +2,7 @@ import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import { useError } from 'components/common/Error'
 import Loading from 'components/common/Loading'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import firebase from 'firebase'
 import { getStanding, postBackToWaiting } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
 import PodiumItem from './PodiumItem'
@@ -107,19 +107,20 @@ function Podium() {
         >
           LEAVE
         </Button>
-        <Link
-          to={'/gallery/' + appController.gameID}
-          style={{ textDecoration: 'none' }}
+        <Button
+          variant="contained"
+          color="primary"
+          className={styles.button + ' ' + styles.brownButton}
+          onClick={async () => {
+            const ref = firebase
+              .database()
+              .ref('game/' + appController.gameID + '/archiveId')
+            const id = (await ref.get()).val()
+            window.open('/gallery/' + id, '_blank')
+          }}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            className={styles.button + ' ' + styles.brownButton}
-            style={{ width: '100%' }}
-          >
-            Gallery
-          </Button>
-        </Link>
+          Gallery
+        </Button>
         {String(appController.userID) === String(0) && (
           <Button
             variant="contained"
