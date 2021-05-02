@@ -180,7 +180,7 @@ function Voting() {
             sendVote('b')
           }}
         >
-          {data['b'].answers ? data['b'].answer : 'No Answer'}
+          {data['b'].answer ? data['b'].answer : 'No Answer'}
         </Button>
         {isOwner && (
           <Typography variant="h6" style={{ textAlign: 'center' }}>
