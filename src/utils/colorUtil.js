@@ -55,6 +55,9 @@ export const useColor = () => {
       if (
         userID !== null &&
         userID !== undefined &&
+        userID !== -1 &&
+        userID !== '-1' &&
+        playerContext.player &&
         playerContext.player[userID]
       ) {
         id = playerContext.player[userID].color

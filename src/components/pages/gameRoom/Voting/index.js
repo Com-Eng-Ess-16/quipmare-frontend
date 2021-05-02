@@ -73,6 +73,7 @@ function Voting() {
   const setError = useError()
 
   const sendVote = async (choice) => {
+    if (isOwner) return
     try {
       await postVote(
         appController.gameID,
@@ -119,7 +120,6 @@ function Voting() {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.gameID])
-
   if (data === null || data === undefined)
     return (
       <>
@@ -127,26 +127,10 @@ function Voting() {
         <Loading />
       </>
     )
-  if (
+
+  const isOwner =
     String(data.a.owner) === String(appController.userID) ||
     String(data.b.owner) === String(appController.userID)
-  ) {
-    return (
-      <Box display="flex" flexDirection="column" height="100%">
-        <div className={styles.background} />
-        <Box flexGrow={1} className={styles.waitingText}>
-          <Typography
-            variant="h5"
-            color="primary"
-            style={{ marginTop: '30px' }}
-          >
-            Wait for other players to vote!
-          </Typography>
-        </Box>
-        <Countdown text="Waiting for other players..." />
-      </Box>
-    )
-  }
   if (isWaiting) {
     return (
       <Box display="flex" flexDirection="column" height="100%">
@@ -198,6 +182,11 @@ function Voting() {
         >
           {data['b'].answer}
         </Button>
+        {isOwner && (
+          <Typography variant="h6" style={{ textAlign: 'center' }}>
+            You can't vote this question.
+          </Typography>
+        )}
       </Box>
       <Countdown />
     </Box>
