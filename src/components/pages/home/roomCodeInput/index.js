@@ -33,7 +33,8 @@ function RoomCodeInput({ action, setAction }) {
             className: styles.textFieldFont,
           }}
           onChange={(event) => {
-            setRoomCode(event.target.value)
+            if (event.target.value.length <= 6)
+              setRoomCode(event.target.value.toUpperCase())
             if (roomCode !== '') setBlank(false)
           }}
         />

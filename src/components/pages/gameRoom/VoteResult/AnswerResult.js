@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 function AnswerResult({ win, data }) {
   const appController = useAppController()
   const name = appController.player[data.owner].username
-  const answer = data.answer
+  const answer = data.answer ? data.answer : 'No Answer'
   const colorID = appController.player[data.owner].color
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
