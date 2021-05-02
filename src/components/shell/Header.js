@@ -51,7 +51,7 @@ function Header() {
 
   if (appController.userType === 'spectate') {
     return (
-      <header className={styles.container}>
+      <header className={styles.container} style={{ justifyContent: 'center' }}>
         <Typography className={styles.text}>{'<' + roomCode + '>'}</Typography>
       </header>
     )
