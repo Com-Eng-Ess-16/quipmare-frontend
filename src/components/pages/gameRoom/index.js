@@ -12,7 +12,7 @@ function GameRoom() {
   if (gameState === 'voting') return <Voting />
   if (gameState === 'result') return <VoteResult />
   if (gameState === 'score') return <Standing />
-  if (gameState === 4) return <Podium />
+  if (gameState === 'podium') return <Podium />
   return <Loading />
 }
 export default GameRoom
