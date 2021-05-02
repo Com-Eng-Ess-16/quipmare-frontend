@@ -171,7 +171,7 @@ function Voting() {
             color="primary"
             className={styles.votedAnswer}
           >
-            {'You vote "' + votedAnswer + '"'}
+            {'You vote "' + votedAnswer.toUpperCase() + '"'}
           </Typography>
         </Box>
         <Countdown text="Waiting for other players..." />

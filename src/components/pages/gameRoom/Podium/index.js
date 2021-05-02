@@ -3,7 +3,7 @@ import { useError } from 'components/common/Error'
 import Loading from 'components/common/Loading'
 import { useEffect, useState } from 'react'
 import firebase from 'firebase'
-import { getStanding, getWinner, postBackToWaiting } from 'utils/apiService'
+import { getWinner, postBackToWaiting } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
 import PodiumItem from './PodiumItem'
 const useStyles = makeStyles((theme) => ({
