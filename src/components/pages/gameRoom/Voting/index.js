@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Voting() {
-  // TODO
   const appController = useAppController()
   const [data, setData] = useState(null)
   const styles = useStyles({ color: appController.getColor() })

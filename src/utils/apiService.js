@@ -113,5 +113,12 @@ export const getStanding = (gameID) => {
     1: 100,
   }
 }
-export const postCountdownEnd = (gameID) => {}
+export const postCountdownEnd = async (gameID) => {
+  try {
+    const res = await apiClient.get('/game/next/' + gameID)
+    console.log(res.data)
+  } catch (err) {
+    throw err
+  }
+}
 export const postBackToWaiting = (gameID) => {}

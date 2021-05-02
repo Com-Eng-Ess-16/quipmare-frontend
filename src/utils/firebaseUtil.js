@@ -40,6 +40,10 @@ export const useListener = () => {
       .database()
       .ref('game/' + gameID + '/gameState')
     gameStateRef.off()
+    const countdownRef = firebase
+      .database()
+      .ref('game/' + gameID + '/deadlineTime')
+    countdownRef.off()
     if (userID !== null && userID !== undefined) {
       const scoreRef = firebase
         .database()
@@ -93,6 +97,7 @@ export const useListener = () => {
         const gameID = await getGameID(roomCode)
         userContext.setGameID(gameID)
         addGameStateListener(gameID)
+        addCountdownEndListener(gameID)
         if (userID !== null && userID !== undefined) {
           addScoreListener(gameID, userID)
         }
@@ -119,6 +124,17 @@ export const useListener = () => {
     scoreRef.on('value', (snapshot) => {
       const data = snapshot.val()
       if (data) userContext.setScore(data)
+    })
+  }
+
+  const addCountdownEndListener = (gameID) => {
+    const countdownRef = firebase
+      .database()
+      .ref('game/' + gameID + '/deadlineTime')
+    countdownRef.off()
+    countdownRef.on('value', (snapshot) => {
+      const data = snapshot.val()
+      if (data) userContext.setCountdownEnd(data)
     })
   }
 

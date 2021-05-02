@@ -9,6 +9,7 @@ function UserProvider(props) {
   const [gameID, setGameID] = useState(null)
   const [score, setScore] = useState(0)
   const [username, setUsername] = useState(null)
+  const [countdownEnd, setCountdownEnd] = useState(null)
   const [gameData, setGameData] = useState({
     currentQuestionID: -1,
     countdownEnd: '2021-04-23T12:15:00+07:00',
@@ -36,6 +37,7 @@ function UserProvider(props) {
     setGameID(null)
     setUsername(null)
     setScore(0)
+    setCountdownEnd(null)
   }
   return (
     <UserContext.Provider
@@ -58,6 +60,8 @@ function UserProvider(props) {
         setScore,
         username,
         setUsername,
+        countdownEnd,
+        setCountdownEnd,
         reset,
       }}
     >

@@ -1,9 +1,8 @@
 import { makeStyles, Typography } from '@material-ui/core'
-import { useContext } from 'react'
 import { default as ReactCountdown } from 'react-countdown'
 import { postCountdownEnd } from 'utils/apiService'
-import { UserContext } from 'context/context'
-import { useColor } from 'utils/colorUtil'
+import { useAppController } from 'utils/appController'
+import { useError } from './Error'
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: '15px',
@@ -41,16 +40,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 export default function Countdown(props) {
-  const getColor = useColor()
-  const userContext = useContext(UserContext)
-  const styles = useStyles(getColor())
+  const appController = useAppController()
+  const styles = useStyles(appController.getColor())
+  const setError = useError()
   return (
     <ReactCountdown
-      date={userContext.gameData.countdownEnd}
-      onComplete={() => {
-        if (useContext.userID === 0) {
-          postCountdownEnd(useContext.roomCode)
+      date={appController.countdownEnd}
+      onComplete={async () => {
+        console.log('test')
+        if (String(appController.userID) === String(0)) {
+          try {
+            await postCountdownEnd(appController.gameID)
+          } catch (err) {
+            setError(err)
+          }
         }
+        appController.clearGameData()
       }}
       renderer={(prop) => (
         <div className={styles.container}>
