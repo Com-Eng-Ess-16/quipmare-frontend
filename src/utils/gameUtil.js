@@ -22,7 +22,7 @@ export const useGameUtil = () => {
           const snapshot = await playerRef.get()
           if (snapshot.exists()) {
             if (snapshot.val().deviceId === deviceID) {
-              console.log('rejoin')
+              // console.log('rejoin')
               userContext.setRoomCode(roomCode)
               userContext.setUserType(userType)
               userContext.setUserID(userID)
@@ -38,7 +38,7 @@ export const useGameUtil = () => {
           const snapshot = await spectatorRef.get()
           if (snapshot.exists()) {
             if (snapshot.val() === deviceID) {
-              console.log('rejoin')
+              // console.log('rejoin')
               userContext.setRoomCode(roomCode)
               userContext.setUserType(userType)
               userContext.setUserID(userID)

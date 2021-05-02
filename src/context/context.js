@@ -4,7 +4,7 @@ function UserProvider(props) {
   const [userID, setUserIDState] = useState(-1)
   const [userType, setUserTypeState] = useState(null)
   const [roomCode, setRoomCodeState] = useState(null)
-  const [roomState, setRoomState] = useState(-1) // change to null later
+  const [roomState, setRoomState] = useState(null)
   const [gameState, setGameState] = useState(-1)
   const [gameID, setGameID] = useState(null)
   const [score, setScore] = useState(0)

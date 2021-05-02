@@ -39,8 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 function StandingItem({ win, data }) {
-  console.log('here')
-  console.log(data)
   const appController = useAppController()
   const styles = useStyles({
     color: appController.getColor(appController.player[data.playerId].color),

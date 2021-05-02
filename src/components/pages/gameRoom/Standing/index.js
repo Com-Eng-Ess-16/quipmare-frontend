@@ -46,8 +46,6 @@ function Standing() {
       <Box flexGrow={1}>
         <div className={styles.background} />
         {score.map((val, idx) => {
-          console.log(val)
-          console.log(idx)
           return <StandingItem win={idx === 0} data={val} />
         })}
       </Box>
