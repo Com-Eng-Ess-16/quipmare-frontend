@@ -22,7 +22,7 @@ function PodiumItem({ size, data, style }) {
   const appController = useAppController()
   const styles = useStyles({
     size,
-    color: appController.getColor(appController.player[data.playerId].color),
+    color: appController.getColor(data.color),
   })
   return (
     <div className={styles.container} style={style}>

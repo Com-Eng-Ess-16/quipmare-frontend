@@ -114,6 +114,14 @@ export const getStanding = async (gameID) => {
     throw err
   }
 }
+export const getWinner = async (gameID) => {
+  try {
+    const res = await apiClient.get('/game/winner/' + gameID)
+    return res.data
+  } catch (err) {
+    throw err
+  }
+}
 export const postCountdownEnd = async (gameID) => {
   try {
     await apiClient.get('/game/next/' + gameID)
