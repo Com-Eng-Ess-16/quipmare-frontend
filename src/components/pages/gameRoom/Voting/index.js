@@ -72,8 +72,17 @@ function Voting() {
   const [votedAnswer, setVotedAnswer] = useState('Never')
   const setError = useError()
 
+  const [audio, setAudio] = useState(null)
+
   const sendVote = async (choice) => {
-    if (isOwner) return
+    setError({
+      response: {
+        data: "You can't vote this question",
+      },
+    })
+    if (isOwner) {
+      return
+    }
     if (!data[choice].answer) {
       setError({
         response: {
@@ -120,6 +129,11 @@ function Voting() {
         } else {
           await appController.clearGameData()
           localStorage.setItem('questionIndex', questionState)
+          setAudio(
+            new Audio(
+              'https://storage.googleapis.com/quipmare-game.appspot.com/test3.mp3'
+            )
+          )
         }
       } catch (err) {
         setError(err)
@@ -128,6 +142,10 @@ function Voting() {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.gameID])
+
+  useEffect(() => {
+    if (audio) audio.play()
+  }, [audio])
   if (data === null || data === undefined)
     return (
       <>
@@ -163,6 +181,15 @@ function Voting() {
       </Box>
     )
   }
+
+  // const playSound = () => {
+  //   let audio = document.getElementById('myAudio')
+  //   console.log(audio)
+  //   audio.load()
+  //   audio.play()
+  //   console.log('in')
+  // }
+  // playSound()
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <div className={styles.background} />
