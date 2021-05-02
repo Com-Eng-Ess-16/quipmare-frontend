@@ -102,7 +102,7 @@ function AnswerResult({ win, data }) {
           {name + (isSm ? '' : ' > ')}
         </Typography>
         <Typography className={styles.text} style={{ textAlign: 'center' }}>
-          {answer}
+          {answer.toUpper()}
         </Typography>
         <Typography
           className={styles.score}

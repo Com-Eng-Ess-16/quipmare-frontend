@@ -192,7 +192,7 @@ function Answer() {
             value={answer}
             onChange={(event) => {
               const value = event.target.value.replace('\n', '')
-              if (value.length <= 60) setAnswer(value.toUpperCase())
+              if (value.length <= 60) setAnswer(value)
               if (value !== '') setBlank(false)
             }}
           />
