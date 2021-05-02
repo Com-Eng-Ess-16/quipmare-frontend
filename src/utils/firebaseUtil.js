@@ -97,6 +97,10 @@ export const useListener = () => {
       if (!data) {
         userContext.reset()
         playerContext.reset()
+        closeListener(roomCode, null, userID)
+        const deviceID = localStorage.getItem('deviceID')
+        localStorage.clear()
+        localStorage.setItem('deviceID', deviceID)
       } else if (data !== 'waiting') {
         const gameID = await getGameID(roomCode)
         userContext.setGameID(gameID)

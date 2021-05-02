@@ -171,7 +171,7 @@ function Voting() {
             sendVote('a')
           }}
         >
-          {data['a'].answer}
+          {data['a'].answer ? data['a'].answer : 'No Answer'}
         </Button>
         <Button
           className={styles.button}
@@ -180,7 +180,7 @@ function Voting() {
             sendVote('b')
           }}
         >
-          {data['b'].answer}
+          {data['b'].answers ? data['b'].answer : 'No Answer'}
         </Button>
         {isOwner && (
           <Typography variant="h6" style={{ textAlign: 'center' }}>

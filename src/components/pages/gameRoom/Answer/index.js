@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '4rem',
     fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
-      marginTop: '15vh',
+      marginTop: '10vh',
       fontSize: '2.5rem',
     },
   },
@@ -136,7 +136,7 @@ function Answer() {
             color="primary"
             style={{ textAlign: 'center' }}
           >
-            Wait for players answer questions!
+            Wait for players to answer questions!
           </Typography>
         </div>
         <Countdown text="Waiting for other players..." />
@@ -189,9 +189,8 @@ function Answer() {
             variant="outlined"
             value={answer}
             onChange={(event) => {
-              console.log(event.target.value.length)
               const value = event.target.value.replace('\n', '')
-              setAnswer(value)
+              if (value.length <= 60) setAnswer(value)
               if (value !== '') setBlank(false)
             }}
           />
