@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { Box, makeStyles, Typography } from '@material-ui/core'
 import Countdown from 'components/common/Countdown'
-import { UserContext } from 'context/context'
-import { useContext, useEffect, useState } from 'react'
-import { getAnswer, getVoteQuestion } from 'utils/apiService'
-import { useColor } from 'utils/colorUtil'
+import { useEffect, useState } from 'react'
+import { getVoteQuestion } from 'utils/apiService'
 import AnswerResult from './AnswerResult'
 import firebase from 'firebase'
 import { useAppController } from 'utils/appController'
@@ -82,8 +79,9 @@ function VoteResult() {
     <Box height="100%" display="flex" flexDirection="column">
       <Box flexGrow={1}>
         <div className={styles.background} />
-        <Typography className={styles.question}>{data.question}</Typography>
-        {/*TODO change color later */}
+        <Typography className={styles.question}>
+          {data.questionPrompt}
+        </Typography>
         <AnswerResult win={data.a.score > data.b.score} data={data.a} />
         <AnswerResult win={data.b.score > data.a.score} data={data.b} />
       </Box>
