@@ -84,6 +84,7 @@ function Answer() {
     async function getData() {
       if (appController.userType === 'spectate') return
       try {
+        if (!appController.gameID) return
         const res = await getPlayerQuestion(
           appController.gameID,
           appController.userID
@@ -190,7 +191,7 @@ function Answer() {
             value={answer}
             onChange={(event) => {
               const value = event.target.value.replace('\n', '')
-              if (value.length <= 60) setAnswer(value)
+              if (value.length <= 60) setAnswer(value.toUpperCase())
               if (value !== '') setBlank(false)
             }}
           />
