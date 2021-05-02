@@ -91,6 +91,17 @@ function AnswerResult({ win, data }) {
         <Typography className={styles.text} style={{ textAlign: 'center' }}>
           {answer}
         </Typography>
+        <Typography
+          className={styles.score}
+          style={{
+            color: 'white',
+            textShadow:
+              '-1px 0 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black',
+            marginRight: '5px',
+          }}
+        >
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+{data.score}
+        </Typography>
       </div>
       <div className={styles.voteContainer}>
         {vote.map((val) => {
