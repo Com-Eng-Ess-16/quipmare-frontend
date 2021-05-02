@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 function Header() {
-  // TODO get value
   const appController = useAppController()
   const getColor = appController.getColor
   const username = appController.username
@@ -50,7 +49,6 @@ function Header() {
     )
   }
 
-  // TODO check if this player is spectator
   if (appController.userType === 'spectate') {
     return (
       <header className={styles.container}>

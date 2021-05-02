@@ -1,4 +1,8 @@
 import { Box, Button, makeStyles, Typography } from '@material-ui/core'
+import { useError } from 'components/common/Error'
+import { useEffect, useState } from 'react'
+import { getStanding } from 'utils/apiService'
+import { useAppController } from 'utils/appController'
 import PodiumItem from './PodiumItem'
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -54,7 +58,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 function Podium() {
+  const appController = useAppController()
+  const [data, setData] = useState(null)
   const styles = useStyles()
+  const setError = useError()
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await getStanding(appController.gameID)
+        setData(res.score[0])
+      } catch (err) {
+        setError(err)
+      }
+    }
+    getData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appController.roomCode])
+  if (data === null) return <></>
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Typography className={styles.text}>
@@ -66,8 +86,7 @@ function Podium() {
           (80 * window.innerWidth) / 100,
           (60 * window.innerHeight) / 100
         )}
-        userID={0}
-        score={300}
+        data={data}
         style={{ margin: 'auto' }}
       />
       <div className={styles.buttonContainer}>

@@ -1,5 +1,5 @@
 import { makeStyles, Typography } from '@material-ui/core'
-import { useColor } from 'utils/colorUtil'
+import { useAppController } from 'utils/appController'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,17 +18,19 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Architects Daughter',
   },
 }))
-function PodiumItem({ size, fontSize, score, style }) {
-  const getColor = useColor()
-  const username = 'test'
-  const styles = useStyles({ size, color: getColor(), fontSize })
+function PodiumItem({ size, data, style }) {
+  const appController = useAppController()
+  const styles = useStyles({
+    size,
+    color: appController.getColor(appController.player[data.playerId].color),
+  })
   return (
     <div className={styles.container} style={style}>
       <Typography variant="h3" className={styles.username}>
-        {username}
+        {data.username}
       </Typography>
       <Typography variant="h6" className={styles.score}>
-        {score + ' points'}
+        {data.point + ' points'}
       </Typography>
     </div>
   )
