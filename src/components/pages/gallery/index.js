@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Typography, Switch, makeStyles, Button } from '@material-ui/core'
+import { Typography, Switch, makeStyles } from '@material-ui/core'
 import Loading from 'components/common/Loading'
 import { useError } from 'components/common/Error'
 import { getArchive } from 'utils/apiService'
