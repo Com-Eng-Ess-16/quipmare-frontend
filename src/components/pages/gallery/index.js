@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     border: '3px solid ' + theme.palette.primary.main,
   },
   questionText: {
-    margin: '3% 3% 3% 3%',
+    margin: '2% 0 2% 2%',
     fontFamily: 'Prompt',
     fontSize: '2rem',
     width: '100%',
@@ -64,9 +64,13 @@ const useStyles = makeStyles((theme) => ({
   expandButton: {
     border: 'none',
     height: '10vh',
+    marginRight: '30px',
     backgroundColor: theme.palette.primary.light,
     '&:hover': {
       backgroundColor: theme.palette.primary.light,
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginRight: '10px',
     },
   },
   answers: {},
@@ -78,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   answerText: {
-    margin: '2.5% 2.5% 2.5% 2.5%',
+    margin: '1% 1% 1% 1%',
     fontFamily: 'Prompt',
     fontSize: '1.6rem',
     width: '100%',
@@ -173,7 +177,11 @@ function Gallery(props) {
                   }}
                   color="default"
                 >
-                  {hide[index] ? <ExpandMore /> : <ExpandLess />}
+                  {hide[index] ? (
+                    <ExpandMore fontSize="large" />
+                  ) : (
+                    <ExpandLess fontSize="large" />
+                  )}
                 </button>
               </div>
               {!hide[index] && (

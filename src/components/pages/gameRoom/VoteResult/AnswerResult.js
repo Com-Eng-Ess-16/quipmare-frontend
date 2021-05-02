@@ -26,12 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
   score: {
     fontSize: '2.5rem',
+    textAlign: 'right',
     [theme.breakpoints.down('sm')]: {
       fontSize: '2rem',
       margin: '0px 0 -5px 0',
     },
     [theme.breakpoints.up('md')]: {
-      marginLeft: '10%',
+      marginLeft: '10px',
     },
   },
   text: {
@@ -81,6 +82,7 @@ function AnswerResult({ win, data }) {
       spectatorVote++
     }
   }
+  console.log(data)
   const styles = useStyles({
     color: win ? appController.getColor(colorID).dark : 'white',
   })
@@ -94,6 +96,8 @@ function AnswerResult({ win, data }) {
             textShadow:
               '-1px 0 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black',
             marginRight: '5px',
+            flexGrow: 4,
+            flexShrink: 0,
           }}
         >
           {name + (isSm ? '' : ' > ')}
@@ -108,9 +112,11 @@ function AnswerResult({ win, data }) {
             textShadow:
               '-1px 0 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black',
             marginRight: '5px',
+            flexGrow: 4,
+            flexShrink: 0,
           }}
         >
-          {data.score}&nbsp;points
+          {data.point}&nbsp;points
         </Typography>
       </div>
       <div className={styles.voteContainer}>
