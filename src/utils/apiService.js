@@ -118,10 +118,15 @@ export const getStanding = async (gameID) => {
 }
 export const postCountdownEnd = async (gameID) => {
   try {
-    const res = await apiClient.get('/game/next/' + gameID)
-    console.log(res.data)
+    await apiClient.get('/game/next/' + gameID)
   } catch (err) {
     throw err
   }
 }
-export const postBackToWaiting = (gameID) => {}
+export const postBackToWaiting = async (roomCode) => {
+  try {
+    await apiClient.get('/room/return/' + roomCode)
+  } catch (err) {
+    throw err
+  }
+}
