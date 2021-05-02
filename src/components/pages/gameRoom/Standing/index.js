@@ -1,9 +1,9 @@
 import { Box, makeStyles } from '@material-ui/core'
 import Countdown from 'components/common/Countdown'
-import { UserContext } from 'context/context'
-import { useContext, useEffect, useState } from 'react'
+import { useError } from 'components/common/Error'
+import { useEffect, useState } from 'react'
 import { getStanding } from 'utils/apiService'
-import { useColor } from 'utils/colorUtil'
+import { useAppController } from 'utils/appController'
 import StandingItem from './StandingItem'
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -17,33 +17,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 function Standing() {
-  const userContext = useContext(UserContext)
+  const appController = useAppController()
   const [score, setScore] = useState(null)
-  const getColor = useColor()
-  const styles = useStyles({ color: getColor() })
+  const styles = useStyles({ color: appController.getColor() })
+  const setError = useError()
   useEffect(() => {
     async function getData() {
-      const res = await getStanding(userContext.roomCode)
-      setScore(res)
+      try {
+        const res = await getStanding(appController.gameID)
+        setScore(res.score)
+      } catch (err) {
+        setError(err)
+      }
     }
     getData()
-  }, [userContext.roomCode])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appController.roomCode])
   if (score === null) return <></>
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Box flexGrow={1}>
         <div className={styles.background} />
-        <StandingItem win />
-        <StandingItem />
-        <StandingItem />
-        {/* {Object.keys(score).map((key) => {
-          return (
-            <StandingItem />
-            // <Typography>
-            //   {key.toString() + ': ' + score[key].toString()}
-            // </Typography>
-          )
-        })} */}
+        {score.map((val, idx) => {
+          console.log(val)
+          console.log(idx)
+          return <StandingItem win={idx === 0} data={val} />
+        })}
       </Box>
       <Countdown />
     </Box>

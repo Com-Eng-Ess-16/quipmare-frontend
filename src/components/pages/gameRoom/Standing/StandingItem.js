@@ -1,5 +1,5 @@
 import { makeStyles, Typography } from '@material-ui/core'
-import { useColor } from 'utils/colorUtil'
+import { useAppController } from 'utils/appController'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -38,12 +38,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }))
-function StandingItem(props) {
-  const { win } = props
-  const getColor = useColor()
-  const styles = useStyles({ color: getColor(), win })
-  const username = 'PKhing'
-  const score = 400
+function StandingItem({ win, data }) {
+  console.log('here')
+  console.log(data)
+  const appController = useAppController()
+  const styles = useStyles({
+    color: appController.getColor(appController.player[data.playerId].color),
+    win,
+  })
+  const username = data.username
+  const score = data.point
   return (
     <div className={styles.container}>
       <div className={styles.color}>
