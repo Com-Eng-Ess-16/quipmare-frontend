@@ -3,7 +3,7 @@ import { useError } from 'components/common/Error'
 import Loading from 'components/common/Loading'
 import { useEffect, useState } from 'react'
 import firebase from 'firebase'
-import { getStanding, postBackToWaiting } from 'utils/apiService'
+import { getStanding, getWinner, postBackToWaiting } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
 import PodiumItem from './PodiumItem'
 const useStyles = makeStyles((theme) => ({
@@ -67,8 +67,8 @@ function Podium() {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await getStanding(appController.gameID)
-        setData(res.score[0])
+        const res = await getWinner(appController.gameID)
+        setData(res.winner)
       } catch (err) {
         setError(err)
       }

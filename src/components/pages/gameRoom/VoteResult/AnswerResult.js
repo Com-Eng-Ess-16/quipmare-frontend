@@ -82,7 +82,6 @@ function AnswerResult({ win, data }) {
       spectatorVote++
     }
   }
-  console.log(data)
   const styles = useStyles({
     color: win ? appController.getColor(colorID).dark : 'white',
   })
