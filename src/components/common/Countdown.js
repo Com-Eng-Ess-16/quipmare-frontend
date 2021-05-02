@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }))
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 export default function Countdown(props) {
   const appController = useAppController()
   const styles = useStyles(appController.getColor())
@@ -49,6 +52,7 @@ export default function Countdown(props) {
       onComplete={async () => {
         if (String(appController.userID) === String(0)) {
           try {
+            await sleep(500)
             await postCountdownEnd(appController.gameID)
           } catch (err) {
             setError(err)
