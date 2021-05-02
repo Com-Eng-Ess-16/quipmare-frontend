@@ -145,7 +145,6 @@ function Gallery(props) {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  console.log(data)
   if (!data) return <Loading />
   return (
     <div className={styles.page}>
@@ -192,11 +191,6 @@ function Gallery(props) {
             </div>
           )
         })}
-        <div className={styles.buttonContainer}>
-          <Button className={styles.leaveButton} variant="contained">
-            LEAVE
-          </Button>
-        </div>
       </div>
     </div>
   )

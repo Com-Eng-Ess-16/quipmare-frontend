@@ -47,7 +47,6 @@ export default function Countdown(props) {
     <ReactCountdown
       date={appController.countdownEnd}
       onComplete={async () => {
-        console.log('test')
         if (String(appController.userID) === String(0)) {
           try {
             await postCountdownEnd(appController.gameID)

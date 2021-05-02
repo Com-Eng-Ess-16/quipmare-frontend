@@ -8,7 +8,6 @@ export const apiClient = axios.create(config)
 export const getCreateRoom = async () => {
   try {
     const res = await apiClient.get('/room/create')
-    console.log(res.data.roomcode)
     return res.data.roomcode
   } catch (err) {
     throw err
@@ -110,7 +109,6 @@ export const postVote = async (gameID, userID, questionIndex, answer) => {
 export const getStanding = async (gameID) => {
   try {
     const res = await apiClient.get('/game/score/' + gameID)
-    console.log(res.data)
     return res.data
   } catch (err) {
     throw err
