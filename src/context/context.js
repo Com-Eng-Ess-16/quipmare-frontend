@@ -10,10 +10,6 @@ function UserProvider(props) {
   const [score, setScore] = useState(0)
   const [username, setUsername] = useState(null)
   const [countdownEnd, setCountdownEnd] = useState(null)
-  const [gameData, setGameData] = useState({
-    currentQuestionID: -1,
-    countdownEnd: '2021-04-23T12:15:00+07:00',
-  }) // change to null later
 
   const setRoomCode = (roomCode) => {
     setRoomCodeState(roomCode)
@@ -33,7 +29,6 @@ function UserProvider(props) {
     setRoomCode(null)
     setRoomState(null)
     setGameState(-1)
-    setGameData(null)
     setGameID(null)
     setUsername(null)
     setScore(0)
@@ -46,8 +41,6 @@ function UserProvider(props) {
         setUserID,
         userType,
         setUserType,
-        gameData,
-        setGameData,
         roomCode,
         setRoomCode,
         roomState,
@@ -72,16 +65,7 @@ function UserProvider(props) {
 
 const PlayerContext = createContext()
 function PlayerProvider(props) {
-  const [player, setPlayer] = useState({
-    0: {
-      username: 'user0',
-      color: 0,
-    },
-    1: {
-      username: 'user1',
-      color: 1,
-    },
-  }) //change to null later
+  const [player, setPlayer] = useState(null)
   const reset = () => {
     setPlayer(null)
   }
