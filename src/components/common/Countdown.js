@@ -46,6 +46,7 @@ export default function Countdown(props) {
   const appController = useAppController()
   const styles = useStyles(appController.getColor())
   const setError = useError()
+  if (!appController.countdownEnd) return <></>
   return (
     <ReactCountdown
       date={appController.countdownEnd}
