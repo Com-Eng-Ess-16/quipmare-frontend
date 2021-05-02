@@ -11,7 +11,7 @@ function GameRoom() {
   if (gameState === 'answer') return <Answer />
   if (gameState === 'voting') return <Voting />
   if (gameState === 'result') return <VoteResult />
-  if (gameState === 3) return <Standing />
+  if (gameState === 'score') return <Standing />
   if (gameState === 4) return <Podium />
   return <Loading />
 }

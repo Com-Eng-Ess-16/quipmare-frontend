@@ -107,10 +107,13 @@ export const postVote = async (gameID, userID, questionIndex, answer) => {
     throw err
   }
 }
-export const getStanding = (gameID) => {
-  return {
-    0: 1000,
-    1: 100,
+export const getStanding = async (gameID) => {
+  try {
+    const res = await apiClient.get('/game/score/' + gameID)
+    console.log(res.data)
+    return res.data
+  } catch (err) {
+    throw err
   }
 }
 export const postCountdownEnd = async (gameID) => {
