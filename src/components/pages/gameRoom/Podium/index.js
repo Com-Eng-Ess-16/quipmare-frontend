@@ -111,12 +111,16 @@ function Podium() {
           variant="contained"
           color="primary"
           className={styles.button + ' ' + styles.brownButton}
-          onClick={async () => {
-            const ref = firebase
-              .database()
-              .ref('game/' + appController.gameID + '/archiveId')
-            const id = (await ref.get()).val()
-            window.open('/gallery/' + id, '_blank')
+          onClick={() => {
+            const windowReference = window.open()
+            const getArchive = async () => {
+              const ref = firebase
+                .database()
+                .ref('game/' + appController.gameID + '/archiveId')
+              const id = (await ref.get()).val()
+              windowReference.location = '/gallery/' + id
+            }
+            getArchive()
           }}
         >
           Gallery

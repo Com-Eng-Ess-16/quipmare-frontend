@@ -74,6 +74,14 @@ function Voting() {
 
   const sendVote = async (choice) => {
     if (isOwner) return
+    if (!data[choice].answer) {
+      setError({
+        response: {
+          data: 'You can\'t vote "No Answer"',
+        },
+      })
+      return
+    }
     try {
       await postVote(
         appController.gameID,

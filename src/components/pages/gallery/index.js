@@ -175,7 +175,7 @@ function Gallery(props) {
                       className={styles.answerText}
                       style={{ wordWrap: 'break-word' }}
                     >
-                      {a}
+                      {a ? a : 'NO ANSWER'}
                     </Typography>
                   </div>
                   <div className={styles.answer}>
@@ -183,7 +183,7 @@ function Gallery(props) {
                       className={styles.answerText}
                       style={{ wordWrap: 'break-word' }}
                     >
-                      {b}
+                      {b ? b : 'NO ANSWER'}
                     </Typography>
                   </div>
                 </div>
