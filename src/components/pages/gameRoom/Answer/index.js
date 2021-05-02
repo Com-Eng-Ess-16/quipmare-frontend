@@ -109,6 +109,7 @@ function Answer() {
       setBlank(true)
       return
     }
+    if (Date.now > appController.countdownEnd) return
     try {
       await postAnswer(
         appController.gameID,

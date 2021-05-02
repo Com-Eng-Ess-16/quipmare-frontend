@@ -91,6 +91,7 @@ function Voting() {
       })
       return
     }
+    if (Date.now > appController.countdownEnd) return
     try {
       await postVote(
         appController.gameID,
