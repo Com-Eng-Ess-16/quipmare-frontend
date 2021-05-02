@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Typography, Switch, makeStyles } from '@material-ui/core'
+import { Typography, makeStyles } from '@material-ui/core'
+import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import Loading from 'components/common/Loading'
 import { useError } from 'components/common/Error'
 import { getArchive } from 'utils/apiService'
@@ -60,8 +61,13 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.15rem',
     },
   },
-  switch: {
-    marginRight: '5%',
+  expandButton: {
+    border: 'none',
+    height: '10vh',
+    backgroundColor: theme.palette.primary.light,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+    },
   },
   answers: {},
   answer: {
@@ -160,13 +166,15 @@ function Gallery(props) {
                 >
                   {question}
                 </Typography>
-                <Switch
-                  className={styles.switch}
-                  onChange={() => {
+                <button
+                  className={styles.expandButton}
+                  onClick={() => {
                     setHide((prev) => ({ ...prev, [index]: !prev[index] }))
                   }}
                   color="default"
-                ></Switch>
+                >
+                  {hide[index] ? <ExpandMore /> : <ExpandLess />}
+                </button>
               </div>
               {!hide[index] && (
                 <div className={styles.answers}>
