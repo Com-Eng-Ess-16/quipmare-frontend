@@ -130,3 +130,11 @@ export const postBackToWaiting = async (roomCode) => {
     throw err
   }
 }
+export const getArchive = async (archiveID) => {
+  try {
+    const res = await apiClient.get('/archive/id/' + archiveID)
+    return res.data.data
+  } catch (err) {
+    throw err
+  }
+}

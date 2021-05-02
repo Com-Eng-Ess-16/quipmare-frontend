@@ -1,11 +1,8 @@
-import { useState } from 'react'
-import {
-  Typography,
-  Switch,
-  Avatar,
-  makeStyles,
-  Button,
-} from '@material-ui/core'
+import { useEffect, useState } from 'react'
+import { Typography, Switch, makeStyles, Button } from '@material-ui/core'
+import Loading from 'components/common/Loading'
+import { useError } from 'components/common/Error'
+import { getArchive } from 'utils/apiService'
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -57,10 +54,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
       margin: '5% 5% 5% 5%',
-      fontSize: '1.75rem',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '1.35rem',
+      fontSize: '1.5rem',
     },
     [theme.breakpoints.down('xs')]: {
       fontSize: '1.15rem',
@@ -136,59 +130,28 @@ const useStyles = makeStyles((theme) => ({
 function Gallery(props) {
   const styles = useStyles()
   const [hide, setHide] = useState({ 0: true, 1: true, 2: true, 3: true })
-  //const gameID = props.match.params.id
+  const [data, setData] = useState(null)
+  const setError = useError()
+  const archiveID = props.match.params.id
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await getArchive(archiveID)
+        setData(res)
+      } catch (err) {
+        setError(err)
+      }
+    }
+    getData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  console.log(data)
+  if (!data) return <Loading />
   return (
-    //<Typography>{gameID}</Typography>
     <div className={styles.page}>
       <Typography className={styles.header}>Jester Gallery</Typography>
       <div className={styles.body}>
-        {[
-          {
-            questionText:
-              'On your wedding night, it would be horrible to find out that the person you married is ______',
-            winner: {
-              answer: 'no one no one no one no one :(',
-              voters: [1, 2, 3],
-            },
-            loser: {
-              answer: 'yourself',
-              voters: [4, 5],
-            },
-          },
-          {
-            questionText: 'question2',
-            winner: {
-              answer: 'answer1',
-              voters: [1, 2, 3],
-            },
-            loser: {
-              answer: 'answer2',
-              voters: [4, 5],
-            },
-          },
-          {
-            questionText: 'question3',
-            winner: {
-              answer: 'answer1',
-              voters: [1, 2, 3],
-            },
-            loser: {
-              answer: 'answer2',
-              voters: [4, 5],
-            },
-          },
-          {
-            questionText: 'question4',
-            winner: {
-              answer: 'answer1',
-              voters: [1, 2, 3],
-            },
-            loser: {
-              answer: 'answer2',
-              voters: [4, 5],
-            },
-          },
-        ].map(({ questionText, winner, loser }, index) => {
+        {data.map(({ question, a, b }, index) => {
           return (
             <div className={styles.container}>
               <div className={styles.question}>
@@ -196,7 +159,7 @@ function Gallery(props) {
                   className={styles.questionText}
                   style={{ wordWrap: 'break-word' }}
                 >
-                  {questionText}
+                  {question}
                 </Typography>
                 <Switch
                   className={styles.switch}
@@ -213,26 +176,16 @@ function Gallery(props) {
                       className={styles.answerText}
                       style={{ wordWrap: 'break-word' }}
                     >
-                      {winner.answer}
+                      {a}
                     </Typography>
-                    <div className={styles.avatars}>
-                      {winner.voters.map((voter) => (
-                        <Avatar className={styles.avatar}>{voter}</Avatar>
-                      ))}
-                    </div>
                   </div>
                   <div className={styles.answer}>
                     <Typography
                       className={styles.answerText}
                       style={{ wordWrap: 'break-word' }}
                     >
-                      {loser.answer}
+                      {b}
                     </Typography>
-                    <div className={styles.avatars}>
-                      {loser.voters.map((voter) => (
-                        <Avatar className={styles.avatar}>{voter}</Avatar>
-                      ))}
-                    </div>
                   </div>
                 </div>
               )}
