@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2.5rem',
     fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2rem',
+      fontSize: '1.5rem',
       margin: '0px 0 -5px 0',
     },
   },
@@ -52,10 +52,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '5px',
     marginBottom: '10px',
-    [theme.breakpoints.down('sm')]: {
-      margin: 0,
-    },
   },
 }))
 
@@ -90,7 +88,9 @@ function AnswerResult({ win, data }) {
         >
           {name + (isSm ? '' : ' > ')}
         </Typography>
-        <Typography className={styles.text}>{answer}</Typography>
+        <Typography className={styles.text} style={{ textAlign: 'center' }}>
+          {answer}
+        </Typography>
       </div>
       <div className={styles.voteContainer}>
         {vote.map((val) => {

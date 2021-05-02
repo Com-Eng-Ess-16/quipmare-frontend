@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '4rem',
     fontFamily: 'Prompt',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5rem',
+      fontSize: '2rem',
     },
   },
   button: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       minHeight: '70px',
-      fontSize: '2rem',
+      fontSize: '1.5rem',
     },
   },
   waiting: {
@@ -45,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
   background: {
     backgroundColor: (props) => props.color.light,
-    height: '100vh',
+    height: '100%',
     width: '100vw',
-    position: 'absolute',
+    position: 'fixed',
     left: 0,
     top: 0,
     zIndex: -1,
@@ -128,8 +128,8 @@ function Voting() {
       </>
     )
   if (
-    data.a.owner === appController.userID ||
-    data.b.owner === appController.userID
+    String(data.a.owner) === String(appController.userID) ||
+    String(data.b.owner) === String(appController.userID)
   ) {
     return (
       <Box display="flex" flexDirection="column" height="100%">

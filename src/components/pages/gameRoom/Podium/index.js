@@ -115,6 +115,7 @@ function Podium() {
             variant="contained"
             color="primary"
             className={styles.button + ' ' + styles.brownButton}
+            style={{ width: '100%' }}
           >
             Gallery
           </Button>
