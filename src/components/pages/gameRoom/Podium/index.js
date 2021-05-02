@@ -2,6 +2,7 @@ import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import { useError } from 'components/common/Error'
 import Loading from 'components/common/Loading'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getStanding, postBackToWaiting } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
 import PodiumItem from './PodiumItem'
@@ -106,6 +107,18 @@ function Podium() {
         >
           LEAVE
         </Button>
+        <Link
+          to={'/gallery/' + appController.gameID}
+          style={{ textDecoration: 'none' }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            className={styles.button + ' ' + styles.brownButton}
+          >
+            Gallery
+          </Button>
+        </Link>
         {String(appController.userID) === String(0) && (
           <Button
             variant="contained"
