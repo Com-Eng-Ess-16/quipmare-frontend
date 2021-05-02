@@ -6,6 +6,7 @@ import AnswerResult from './AnswerResult'
 import firebase from 'firebase'
 import { useAppController } from 'utils/appController'
 import { useError } from 'components/common/Error'
+import Loading from 'components/common/Loading'
 
 const useStyles = makeStyles((theme) => ({
   question: {
@@ -72,7 +73,13 @@ function VoteResult() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.gameID])
 
-  if (data === null || data === undefined) return <></>
+  if (data === null || data === undefined)
+    return (
+      <>
+        <div className={styles.background} />
+        <Loading />
+      </>
+    )
   data.a.score = appController.getScore(data.a.vote)
   data.b.score = appController.getScore(data.b.vote)
   return (

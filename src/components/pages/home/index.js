@@ -4,6 +4,7 @@ import Profile from './profile'
 import RoomCodeInput from './roomCodeInput'
 import { useIndexStyles } from './styles'
 import { useAppController } from 'utils/appController'
+import Loading from 'components/common/Loading'
 
 function Home() {
   const styles = useIndexStyles()
@@ -51,6 +52,6 @@ function Home() {
   if (appController.roomCode !== null) return <Profile action={action} />
   if (action === 'join' || action === 'spectate')
     return <RoomCodeInput action={action} setAction={setAction} />
-  return <></>
+  return <Loading />
 }
 export default Home

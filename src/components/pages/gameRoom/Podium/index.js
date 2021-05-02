@@ -1,7 +1,8 @@
 import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import { useError } from 'components/common/Error'
+import Loading from 'components/common/Loading'
 import { useEffect, useState } from 'react'
-import { getStanding } from 'utils/apiService'
+import { getStanding, postBackToWaiting } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
 import PodiumItem from './PodiumItem'
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +75,14 @@ function Podium() {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.roomCode])
-  if (data === null) return <></>
+  const returnToLobby = async () => {
+    try {
+      await postBackToWaiting(appController.roomCode)
+    } catch (err) {
+      setError(err)
+    }
+  }
+  if (data === null) return <Loading />
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Typography className={styles.text}>
@@ -90,16 +98,24 @@ function Podium() {
         style={{ margin: 'auto' }}
       />
       <div className={styles.buttonContainer}>
-        <Button variant="outlined" color="primary" className={styles.button}>
+        <Button
+          variant="outlined"
+          color="primary"
+          className={styles.button}
+          onClick={() => appController.kickPlayer()}
+        >
           LEAVE
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className={styles.button + ' ' + styles.brownButton}
-        >
-          play again
-        </Button>
+        {String(appController.userID) === String(0) && (
+          <Button
+            variant="contained"
+            color="primary"
+            className={styles.button + ' ' + styles.brownButton}
+            onClick={returnToLobby}
+          >
+            return to lobby
+          </Button>
+        )}
       </div>
     </Box>
   )

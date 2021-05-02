@@ -1,6 +1,7 @@
 import { Box, makeStyles } from '@material-ui/core'
 import Countdown from 'components/common/Countdown'
 import { useError } from 'components/common/Error'
+import Loading from 'components/common/Loading'
 import { useEffect, useState } from 'react'
 import { getStanding } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
@@ -33,7 +34,13 @@ function Standing() {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.roomCode])
-  if (score === null) return <></>
+  if (score === null)
+    return (
+      <>
+        <div className={styles.background} />
+        <Loading />
+      </>
+    )
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Box flexGrow={1}>

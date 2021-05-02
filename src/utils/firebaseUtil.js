@@ -78,6 +78,10 @@ export const useListener = () => {
         closeListener(roomCode, null, userID)
         userContext.reset()
         playerContext.reset()
+
+        const deviceID = localStorage.getItem('deviceID')
+        localStorage.clear()
+        localStorage.setItem('deviceID', deviceID)
       }
     })
   }
