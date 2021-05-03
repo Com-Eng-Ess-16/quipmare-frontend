@@ -5,7 +5,8 @@ import RoomCodeInput from './roomCodeInput'
 import { useIndexStyles } from './styles'
 import { useAppController } from 'utils/appController'
 import Loading from 'components/common/Loading'
-
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
+import { Link } from 'react-router-dom'
 function Home() {
   const styles = useIndexStyles()
   const [action, setAction] = useState('')
@@ -13,10 +14,26 @@ function Home() {
 
   if (action === '')
     return (
-      <div className={styles.page}>
-        <div>
-          <Typography className={styles.gameTitle}>Quipmare</Typography>
-        </div>
+      <div className={styles.page} style={{ position: 'relative' }}>
+        <HelpOutlineIcon
+          fontSize="large"
+          color="primary"
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: '-30px',
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            const windowReference = window.open()
+            const getArchive = async () => {
+              windowReference.location =
+                'https://drive.google.com/file/d/1ycuyFpnJ_kS_BXBboxcI5qPkQZCJ7HQZ/view?usp=sharing'
+            }
+            getArchive()
+          }}
+        />
+        <Typography className={styles.gameTitle}>Quipmare</Typography>
         <div className={styles.buttons}>
           <Button
             className={styles.joinButton}
