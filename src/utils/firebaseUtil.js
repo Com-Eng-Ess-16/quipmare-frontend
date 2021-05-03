@@ -109,6 +109,8 @@ export const useListener = () => {
         if (userID !== null && userID !== undefined) {
           addScoreListener(gameID, userID)
         }
+      } else {
+        userContext.setGameState(null)
       }
     })
   }

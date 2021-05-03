@@ -72,6 +72,7 @@ function Voting() {
   const [votedAnswer, setVotedAnswer] = useState(null)
   const setError = useError()
 
+  const [loading, setLoading] = useState(false)
   const [audio, setAudio] = useState(null)
 
   const sendVote = async (choice) => {
@@ -178,7 +179,6 @@ function Voting() {
       </Box>
     )
   }
-
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <div className={styles.background} />
@@ -191,8 +191,12 @@ function Voting() {
           className={styles.button}
           variant="contained"
           color="primary"
-          onClick={() => {
-            sendVote('a')
+          onClick={async () => {
+            if (!loading) {
+              setLoading(true)
+              await sendVote('a')
+              setLoading(false)
+            }
           }}
         >
           {data['a'].answer ? data['a'].answer : 'No Answer'}
@@ -200,8 +204,12 @@ function Voting() {
         <Button
           className={styles.button}
           style={{ backgroundColor: 'white' }}
-          onClick={() => {
-            sendVote('b')
+          onClick={async () => {
+            if (!loading) {
+              setLoading(true)
+              await sendVote('b')
+              setLoading(false)
+            }
           }}
         >
           {data['b'].answer ? data['b'].answer : 'No Answer'}

@@ -103,14 +103,16 @@ function Answer() {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.gameID, appController.userID])
-
+  const [loading, setLoading] = useState(false)
   const sendAnswer = async () => {
+    if (loading) return
     if (answer === '') {
       setBlank(true)
       return
     }
     if (Date.now > appController.countdownEnd) return
     try {
+      setLoading(true)
       await postAnswer(
         appController.gameID,
         appController.userID,
@@ -120,6 +122,7 @@ function Answer() {
       localStorage.setItem('index', index + 1)
       setIndex(index + 1)
       setAnswer('')
+      setLoading(false)
     } catch (err) {
       setError(err)
     }

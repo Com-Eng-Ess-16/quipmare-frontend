@@ -24,7 +24,7 @@ function Standing() {
   const setError = useError()
   useEffect(() => {
     async function getData() {
-      if (appController.gameState !== 'standing') return
+      if (appController.gameState !== 'score') return
       try {
         const res = await getStanding(appController.gameID)
         setScore(res.score)

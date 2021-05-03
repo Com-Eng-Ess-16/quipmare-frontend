@@ -13,10 +13,11 @@ import IconButton from '@material-ui/core/IconButton'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import { useStyles } from './styles'
 import { useAppController } from 'utils/appController'
+import { useState } from 'react'
 function HostView() {
   const appController = useAppController()
   const styles = useStyles()
-
+  const [loading, setLoading] = useState(false)
   const player = appController.player
 
   return (
@@ -95,7 +96,12 @@ function HostView() {
           </div>
           <div className={styles.buttons}>
             <Button
-              onClick={() => appController.startGame()}
+              onClick={async () => {
+                if (loading) return
+                setLoading(true)
+                await appController.startGame()
+                setLoading(false)
+              }}
               className={styles.startButton}
               variant="contained"
             >

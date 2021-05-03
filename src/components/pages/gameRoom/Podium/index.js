@@ -6,6 +6,7 @@ import firebase from 'firebase'
 import { getWinner, postBackToWaiting } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
 import PodiumItem from './PodiumItem'
+import { useListener } from 'utils/firebaseUtil'
 const useStyles = makeStyles((theme) => ({
   text: {
     marginTop: '-10px',
@@ -64,6 +65,7 @@ function Podium() {
   const [data, setData] = useState(null)
   const styles = useStyles()
   const setError = useError()
+  const listener = useListener()
   useEffect(() => {
     async function getData() {
       if (appController.gameState !== 'podium') return
@@ -75,6 +77,11 @@ function Podium() {
       }
     }
     getData()
+    if (appController.userType === 'player') {
+      listener.closeGameDataListener(appController.gameID, appController.userID)
+    } else {
+      listener.closeGameDataListener(appController.gameID)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.roomCode, appController.gameState])
   const returnToLobby = async () => {
@@ -88,7 +95,7 @@ function Podium() {
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <Typography className={styles.text}>
-        And the most popular player are...
+        And the most popular player is...
       </Typography>
 
       <PodiumItem
