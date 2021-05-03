@@ -37,7 +37,7 @@ function Profile({ action }) {
                 className: styles.textFieldFont,
               }}
               onChange={(event) => {
-                const regex = /^[a-zA-Z]*$/
+                const regex = /^[A-Za-z0-9]+$/
                 if (
                   regex.test(event.target.value) &&
                   event.target.value.length <= 12
