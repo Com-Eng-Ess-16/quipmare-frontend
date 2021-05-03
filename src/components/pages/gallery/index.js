@@ -176,6 +176,7 @@ function Gallery(props) {
                     setHide((prev) => ({ ...prev, [index]: !prev[index] }))
                   }}
                   color="default"
+                  style={{ cursor: 'pointer' }}
                 >
                   {hide[index] ? (
                     <ExpandMore fontSize="large" />
