@@ -6,7 +6,6 @@ import { useIndexStyles } from './styles'
 import { useAppController } from 'utils/appController'
 import Loading from 'components/common/Loading'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
-import { Link } from 'react-router-dom'
 function Home() {
   const styles = useIndexStyles()
   const [action, setAction] = useState('')
