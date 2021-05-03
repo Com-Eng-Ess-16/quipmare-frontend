@@ -69,7 +69,7 @@ function Voting() {
   const [isWaiting, setWaiting] = useState(false)
   const [questionIndex, setQuestionIndex] = useState(null)
   // eslint-disable-next-line no-unused-vars
-  const [votedAnswer, setVotedAnswer] = useState('Never')
+  const [votedAnswer, setVotedAnswer] = useState(null)
   const setError = useError()
 
   const [audio, setAudio] = useState(null)
@@ -171,7 +171,7 @@ function Voting() {
             color="primary"
             className={styles.votedAnswer}
           >
-            {'You vote "' + votedAnswer.toUpperCase() + '"'}
+            {votedAnswer ? 'You vote "' + votedAnswer.toUpperCase() + '"' : ''}
           </Typography>
         </Box>
         <Countdown text="Waiting for other players..." />

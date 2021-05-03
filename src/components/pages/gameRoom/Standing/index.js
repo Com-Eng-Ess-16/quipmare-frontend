@@ -24,6 +24,7 @@ function Standing() {
   const setError = useError()
   useEffect(() => {
     async function getData() {
+      if (appController.gameState !== 'standing') return
       try {
         const res = await getStanding(appController.gameID)
         setScore(res.score)
@@ -33,7 +34,7 @@ function Standing() {
     }
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appController.roomCode])
+  }, [appController.roomCode, appController.gameState])
   if (score === null)
     return (
       <>

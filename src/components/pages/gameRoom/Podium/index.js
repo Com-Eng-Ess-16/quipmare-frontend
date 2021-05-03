@@ -66,6 +66,7 @@ function Podium() {
   const setError = useError()
   useEffect(() => {
     async function getData() {
+      if (appController.gameState !== 'podium') return
       try {
         const res = await getWinner(appController.gameID)
         setData(res.winner)
@@ -75,7 +76,7 @@ function Podium() {
     }
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appController.roomCode])
+  }, [appController.roomCode, appController.gameState])
   const returnToLobby = async () => {
     try {
       await postBackToWaiting(appController.roomCode)
