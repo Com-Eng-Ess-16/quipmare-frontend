@@ -158,7 +158,7 @@ function Gallery(props) {
   if (!data) return <Loading />
   return (
     <div className={styles.page}>
-      <Typography className={styles.header}>Jester Gallery</Typography>
+      <Typography className={styles.header}>Quipmare Gallery</Typography>
       <div className={styles.body}>
         {data.map(({ question, a, b }, index) => {
           return (
