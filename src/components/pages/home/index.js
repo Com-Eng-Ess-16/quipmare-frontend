@@ -15,9 +15,7 @@ function Home() {
     return (
       <div className={styles.page}>
         <div>
-          <Typography className={styles.gameTitle}>
-            The Greatest Jester
-          </Typography>
+          <Typography className={styles.gameTitle}>Quipmare</Typography>
         </div>
         <div className={styles.buttons}>
           <Button
