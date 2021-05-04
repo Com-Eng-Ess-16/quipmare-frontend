@@ -112,6 +112,7 @@ export const useListener = () => {
         }
       } else {
         userContext.setGameState(null)
+        userContext.setCountdownEnd(null)
       }
     })
   }
