@@ -27,7 +27,7 @@ function Home() {
             const windowReference = window.open()
             const getArchive = async () => {
               windowReference.location =
-                'https://drive.google.com/file/d/1ycuyFpnJ_kS_BXBboxcI5qPkQZCJ7HQZ/view?usp=sharing'
+                'https://drive.google.com/file/d/1L5r5zvhgxQpdDff5CNKlMJNJH08xJTYv/view?usp=sharing'
             }
             getArchive()
           }}
