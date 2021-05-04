@@ -135,7 +135,7 @@ function Voting() {
           setAudio(new Audio(res.question.voiceUrl))
         }
         if (!res.question.a.answer || !res.question.b.answer) {
-          appController.setCountdownEnd(appController.countdownEnd - 20000)
+          appController.setCountdownEnd(appController.countdownEnd - 26000)
         }
       } catch (err) {
         setError(err)

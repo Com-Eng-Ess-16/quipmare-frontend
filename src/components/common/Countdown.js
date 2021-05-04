@@ -60,9 +60,13 @@ export default function Countdown(props) {
   }
   useEffect(() => {
     if (!appController.countdownEnd) return
-    if (appController.countdownEnd - Date.now() < -4000) {
+
+    if (appController.countdownEnd - Date.now() < -60000) {
+      localStorage.clear()
+    } else if (appController.countdownEnd - Date.now() < -4000) {
       complete()
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appController.countdownEnd])
 
