@@ -1,7 +1,7 @@
 import { makeStyles, Typography } from '@material-ui/core'
 import { useEffect } from 'react'
 import { default as ReactCountdown } from 'react-countdown'
-import { postCountdownEnd } from 'utils/apiService'
+import { postBackToWaiting, postCountdownEnd } from 'utils/apiService'
 import { useAppController } from 'utils/appController'
 import { useError } from './Error'
 const useStyles = makeStyles((theme) => ({
@@ -58,11 +58,18 @@ export default function Countdown(props) {
       appController.clearGameData()
     }
   }
+  const returnToLobby = async () => {
+    try {
+      await postBackToWaiting(appController.roomCode)
+    } catch (err) {
+      setError(err)
+    }
+  }
   useEffect(() => {
     if (!appController.countdownEnd) return
 
     if (appController.countdownEnd - Date.now() < -60000) {
-      localStorage.clear()
+      returnToLobby()
     } else if (appController.countdownEnd - Date.now() < -4000) {
       complete()
     }
