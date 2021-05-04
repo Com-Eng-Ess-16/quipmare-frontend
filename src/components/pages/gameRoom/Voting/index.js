@@ -84,12 +84,12 @@ function Voting() {
       })
       return
     }
-    if (!data[choice].answer) {
-      setError({
-        response: {
-          data: 'You can\'t vote "No Answer"',
-        },
-      })
+    if (!data['a'].answer || !data['b'].answer) {
+      // setError({
+      //   response: {
+      //     data: 'You can\'t vote "No Answer"',
+      //   },
+      // })
       return
     }
     if (Date.now > appController.countdownEnd) return
@@ -132,6 +132,9 @@ function Voting() {
           await appController.clearGameData()
           localStorage.setItem('questionIndex', questionState)
           setAudio(new Audio(res.question.voiceUrl))
+        }
+        if (!res.question.a.answer || !res.question.b.answer) {
+          appController.setCountdownEnd(appController.countdownEnd - 20000)
         }
       } catch (err) {
         setError(err)
@@ -203,7 +206,8 @@ function Voting() {
         </Button>
         <Button
           className={styles.button}
-          style={{ backgroundColor: 'white' }}
+          variant="contained"
+          color="primary"
           onClick={async () => {
             if (!loading) {
               setLoading(true)

@@ -133,7 +133,7 @@ export const useListener = () => {
     scoreRef.off()
     scoreRef.on('value', (snapshot) => {
       const data = snapshot.val()
-      if (data) userContext.setScore(data)
+      if (data !== null && data !== undefined) userContext.setScore(data)
     })
   }
 
