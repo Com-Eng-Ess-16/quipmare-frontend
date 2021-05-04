@@ -1,5 +1,6 @@
 import { PlayerContext, UserContext } from 'context/context'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database'
 import { useContext } from 'react'
 import { getGameID } from './apiService'
 import { randomString } from './randomUtil'

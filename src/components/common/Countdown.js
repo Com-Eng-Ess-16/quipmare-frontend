@@ -58,12 +58,9 @@ export default function Countdown(props) {
       appController.clearGameData()
     }
   }
-  // console.log(appController.countdownEnd - Date.now())
   useEffect(() => {
     if (!appController.countdownEnd) return
     if (appController.countdownEnd - Date.now() < -4000) {
-      console.log('in')
-      console.log(appController.countdownEnd - Date.now())
       complete()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
